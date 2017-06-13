@@ -1,0 +1,27 @@
+demo_fullpage_title = Fullpage-Demo
+
+demo_fullpage_description_install_heading = Info / Installation
+demo_fullpage_description_install_body = Die Fullpage-Demo erzeugt eine "Onepage-Website" mit Hilfe von fullpage.js und kann hier über einige Einstellungen angepasst werden. <br><br>Gehe zu <a href="{0}">Backup > Import > Vom Server</a> und importiere die Datenbank und den Dateiexport <code>demo_fullpage</code>
+
+
+demo_fullpage_title_config = Einstellungen
+
+demo_fullpage_config_theme = Theme
+demo_fullpage_config_theme_1 = Theme 1
+demo_fullpage_config_theme_2 = Theme 2
+demo_fullpage_config_theme_3 = Theme 3
+demo_fullpage_config_showscrollbar = Scrollbar anzeigen
+demo_fullpage_config_scrollingspeed = Scrolling-Speed
+demo_fullpage_config_autoscrolling = Automatisch zur nächsten 'Seite' scrollen
+demo_fullpage_config_shownavigation = Seiten-Navigation (dots) anzeigen
+demo_fullpage_config_shownavigationtooltip = Tooltip für Seiten-Navigation (dots) anzeigen
+demo_fullpage_config_navigationposition = Position der Seiten-Navigation (dots)
+demo_fullpage_config_showslidearrows = Pfeile für horizontale Slides anzeigen
+demo_fullpage_config_showslidenavigation = Slide-Navigation (dots) für horizontale Slides anzeigen
+demo_fullpage_config_slidenavigationposition = Position der Slide-Navigation (dots)
+demo_fullpage_config_usesubcategories = Unterkategorien als Slides verwenden (sonst Artikel der Kategorie)
+
+demo_fullpage_save = Einstellungen speichern
+
+demo_fullpage_config_saved = Einstellungen wurden gespeichert!
+
