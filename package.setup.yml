@@ -1,0 +1,9 @@
+# setup config
+setup:
+    installSequence:
+        - backup
+        - structure/content
+    dbimport:
+        - demo_fullpage.sql
+    fileimport:
+        - demo_fullpage.tar.gz
