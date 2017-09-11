@@ -7,7 +7,7 @@ Die Fullpage-Demo für REDAXO ist völlig frei verwendbar, sowohl für private a
 
 ---
 
-## VVerwendete Software ##
+## Verwendete Software ##
 
 [REDAXO](https://redaxo.org/)
 [fullPage js](https://alvarotrigo.com/fullPage/)
