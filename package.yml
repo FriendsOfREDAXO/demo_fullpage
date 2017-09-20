@@ -4,11 +4,12 @@ author: 'Friends Of REDAXO'
 supportpage: https://github.com/FriendsOfREDAXO/demo_fullpage
 
 page:
-    title: translate:title
+    title: Fullpage-Demo
     perm: demo_fullpage[]
     pjax: true
     subpages:
-        settings: { title: 'translate:title' }
+        install: { title: 'translate:title' }
+        settings: { title: 'translate:title_config' }
 
 requires:
     packages:
