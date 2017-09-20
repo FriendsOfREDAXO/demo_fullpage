@@ -1,9 +1,10 @@
+/* Options and Callbacks for fullpage.js */
 var fps_settings = {
 	scrollBar: false,
 	scrollingSpeed: 500,
 	css3: true,
 	menu: '.mainnav',
-	'verticalCentered': true,
+	verticalCentered: true,
 	recordHistory: true,
 	autoScrolling: false,
 	fitToSection: false,
@@ -12,15 +13,15 @@ var fps_settings = {
 	navigation: false,
 	navigationPosition: 'right',
 	showActiveTooltip: false,
-		
+
 	controlArrows: false,
 	slidesNavigation: false,
 	slidesNavPosition: 'bottom',
-	
+
 	lazyLoading: true,
-	
+
 	afterRender: function(){
-		$('.loader').fadeOut(600);
+		$('.loader').fadeOut(700);
 		$('.pagewrapper').fadeIn(600);
 		if ($('.c-hamburger').is(':visible')) {
 			$('.mainnav').hide();
@@ -46,18 +47,18 @@ var fps_settings = {
 // Extend options
 jQuery.extend(fps_settings, fps_options);
 
-$(document).ready(function() {
+$(document).ready(function(){
 
 	// Move Scroll Indicator to Slide
 	//$('a.arrowdown').parent().parent().append($('a.arrowdown'));
-	$('a.arrowdown').click(function() {
+	$('a.arrowdown').click(function(){
 		$.fn.fullpage.moveSectionDown();
 	});
 
 	// Logo click zum 1. Slide
 	$('.pagelogo').click(function(){
 		if ($('.c-hamburger').is(':visible') && $('.mainnav').is(':visible')) {
-			$( ".c-hamburger" ).trigger( "click" );
+			$( ".c-hamburger" ).trigger('click');
 		}		
 		$.fn.fullpage.moveTo(1);
 	});
@@ -74,7 +75,7 @@ $(document).ready(function() {
 	// Klick auf Navigation, bei mobiler Navi Navigation ausblenden
 	$('.mainnav').find('a').click(function(){
 		if ($('.c-hamburger').is(':visible')) {
-			$( ".c-hamburger" ).trigger( "click" );
+			$( ".c-hamburger" ).trigger('click');
 		}
 	});
 
@@ -95,28 +96,27 @@ $(document).ready(function() {
 });
 
 /* Hamburger menu */
-(function() {
+/* http://callmenick.com/post/animating-css-only-hamburger-menu-icons */
+(function(){
+	'use strict';
+	var toggles = document.querySelectorAll('.c-hamburger');
 
-  "use strict";
+	for (var i = toggles.length - 1; i >= 0; i--) {
+		var toggle = toggles[i];
+		toggleHandler(toggle);
+	};
 
-  var toggles = document.querySelectorAll(".c-hamburger");
-
-  for (var i = toggles.length - 1; i >= 0; i--) {
-    var toggle = toggles[i];
-    toggleHandler(toggle);
-  };
-
-  function toggleHandler(toggle) {
-    toggle.addEventListener( "click", function(e) {
-      e.preventDefault();
-	  if (this.classList.contains("is-active") === true) {
-		  this.classList.remove("is-active");
-		  $('.mainnav').slideUp(200);
-	  } else {
-			this.classList.add("is-active");
-			$('.mainnav').slideDown(200);
-	  }
-    });
-  }
+	function toggleHandler(toggle) {
+		toggle.addEventListener('click', function(e){
+			e.preventDefault();
+			if (this.classList.contains('is-active') === true) {
+				this.classList.remove('is-active');
+				$('.mainnav').slideUp(200);
+			} else {
+				this.classList.add('is-active');
+				$('.mainnav').slideDown(200);
+			}
+		});
+	}
 
 })();

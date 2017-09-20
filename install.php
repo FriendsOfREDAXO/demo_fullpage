@@ -3,6 +3,7 @@
 // Defaultwerte Konfiguration setzen
 if (!$this->hasConfig() or ($this->getConfig('theme') == '')) {
     $this->setConfig('theme', 'theme');
+    $this->setConfig('logo', '');
     $this->setConfig('showscrollbar', '1');
     $this->setConfig('scrollingspeed', '500');
     $this->setConfig('autoscrolling', '0');

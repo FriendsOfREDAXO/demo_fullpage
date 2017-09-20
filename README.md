@@ -1,4 +1,4 @@
-﻿# Fullpage-Demo-Addon für REDAXO 5 #
+# Fullpage-Demo-Addon für REDAXO 5 #
 
 Die Fullpage-Demo für REDAXO demonstriert eine sogenannte "Onepage-Website".
 Die Root-Kategorien werden automatisch zu den einzelnen Seiten der Website zusammengesetzt und die Hauptnavigation wird automatisch generiert.
@@ -7,12 +7,12 @@ Die Fullpage-Demo für REDAXO ist völlig frei verwendbar, sowohl für private a
 
 ---
 
-## VVerwendete Software ##
+## Verwendete Software ##
 
-[REDAXO](https://redaxo.org/)
-[fullPage js](https://alvarotrigo.com/fullPage/)
-[bootstrap](http://getbootstrap.com/)
-[swipebox](http://brutaldesign.g[]ithub.io/swipebox/)
+* REDAXO - https://redaxo.org/
+* fullPage.js - https://alvarotrigo.com/fullPage/
+* bootstrap - http://getbootstrap.com/
+* swipebox - http://brutaldesign.g[]ithub.io/swipebox/
 
 ---
 

@@ -7,9 +7,12 @@ demo_fullpage_description_install_body = Die Fullpage-Demo erzeugt eine "Onepage
 demo_fullpage_title_config = Einstellungen
 
 demo_fullpage_config_theme = Theme
-demo_fullpage_config_theme_1 = Theme 1
-demo_fullpage_config_theme_2 = Theme 2
-demo_fullpage_config_theme_3 = Theme 3
+demo_fullpage_config_logo = Logo
+demo_fullpage_config_selectmedia = Medium auswählen
+demo_fullpage_config_addmedia = Neues Medium hinzufügen
+demo_fullpage_config_theme_1 = Theme 1 - Einfache Demo, horizontale Navigation, keine Animationen
+demo_fullpage_config_theme_2 = Theme 2 - Einfache Demo, vertikale Navigation, keine Animationen
+demo_fullpage_config_theme_3 = Theme 3 - Einfache Demo, vertikale Navigation, Animationen
 demo_fullpage_config_showscrollbar = Scrollbar anzeigen
 demo_fullpage_config_scrollingspeed = Scrolling-Speed
 demo_fullpage_config_autoscrolling = Automatisch zur nächsten 'Seite' scrollen
@@ -24,4 +27,3 @@ demo_fullpage_config_usesubcategories = Unterkategorien als Slides verwenden (so
 demo_fullpage_save = Einstellungen speichern
 
 demo_fullpage_config_saved = Einstellungen wurden gespeichert!
-

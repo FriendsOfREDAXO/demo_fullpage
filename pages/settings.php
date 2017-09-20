@@ -19,16 +19,17 @@ if ($func == 'update') {
 
     $this->setConfig(rex_post('settings', [
         ['theme', 'string'],
+        ['logo', 'string'],
         ['showscrollbar', 'string'],
         ['scrollingspeed', 'string'],
         ['autoscrolling', 'string'],
         ['shownavigation', 'string'],
-        ['shownavigationtooltip', 'string'],		
+        ['shownavigationtooltip', 'string'],
         ['navigationposition', 'string'],
         ['showslidearrows', 'string'],
         ['showslidenavigation', 'string'],
         ['slidenavigationposition', 'string'],
-		['usesubcategories', 'string']
+        ['usesubcategories', 'string']
     ]));
 
     echo rex_view::success($this->i18n('config_saved'));
@@ -37,6 +38,7 @@ if ($func == 'update') {
 // Config-Werte bereitstellen
 $Values = array();
 $Values['theme'] = $this->getConfig('theme');
+$Values['logo'] = $this->getConfig('logo');
 $Values['showscrollbar'] = $this->getConfig('showscrollbar');
 $Values['scrollingspeed'] = $this->getConfig('scrollingspeed');
 $Values['autoscrolling'] = $this->getConfig('autoscrolling');
@@ -63,6 +65,33 @@ $sel_dirs->addOption($this->i18n('config_theme_1'), 'theme');
 $sel_dirs->addOption($this->i18n('config_theme_2'), 'theme2');
 $sel_dirs->addOption($this->i18n('config_theme_3'), 'theme3');
 $n['field'] = $sel_dirs->get();
+
+$formElements[] = $n;
+
+$fragment = new rex_fragment();
+$fragment->setVar('elements', $formElements, false);
+$content .= $fragment->parse('core/form/container.php');
+
+// Logo
+$formElements = [];
+
+$n = [];
+$n['label'] = '<label for="REX_MEDIA_1">' . htmlspecialchars_decode($this->i18n('config_logo')) . '</label>';
+
+$n['field'] = '
+<div class="rex-js-widget rex-js-widget-media">
+    <div class="input-group">
+        <input class="form-control" type="text" name="settings[logo]" value="' . $Values['logo'] . '" id="REX_MEDIA_1" readonly="">
+        <span class="input-group-btn">
+        <a href="#" class="btn btn-popup" onclick="openREXMedia(1);return false;" title="' . $this->i18n('config_selectmedia') . '">
+        <i class="rex-icon rex-icon-open-mediapool"></i>
+        </a>
+        <a href="#" class="btn btn-popup" onclick="addREXMedia(1);return false;" title="' . $this->i18n('config_addmedia') . '">
+            <i class="rex-icon rex-icon-add-media"></i>
+        </a>
+    </div>
+ </div>
+';
 
 $formElements[] = $n;
 

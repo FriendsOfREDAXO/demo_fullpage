@@ -14,8 +14,8 @@ html * {
 body {
   background: #d4d4d4;
   font-family: "Source Sans Pro", sans-serif;
-  font-size: 20px;
-  line-height: 1.5;
+  font-size: 18px;
+  line-height: 1.4;
   color: #111;
 }
 
@@ -23,9 +23,10 @@ body {
   display: none;
 }
 
-/* Content */
+/* Content Container */
 
 div.container {
+  padding: 0;
 }
 
 div.container a {
@@ -33,14 +34,13 @@ div.container a {
 }
 
 div.row {
-  margin: 0 5px 0 5px;
+  margin: 0 10px;
   word-wrap: break-word;
 }
 
 .pictext {
   background: rgba(255,255,255, 0.6);
   text-align: left;
-  padding: 1em 0.5em 1em 0.5em;
 }
 
 .gallery-wrap {
@@ -49,10 +49,10 @@ div.row {
 
 div.col-sm-4,
 div.col-sm-6 {
-  padding-bottom: 1.0em;
+  padding: 0.75em 1em 0.75em 1em;
 }
 i.fa {
-  padding-right:10px;
+  padding-right: 10px;
 }
 
 div.col-sm-4 img,
@@ -63,8 +63,8 @@ div.col-sm-6 img {
 /* Images */
 
 img.full {
-  max-width: 80%;
-  max-height: 20%;
+  max-width: 90%;
+  max-height: 25%;
 }
 
 img.content {
@@ -72,23 +72,30 @@ img.content {
   max-height: 25%;
 }
 
+.pictext img.content {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
 /* Headlines */
 
 h1, h2, h3 {
   color: #fff;
   margin: 0;
-  line-height: 1.6em;
+  line-height: 1.3em;
   font-weight: 700;
   text-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+  margin-bottom: .5em;
 }
 h1 {
-  font-size: 2.5em;
+  font-size: 2.2em;
 }
 h2 {
-  font-size: 2em;
+  font-size: 1.9em;
 }
 h3 {
-  font-size: 1.5em;
+  font-size: 1.6em;
 }
 
 /* Blocks */
@@ -153,7 +160,7 @@ h3 {
 }
 
 .mainnav li a {
-  font-size: .8em;
+  font-size: .75em;
   font-weight: bold;
   text-decoration: none;
   padding: 5px 10px;
@@ -215,6 +222,7 @@ h3 {
   height: 8px;
   width: 8px;
   margin: -4px 0 0 -4px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
 }
 
 #fp-nav ul li a.active span,
@@ -240,15 +248,15 @@ h3 {
   position: absolute;
   top: 0;
   color: #fff;
-  line-height: 22px;
-  padding: 0 1em;
-  height: 22px;
+  line-height: 24px;
+  padding: 2px 5px;
+  height: 24px;
   white-space: nowrap;
   max-width: 300px;
   overflow: hidden;
   display: block;
   opacity: 0;
-  width: 0;
+  width: 1px;
   cursor: pointer;
   background: #b2c85f;
   -webkit-border-radius: 4px;
@@ -280,7 +288,7 @@ h3 {
 }
 
 .fp-controlArrow.fp-prev {
-  left: 25px;
+  left: 60px;
   width: 30px;
   height: 30px;
 }
@@ -296,8 +304,10 @@ h3 {
   border-left: 4px solid #fff;
   border-top: 4px solid #fff;
   transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
   transition: all 0.3s ease-out;
   opacity: .7;
+  box-shadow: -3px -3px 3px -2px rgba(51,51,51,0.5);
 }
 
 .fp-controlArrow.fp-prev:hover::before {
@@ -305,8 +315,8 @@ h3 {
   opacity: 1;
 }
 
- .fp-controlArrow.fp-next {
-  right: 25px;
+.fp-controlArrow.fp-next {
+  right: 60px;
   width: 30px;
   height: 30px;
 }
@@ -322,8 +332,10 @@ h3 {
   border-right: 4px solid #fff;
   border-top: 4px solid #fff;
   transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
   transition: all 0.3s ease-out;
   opacity: .7;
+  box-shadow: 3px -3px 3px -2px rgba(51,51,51,0.5);
 }
 
 .fp-controlArrow.fp-next:hover::before {
@@ -347,16 +359,18 @@ h3 {
 }
 .loader {
   color: #4a605a;
-  font-size: 10px;
+  font-size: .6em;
   position: absolute;
   top: 47%;
-  left: 47%;
+  left: 50%;
   text-indent: -9999em;
+  margin-left: -1.5em;
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
   transform: translateZ(0);
   -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
+  z-index:9999999;
 }
 .loader:before,
 .loader:after {
@@ -409,6 +423,7 @@ a.arrowdown {
   width: 40px;
   height: 40px;
   opacity: 1;
+  margin-left: -20px;
 }
 a.arrowdown:hover {
 	opacity: .5;
@@ -428,6 +443,7 @@ a.arrowdown span {
 	-webkit-animation: sdb04 2s infinite;
 	animation: sdb04 2s infinite;
 	box-sizing: border-box;
+  box-shadow: -3px 3px 3px -2px rgba(51,51,51,0.5);
 }
 @-webkit-keyframes sdb04 {
 	0% {
@@ -458,14 +474,14 @@ a.arrowdown span {
 .c-hamburger {
   display: none;
   position: fixed;
-  top:0px;
-  right:0px;
-  z-index:99;
+  top: 2px;
+  right: 2px;
+  z-index: 99;
   overflow: hidden;
   margin: 0;
   padding: 0;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   font-size: 0;
   text-indent: -9999px;
   appearance: none;
@@ -483,10 +499,10 @@ a.arrowdown span {
 .c-hamburger span {
   display: block;
   position: absolute;
-  top: 23px;
-  left: 7px;
-  right: 6px;
-  height: 6px;
+  top: 20px;
+  left: 0px;
+  right: 8px;
+  height: 5px;
   background: #444;
 }
 
@@ -496,19 +512,19 @@ a.arrowdown span {
   display: block;
   left: 0;
   width: 100%;
-  height: 6px;
+  height: 5px;
   background-color: #444;
   content: "";
 }
 
 .c-hamburger span::before {
   background-color: #444;
-  top: 13px;
+  top: 10px;
 }
 
 .c-hamburger span::after {
   background-color: #444;
-  bottom: 13px;
+  bottom: 10px;
 }
 
 .c-hamburger--htx {
@@ -516,13 +532,13 @@ a.arrowdown span {
 }
 
 .c-hamburger--htx span {
-  transition: background 0s 0.2s;
+  transition: background 0s 0.1s;
 }
 
 .c-hamburger--htx span::before,
 .c-hamburger--htx span::after {
-  transition-duration: 0.2s, 0.2s;
-  transition-delay: 0.2s, 0s;
+  transition-duration: 0.2s, 0.1s;
+  transition-delay: 0.1s, 0s;
 }
 
 .c-hamburger--htx span::before {
@@ -545,33 +561,23 @@ a.arrowdown span {
 .c-hamburger--htx.is-active span::before {
   top: 0;
   transform: rotate(45deg);
+  -webkit-transform: rotate(-45deg);
 }
 
 .c-hamburger--htx.is-active span::after {
   bottom: 0;
   transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
 }
 
 .c-hamburger--htx.is-active span::before,
 .c-hamburger--htx.is-active span::after {
-  transition-delay: 0s, 0.2s;
+  transition-delay: 0s, 0.1s;
 }
 
 /* Breakpoints */
 
-@media (max-width: 1200px){
-
-  body {
-    font-size: 20px;
-  }
-
-}
-
 @media (max-width: 1100px){
-
-  body {
-    font-size: 19px;
-  }
 
   .c-hamburger {
     display: block;
@@ -599,7 +605,7 @@ a.arrowdown span {
     top: 50px;
     left: 0px;
     display: none;
-    width:100%;
+    width: 100%;
   }
 
   .mainnav li {
@@ -620,9 +626,16 @@ a.arrowdown span {
     padding: 0 25px;
   }
 
+  .fp-controlArrow.fp-prev {
+    left: 25px;
+  }
+  .fp-controlArrow.fp-next {
+    right: 25px;
+  }
+
 }
 
-@media (max-width: 990px){
+@media (min-width: 768px){
 
   body {
     font-size: 18px;
@@ -630,10 +643,18 @@ a.arrowdown span {
 
 }
 
-@media (max-width: 800px){
+@media (min-width: 992px){
 
   body {
-    font-size: 17px;
+    font-size: 18px;
+  }
+
+}
+
+@media (min-width: 1200px){
+
+  body {
+    font-size: 18px;
   }
 
 }
