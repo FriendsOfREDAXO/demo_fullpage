@@ -11,7 +11,6 @@ $config = array_diff_recursive(
 
 rex_file::putConfig($this->getPath('package.yml'), $config);
 
-
 // Computes the difference of two arrays recursively
 // https://gist.github.com/t3chnik/6b3b14d3859d810c02f4
 function array_diff_recursive($aArray1, $aArray2)

@@ -142,9 +142,10 @@ if (rex_post('install', 'boolean')) {
 /* setup info */
 
 $content = '<p>' . $this->i18n('install_description') . '</p>';
-$content .= '<p><button class="btn btn-send" type="submit" name="install" value="1"><i class="rex-icon fa-download"></i> ' . $this->i18n('install_button') . '</button></p>';
+$content .= '<p><button class="btn btn-send" type="submit" name="install" value="1"><i class="rex-icon fa-gear"></i> ' . $this->i18n('install_button') . '</button></p>';
 
 $fragment = new rex_fragment();
+$fragment->setVar('class', 'info', false);
 $fragment->setVar('title', $this->i18n('install_heading'), false);
 $fragment->setVar('body', $content, false);
 $content = $fragment->parse('core/page/section.php');

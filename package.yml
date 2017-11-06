@@ -1,15 +1,17 @@
 package: demo_fullpage
-version: '1.0.0beta'
+version: 1.1.0beta
 author: 'Friends Of REDAXO'
-supportpage: https://github.com/FriendsOfREDAXO/demo_fullpage
+supportpage: 'https://github.com/FriendsOfREDAXO/demo_fullpage'
 
 page:
-    title: Fullpage-Demo
-    perm: demo_fullpage[]
+    title: 'translate:title'
+    perm: 'demo_fullpage[]'
     pjax: true
+    icon: 'rex-icon fa-rocket'
     subpages:
         install: { title: 'translate:title' }
-        settings: { title: 'translate:title_config' }
+        settings: { title: 'translate:settings' }
+        info: { title: 'translate:info' }
 
 requires:
     packages:

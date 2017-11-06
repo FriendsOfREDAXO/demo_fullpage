@@ -52,9 +52,18 @@ $sel_dirs->setName('settings[theme]');
 $sel_dirs->setSelected($Values['theme']);
 $sel_dirs->setStyle('class="form-control"');
 
-$sel_dirs->addOption($this->i18n('config_theme_1'), 'theme');
-$sel_dirs->addOption($this->i18n('config_theme_2'), 'theme2');
-$sel_dirs->addOption($this->i18n('config_theme_3'), 'theme3');
+// get themes
+$myPath = rex_url::base('redaxo/src/addons/demo_fullpage/assets/themes/');
+$directories = glob($myPath . '/*' , GLOB_ONLYDIR);
+foreach ($directories as $dir) {
+    $dir = basename($dir);
+    if ($ff = file($myPath  .$dir . '/css/theme.css')) {
+        if (isset($ff[0]) and trim($ff[0]) == '/*' and isset($ff[3]) and trim($ff[3]) == '*/' and isset($ff[2])) {
+            $sel_dirs->addOption($ff[2], $dir);
+        }
+    }
+}
+
 $n['field'] = $sel_dirs->get();
 
 $formElements[] = $n;
@@ -75,10 +84,16 @@ $n['field'] = '
         <input class="form-control" type="text" name="settings[logo]" value="' . $Values['logo'] . '" id="REX_MEDIA_1" readonly="">
         <span class="input-group-btn">
         <a href="#" class="btn btn-popup" onclick="openREXMedia(1);return false;" title="' . $this->i18n('config_selectmedia') . '">
-        <i class="rex-icon rex-icon-open-mediapool"></i>
+            <i class="rex-icon rex-icon-open-mediapool"></i>
         </a>
         <a href="#" class="btn btn-popup" onclick="addREXMedia(1);return false;" title="' . $this->i18n('config_addmedia') . '">
             <i class="rex-icon rex-icon-add-media"></i>
+        </a>
+        <a href="#" class="btn btn-popup" onclick="deleteREXMedia(1);return false;" title="' . $this->i18n('config_deletemedia') . '">
+            <i class="rex-icon rex-icon-delete-media"></i>
+        </a>
+        <a href="#" class="btn btn-popup" onclick="viewREXMedia(1);return false;" title="' . $this->i18n('config_showmedia') . '">
+            <i class="rex-icon rex-icon-view-media"></i>
         </a>
     </div>
  </div>

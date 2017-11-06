@@ -2,11 +2,11 @@
 
 // Defaultwerte Konfiguration setzen
 if (!$this->hasConfig() or ($this->getConfig('theme') == '')) {
-    $this->setConfig('theme', 'theme');
+    $this->setConfig('theme', 'coffee');
     $this->setConfig('logo', '');
-    $this->setConfig('showscrollbar', '1');
-    $this->setConfig('scrollingspeed', '500');
-    $this->setConfig('autoscrolling', '0');
+    $this->setConfig('showscrollbar', '0');
+    $this->setConfig('scrollingspeed', '600');
+    $this->setConfig('autoscrolling', '1');
     $this->setConfig('shownavigation', '0');
     $this->setConfig('shownavigationtooltip', '0');
     $this->setConfig('navigationposition', 'right');
