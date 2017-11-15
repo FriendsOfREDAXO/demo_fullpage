@@ -624,9 +624,18 @@ div.for:hover {
   bottom: -10px;
   transform: rotate(5deg);
 }
+div.for a {
+  display: block;
+  width: 60px;
+  height: 60px;
+}
 
 @media (max-width: 1066px){
   div.for {
+    width: 50px;
+    height: 50px;
+  }
+  div.for a {
     width: 50px;
     height: 50px;
   }
