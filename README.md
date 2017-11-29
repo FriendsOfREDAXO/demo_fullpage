@@ -19,7 +19,18 @@ Die Demo vermeidet ganz bewusst Abhängigkeiten von weiteren Addons und ist so e
 * hamburgers - https://jonsuh.com/hamburgers/
 * animate css - https://daneden.github.io/animate.css/
 
-## Credits
+---
+
+### Autor: Friends Of REDAXO ###
+
+* [FriendsOfREDAXO](https://github.com/FriendsOfREDAXO)
+* [REDAXO](http://www.redaxo.org)
+
+**Projekt-Lead**
+
+* [@aberhard](https://github.com/aeberhard), [Andreas Eberhard / aesoft.de](http://aesoft.de)
+
+**Credits**
 
 * [REDAXO](https://redaxo.org), Einfach - Flexibel - Sinnvoll
 * Andreas Eberhard, http://aesoft.de
