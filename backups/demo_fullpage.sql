@@ -206,7 +206,7 @@ CREATE TABLE `rex_config` (
   `value` text NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_key` (`namespace`,`key`)
-) ENGINE=InnoDB AUTO_INCREMENT=646 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=658 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `rex_config` WRITE;
 /*!40000 ALTER TABLE `rex_config` DISABLE KEYS */;
@@ -236,18 +236,6 @@ INSERT INTO `rex_config` VALUES
   (198,'be_style/customizer','showlink','1'),
   (201,'be_style/customizer','labelcolor','\"\"'),
   (336,'structure/content','default_template_id','1'),
-  (614,'demo_fullpage','theme','\"coffee\"'),
-  (615,'demo_fullpage','logo','\"\"'),
-  (616,'demo_fullpage','showscrollbar','\"0\"'),
-  (617,'demo_fullpage','scrollingspeed','\"600\"'),
-  (618,'demo_fullpage','autoscrolling','\"1\"'),
-  (619,'demo_fullpage','shownavigation','\"0\"'),
-  (620,'demo_fullpage','shownavigationtooltip','\"0\"'),
-  (621,'demo_fullpage','navigationposition','\"right\"'),
-  (622,'demo_fullpage','showslidearrows','\"1\"'),
-  (623,'demo_fullpage','showslidenavigation','\"0\"'),
-  (624,'demo_fullpage','slidenavigationposition','\"bottom\"'),
-  (625,'demo_fullpage','usesubcategories','\"0\"'),
   (629,'developer','templates','true'),
   (630,'developer','modules','true'),
   (631,'developer','actions','true'),

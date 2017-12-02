@@ -1,8 +1,0 @@
-name: '02. Leeres Template'
-active: true
-attributes:
-    ctype: {  }
-    modules:
-        1: { all: '1' }
-    categories:
-        all: '1'

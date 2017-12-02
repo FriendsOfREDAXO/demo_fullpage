@@ -5,6 +5,22 @@ $buttons = '';
 
 $func = rex_request('func', 'string');
 
+// Defaultwerte Konfiguration setzen
+if (!$this->hasConfig() or ($this->getConfig('theme') == '')) {
+    $this->setConfig('theme', 'coffee');
+    $this->setConfig('logo', '');
+    $this->setConfig('showscrollbar', '0');
+    $this->setConfig('scrollingspeed', '600');
+    $this->setConfig('autoscrolling', '1');
+    $this->setConfig('shownavigation', '0');
+    $this->setConfig('shownavigationtooltip', '0');
+    $this->setConfig('navigationposition', 'right');
+    $this->setConfig('showslidearrows', '1');
+    $this->setConfig('showslidenavigation', '0');
+    $this->setConfig('slidenavigationposition', 'bottom');
+    $this->setConfig('usesubcategories', '0');
+}
+
 // Konfiguration speichern
 if ($func == 'update') {
 

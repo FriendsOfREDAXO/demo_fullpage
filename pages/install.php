@@ -138,6 +138,39 @@ if (rex_post('install', 'boolean')) {
     }
 }
 
+// --- NO_DIST
+
+/* create distribution release */
+$package = rex_package::get($this->getName());
+$name = $package->getPackageId();
+$version = $package->getVersion();
+
+$content = '<p>Addon-Release für die Veröffentlichung erstellen: <strong>'.$name.'_'.$version.'.zip</strong></p>';
+$content .= '<p>';
+$content .= '<button class="btn btn-default" type="submit" name="release" value="1"><i class="rex-icon fa-gear"></i> Release erstellen</button>&nbsp;&nbsp;&nbsp;';
+$content .= '<button class="btn btn-default" type="submit" name="git" value="1"><i class="rex-icon fa-gear"></i> GIT Release erstellen</button>';
+$content .= '</p>';
+$fragment = new rex_fragment();
+$fragment->setVar('class', 'warning', false);
+$fragment->setVar('title', 'Release erstellen', false);
+$fragment->setVar('body', $content, false);
+$content = $fragment->parse('core/page/section.php');
+$content = '
+<form action="' . rex_url::currentBackendPage() . '" method="post" data-confirm="Jetzt das Release zum veröffentlichen erstellen?">
+    ' . $content . '
+</form>';
+
+// create release
+if (rex_post('release', 'boolean')) {
+    include(rex_path::addon($this->getName()).'bin/release.php');
+}
+if (rex_post('git', 'boolean')) {
+    include(rex_path::addon($this->getName()).'bin/git.php');
+}
+
+echo $content;
+
+// --- /NO_DIST
 
 /* setup info */
 
