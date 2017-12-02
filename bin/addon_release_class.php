@@ -132,6 +132,16 @@ class rex_addon_release
             }
         }
 
+        if (!$this->error) {
+            $filename = $params['release_path'] . $addonname . '.zip';
+            if (!$this->createZip($dirname, $filename)) {
+                $this->error = true;
+                $errors[] = 'Fehler beim erstellen des ZIP-Archives! ' . $filename;
+            } else {
+                $result[] = 'ZIP-Archiv wurde erstellt: ' . $filename;
+            }
+        }
+
         $this->result = implode('<br>', $result);
         if (count($errors) > 0) {
             $this->result .= '<br><br><strong>ABBRUCH! Es sind Fehler aufgetreten!</strong><br>';
@@ -195,10 +205,47 @@ class rex_addon_release
         return rex_backup::exportDb($filename);
     }
 
-    public static function exportFiles($filename, $folders)
+    function exportFiles($filename, $folders)
     {
         $content = rex_backup::exportFiles($folders);
         return rex_file::put($filename, $content);
     }
 
+    function createZip($source, $filename)
+    {
+        $state = true;
+
+        $zip = new ZipArchive();
+        $zip->open($filename, ZipArchive::CREATE);
+        if (!$zip->status == ZIPARCHIVE::ER_OK) {
+            $state = false;
+        }
+
+        if ($state) {
+            $files = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($source),
+                RecursiveIteratorIterator::LEAVES_ONLY
+            );
+
+            foreach ($files as $name => $file)
+            {
+                // Skip directories (they would be added automatically)
+                if (!$file->isDir())
+                {
+                    // Get real and relative path for current file
+                    $filePath = $file->getRealPath();
+                    $relativePath = substr($filePath, strlen($source));
+                    // Add current file to archive
+                    $zip->addFile($filePath, $relativePath);
+                    if (!$zip->status == ZIPARCHIVE::ER_OK) {
+                        $state = false;
+                    }
+                }
+            }
+
+            $zip->close();
+        }
+
+        return $state;
+    }
 }

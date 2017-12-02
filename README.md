@@ -23,8 +23,8 @@ Die Demo vermeidet ganz bewusst Abhängigkeiten von weiteren Addons und ist so e
 
 ### Autor: Friends Of REDAXO ###
 
-* [FriendsOfREDAXO](https://github.com/FriendsOfREDAXO)
 * [REDAXO](http://www.redaxo.org)
+* [FriendsOfREDAXO](https://github.com/FriendsOfREDAXO)
 
 **Projekt-Lead**
 
