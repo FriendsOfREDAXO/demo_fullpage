@@ -46,6 +46,22 @@ if ($this->getValue('art_description') != '') {
 // Theme aus Addon-Einstellungen (addon demo_fullpage)
 $fullpagedemo['theme'] = rex_addon::get('demo_fullpage')->getConfig('theme');
 if ($fullpagedemo['theme'] == '') {
+    // Defaultwerte setzen wenn noch nicht vorhanden
+    $demo = rex_addon::get('demo_fullpage');
+    if (!$demo->hasConfig() or ($demo->getConfig('theme') == '')) {
+        $demo->setConfig('theme', 'coffee');
+        $demo->setConfig('logo', '');
+        $demo->setConfig('showscrollbar', '0');
+        $demo->setConfig('scrollingspeed', '600');
+        $demo->setConfig('autoscrolling', '1');
+        $demo->setConfig('shownavigation', '0');
+        $demo->setConfig('shownavigationtooltip', '0');
+        $demo->setConfig('navigationposition', 'right');
+        $demo->setConfig('showslidearrows', '1');
+        $demo->setConfig('showslidenavigation', '0');
+        $demo->setConfig('slidenavigationposition', 'bottom');
+        $demo->setConfig('usesubcategories', '0');
+    } 
     $fullpagedemo['theme'] = 'theme';
 }
 $xtheme = rex_request('theme', 'string', '');
