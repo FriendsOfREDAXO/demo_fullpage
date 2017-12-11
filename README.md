@@ -21,16 +21,16 @@ Die Demo vermeidet ganz bewusst Abhängigkeiten von weiteren Addons und ist so e
 
 ---
 
-### Autor: Friends Of REDAXO ###
+### Autor: Friends Of REDAXO
 
 * [REDAXO](http://www.redaxo.org)
 * [FriendsOfREDAXO](https://github.com/FriendsOfREDAXO)
 
-**Projekt-Lead**
+### Projekt-Lead
 
 * [@aberhard](https://github.com/aeberhard), [Andreas Eberhard / aesoft.de](http://aesoft.de)
 
-**Credits**
+### Credits
 
 * [REDAXO](https://redaxo.org), Einfach - Flexibel - Sinnvoll
 * Andreas Eberhard, http://aesoft.de

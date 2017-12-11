@@ -579,6 +579,38 @@ div.for a {
   }
 }
 
+
+/* Theme Switch */
+ul.styleswitch {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  margin: 0;
+  padding: 0;
+}
+ul.styleswitch li {
+  list-style: none;
+  float: left;
+}
+ul.styleswitch li a {
+  display: block;
+  width: 22px;
+  height: 22px;
+  margin-right: 10px;
+}
+ul.styleswitch li a.coffee {
+  background:#795548;
+}
+ul.styleswitch li a.bike {
+  background:#0277BD;
+}
+ul.styleswitch li a.road {
+  background:#546E7A;
+}
+ul.styleswitch li a.minimal {
+  background:#9E9E9E;
+}
+
 /* Breakpoints / responsive */
 
 .fp-responsive .hamburger {

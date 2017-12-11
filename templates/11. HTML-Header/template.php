@@ -24,39 +24,6 @@
 
 	<link rel="stylesheet" href="<?php echo rex_url::base('assets/addons/demo_fullpage/themes/' . $fullpagedemo['theme'] . '/css/theme.css'); ?>">
 
-<style>
-/* Theme Switch */
-ul.styleswitch {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  margin: 0;
-  padding: 0;
-}
-ul.styleswitch li {
-  list-style: none;
-  float: left;
-}
-ul.styleswitch li a {
-  display: block;
-  width: 22px;
-  height: 22px;
-  margin-right: 10px;
-}
-ul.styleswitch li a.coffee {
-  background:#795548;
-}
-ul.styleswitch li a.bike {
-  background:#0277BD;
-}
-ul.styleswitch li a.road {
-  background:#546E7A;
-}
-ul.styleswitch li a.minimal {
-  background:#9E9E9E;
-}
-</style>
-
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 		<script src="<?php echo rex_url::base('assets/addons/demo_fullpage/js/html5shiv_respond.min.js'); ?>"></script>
