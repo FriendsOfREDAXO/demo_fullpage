@@ -162,10 +162,10 @@ $content = '
 
 // create release
 if (rex_post('release', 'boolean')) {
-    include(rex_path::addon($this->getName()).'bin/release.php');
+    include(rex_path::addon($this->getName()).'release/release.php');
 }
 if (rex_post('git', 'boolean')) {
-    include(rex_path::addon($this->getName()).'bin/git.php');
+    include(rex_path::addon($this->getName()).'release/git.php');
 }
 
 echo $content;

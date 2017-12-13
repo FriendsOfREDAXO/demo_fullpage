@@ -11,14 +11,59 @@
  * @internal
  */
 
+class rex_addon_release_parameter
+{
+    // ADDON-Name
+    public $addon_name = '';
+    // ADDON-Version
+    public $addon_version = '';
+    // ADDON-Pfad
+    public $addon_path = '';
+
+    // Releas-Type
+    public $type = '';
+
+    // Verzeichnis für die Distribution-Version
+    public $release_path = '';
+
+    // Addon-Dateien aus dem Root-Verzeichnis die nicht übernommen werden sollen
+    public $ignore_root_files = [];
+
+    // Addon-Unterverzeichnisse die nicht übernommen werden sollen
+    public $ignore_folders = [];
+    // Addon-Dateien die nicht übernommen werden sollen
+    public $ignore_files = [];
+
+    // Pfad für die Exporte (Subdir von release_path)
+    public $export_path = 'backups/';
+
+    // Name für sql-Export (ohne .sql)
+    public $exportsql_name = '';
+
+    // Name für File-Export (ohne .tar.gz)
+    public $exportfiles_name = '';
+
+    // Ordner für den File-Export
+    public $export_folders = [];
+
+    // NO_DIST-Blöcke aus Dateien entfernen
+    public $remove_no_dist = false;
+
+    // Addon-Settings aus Tabelle rex_config löschen
+    public $delete_addon_settings = false;
+
+    // Clear redaxo-cache
+    public $clear_cache = false;
+}
+
 class rex_addon_release
 {
-    private $params = array();
+    private $params;
     private $error = false;
 
-    public function __construct($args)
+    public function __construct(rex_addon_release_parameter $params)
     {
-        $this->params = $args;
+        $this->params = $params;
         $this->result = '';
     }
 
@@ -28,18 +73,18 @@ class rex_addon_release
         $result = array();
         $errors = array();
 
-        $addon = $params['addon_name'];
-        $version = $params['addon_version'];
-        $addonname = $params['addon_name'] . '_' . $params['addon_version'];
-        $addonpath = $params['addon_path'];
-        $dirname = $params['release_path'] . $params['type'] . '_' . $addonname . DIRECTORY_SEPARATOR;
+        $addon = $params->addon_name;
+        $version = $params->addon_version;
+        $addonname = $params->addon_name . '_' . $params->addon_version;
+        $addonpath = $params->addon_path;
+        $dirname = $params->release_path . $params->type . '_' . $addonname . DIRECTORY_SEPARATOR;
 
         $result[] = 'Addon: ' . $addon;
         $result[] = 'Version: ' . $version;
-        $result[] = 'Type: ' . $params['type'];
+        $result[] = 'Type: ' . $params->type;
         $result[] = 'Addon-Verzeichnis: ' . $addonpath;
         $result[] = 'Ausgabe-Verzeichnis: ' . $dirname;
-        $result[] = 'Ausgabe ZIP-Archiv: ' . $params['release_path'] . $addonname . '.zip';
+        $result[] = 'Ausgabe ZIP-Archiv: ' . $params->release_path . $addonname . '.zip';
         $result[] = '';
 
         if (!file_exists($addonpath)) {
@@ -65,18 +110,18 @@ class rex_addon_release
             }
         }
 
-        if (!$this->error && isset($params['clear_cache']) && $params['clear_cache']) {
+        if (!$this->error && isset($params->clear_cache) && $params->clear_cache) {
             rex_delete_cache();
             $result[] = 'Cache wurde gelöscht';
         }
 
-        if (!$this->error && isset($params['delete_addon_settings']) && $params['delete_addon_settings']) {
+        if (!$this->error && isset($params->delete_addon_settings) && $params->delete_addon_settings) {
             $this->removeAddonSettings($addon);
             $result[] = 'Addon-Settings wurden gelöscht';
         }
 
         if (!$this->error) {
-            foreach ($params['ignore_root_files'] as $file) {
+            foreach ($params->ignore_root_files as $file) {
                 if (file_exists($dirname . $file) && rex_file::delete($dirname . $file)) {
                     $result[] = 'Datei gelöscht: ' .$file;
                 }
@@ -84,7 +129,7 @@ class rex_addon_release
         }
 
         if (!$this->error) {
-            foreach ($params['ignore_folders'] as $dir) {
+            foreach ($params->ignore_folders as $dir) {
                 if (file_exists($dirname . $dir)) {
                     rex_dir::delete($dirname . $dir, true);
                     $result[] = 'Unterverzeichnis gelöscht: ' . $dir;
@@ -93,7 +138,7 @@ class rex_addon_release
         }
 
         if (!$this->error) {
-            foreach ($params['ignore_files'] as $mask) {
+            foreach ($params->ignore_files as $mask) {
                 foreach ($this->globRecursive($dirname . $mask, GLOB_BRACE) as $filename) {
                     rex_file::delete($filename);
                     $result[] = 'Datei gelöscht: ' . str_replace($dirname, '', $filename);
@@ -101,7 +146,7 @@ class rex_addon_release
             }
         }
 
-        if (!$this->error && isset($params['remove_no_dist']) && $params['remove_no_dist']) {
+        if (!$this->error && isset($params->remove_no_dist) && $params->remove_no_dist) {
             foreach ($this->globRecursive($dirname . '*', GLOB_BRACE) as $filename) {
                 if ($this->removeNodistCode($filename)) {
                     $result[] = 'Datei angepasst (NO_DIST): ' . str_replace($dirname, '', $filename);
@@ -109,8 +154,8 @@ class rex_addon_release
             }
         }
 
-        if (!$this->error && isset($params['exportsql_name']) && $params['exportsql_name']) {
-            $filename = $params['export_path'] . $params['exportsql_name'] . '.sql';
+        if (!$this->error && isset($params->exportsql_name) && $params->exportsql_name) {
+            $filename = $params->export_path . $params->exportsql_name . '.sql';
             $rc = $this->exportSql($dirname . $filename);
             if ($rc) {
                 $result[] = 'SQL-Export wurde erstellt: ' . $filename;
@@ -120,9 +165,9 @@ class rex_addon_release
             }
         }
 
-        if (!$this->error && isset($params['exportfiles_name']) && $params['exportfiles_name']) {
-            $filename = $params['export_path'] . $params['exportfiles_name'] . '.tar.gz';
-            $folders = $params['export_folders'];
+        if (!$this->error && isset($params->exportfiles_name) && $params->exportfiles_name) {
+            $filename = $params->export_path . $params->exportfiles_name . '.tar.gz';
+            $folders = $params->export_folders;
             $rc = $this->exportFiles($dirname . $filename, $folders);
             if ($rc) {
                 $result[] = 'File-Export wurde erstellt: ' . $filename;
@@ -133,7 +178,7 @@ class rex_addon_release
         }
 
         if (!$this->error) {
-            $filename = $params['release_path'] . $addonname . '.zip';
+            $filename = $params->release_path . $addonname . '.zip';
             if (!$this->createZip($dirname, $filename)) {
                 $this->error = true;
                 $errors[] = 'Fehler beim erstellen des ZIP-Archives! ' . $filename;
@@ -147,6 +192,7 @@ class rex_addon_release
             $this->result .= '<br><br><strong>ABBRUCH! Es sind Fehler aufgetreten!</strong><br>';
             $this->result .= implode('<br>', $errors);
         }
+
         return $this->result;
     }
 
