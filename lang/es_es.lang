@@ -1,0 +1,49 @@
+demo_fullpage_title = Demo
+
+demo_fullpage_install = Instalación
+demo_fullpage_install_heading = Instalación
+demo_fullpage_description_install_heading = Instalación / Ajustes
+demo_fullpage_install_description = Tenga en cuenta que el contenido de la base de datos se eliminará.
+demo_fullpage_install_button = Instalar demo
+
+demo_fullpage_settings = Ajustes
+demo_fullpage_title_config = Ajustes
+
+demo_fullpage_config_theme = Tema
+demo_fullpage_config_logo = Logo
+demo_fullpage_config_selectmedia = Seleccionar archivo multimedia
+demo_fullpage_config_addmedia = Añadir archivo multimedia
+demo_fullpage_config_deletemedia = Eliminar el archivo seleccionado
+demo_fullpage_config_showmedia = Mostrar el archivo seleccionado
+demo_fullpage_config_showscrollbar = Mostrar barra de desplazamiento
+demo_fullpage_config_scrollingspeed = Velocidad de desplazamiento
+demo_fullpage_config_autoscrolling = Desplazarse automáticamente a la siguiente 'página'
+demo_fullpage_config_shownavigation = Mostrar navegación de página (puntos)
+demo_fullpage_config_shownavigationtooltip = Mostrar información sobre herramientas para la navegación de página (puntos)
+demo_fullpage_config_navigationposition = Posición del buscador de navegación (puntos)
+demo_fullpage_config_showslidearrows = Mostrar flechas para diapositivas horizontales
+demo_fullpage_config_showslidenavigation = Mostrar navegación por buscapersonas (puntos) para diapositivas horizontales
+demo_fullpage_config_slidenavigationposition = Posición de la navegación del buscapersonas (puntos)
+demo_fullpage_config_usesubcategories = Utilice subcategorías como diapositivas (de lo contrario, artículos de categoría)
+
+demo_fullpage_save = Guardar ajustes
+
+demo_fullpage_config_saved = ¡Ajustes guardados!
+
+demo_fullpage_info = Información
+demo_fullpage_description_info_heading = Información sobre temas
+
+
+demo_fullpage_confirm_setup = Se eliminarán los datos existentes. Continuar?
+
+demo_fullpage_package_not_available      = La versión requerida del paquete <b>"{0}"</b> no está disponible.
+demo_fullpage_package_not_exists         = ¡El paquete <b>"{0}"</b> no está disponible!
+demo_fullpage_package_failed_to_download = Error al descargar <b>"{0}"</b>!
+demo_fullpage_package_failed_to_validate = Error al validar <b>"{0}"</b>!
+demo_fullpage_package_failed_to_extract  = Error al desempacar <b>"{0}"</b>!
+demo_fullpage_package_failed_to_install  = Error al instalar <b>"{0}"</b>!
+demo_fullpage_package_failed_to_activate = Error al activar <b>"{0}"</b>!
+demo_fullpage_package_failed_to_import   = Error al importar <b>"{0}"</b>!
+
+demo_fullpage_installation_error         = Demo no pudo ser instalada:
+demo_fullpage_installation_success       = ¡Demo fue instalada exitosamente!
