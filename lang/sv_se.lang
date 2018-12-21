@@ -1,0 +1,49 @@
+demo_fullpage_title = Demo
+
+demo_fullpage_install = Installation
+demo_fullpage_install_heading = Installation
+demo_fullpage_description_install_heading = Installation / inställningar
+demo_fullpage_install_description = Observera att allt innehåll i databasen kommer att tas bort under installationen!
+demo_fullpage_install_button = Installera demo
+
+demo_fullpage_settings = Inställningar
+demo_fullpage_title_config = Inställningar
+
+demo_fullpage_config_theme = Mall / Tema
+demo_fullpage_config_logo = Logotype
+demo_fullpage_config_selectmedia = Välja ut medium
+demo_fullpage_config_addmedia = Lägg till nytt medium
+demo_fullpage_config_deletemedia = Radera utvald fil
+demo_fullpage_config_showmedia = Visa utvald fil
+demo_fullpage_config_showscrollbar = Visa scrollbar
+demo_fullpage_config_scrollingspeed = Scrolling-Speed
+demo_fullpage_config_autoscrolling = Scrolla automatisk till nästa sida
+demo_fullpage_config_shownavigation = Visa sidanavigation (dots)
+demo_fullpage_config_shownavigationtooltip = Visa tooltip för sidanvigationen (dots)
+demo_fullpage_config_navigationposition = Sidnavigationens (dots) position
+demo_fullpage_config_showslidearrows = Visa pilar till horisontella slides
+demo_fullpage_config_showslidenavigation = Visa slide-navigation (dots) till horisontella slides
+demo_fullpage_config_slidenavigationposition = Sidnavigationens (dots) position
+demo_fullpage_config_usesubcategories = Använda Underkategorier som slides (eller artiklar av kategorien)
+
+demo_fullpage_save = Spara inställningarna
+
+demo_fullpage_config_saved = Inställningarna sparades!
+
+demo_fullpage_info = Informationer
+demo_fullpage_description_info_heading = Informationer till mallarna
+
+
+demo_fullpage_confirm_setup = Befintlig data går förlorad. Fortsätt?
+
+demo_fullpage_package_not_available      = Erforderlig version av paketet <b> "{0}" </ b> är inte tillgängligt!
+demo_fullpage_package_not_exists         = Paketet <b> "{0}" </ b> existerar inte!
+demo_fullpage_package_failed_to_download = Fel vid nedladdning av <b> "{0}" </ b>!
+demo_fullpage_package_failed_to_validate = Fel med att validera <b> "{0}" </ b>!
+demo_fullpage_package_failed_to_extract  = Ett fel uppstod när du packade upp <b> "{0}" </ b>!
+demo_fullpage_package_failed_to_install  = Fel uppstod vid installeringen av <b> "{0}" </ b>!
+demo_fullpage_package_failed_to_activate = Aktivering av <b> "{0}" </ b> misslyckades!
+demo_fullpage_package_failed_to_import   = Import av <b> "{0}" </ b> misslyckades!
+
+demo_fullpage_installation_error         = Demo kunde inte installeras:
+demo_fullpage_installation_success       = Demo installerades med framgång!
