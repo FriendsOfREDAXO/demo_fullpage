@@ -1,0 +1,49 @@
+demo_fullpage_title = Demo
+
+demo_fullpage_install = Installation
+demo_fullpage_install_heading = Installation
+demo_fullpage_description_install_heading = Installation / Settings
+demo_fullpage_install_description = Please note that the contents of the database will be deleted!
+demo_fullpage_install_button = Install demo
+
+demo_fullpage_settings = Settings
+demo_fullpage_title_config = Settings
+
+demo_fullpage_config_theme = Theme
+demo_fullpage_config_logo = Logo
+demo_fullpage_config_selectmedia = Select media
+demo_fullpage_config_addmedia = Add media
+demo_fullpage_config_deletemedia = Delete selected media
+demo_fullpage_config_showmedia = Show selected media
+demo_fullpage_config_showscrollbar = Show scrollbar
+demo_fullpage_config_scrollingspeed = Scrolling speed
+demo_fullpage_config_autoscrolling = Scroll to next page automatically
+demo_fullpage_config_shownavigation = Show navigation pager (dots)
+demo_fullpage_config_shownavigationtooltip = Show tooltip for navigation pager (dots)
+demo_fullpage_config_navigationposition = Position of navigation pager (dots)
+demo_fullpage_config_showslidearrows = Show arrows for horizontal slides
+demo_fullpage_config_showslidenavigation = Show pager navigation (dots) for horizontal slides
+demo_fullpage_config_slidenavigationposition = Position of pager navigation (dots)
+demo_fullpage_config_usesubcategories = Use child categories as slides (instead of child articles)
+
+demo_fullpage_save = Save settings
+
+demo_fullpage_config_saved = Settings saved!
+
+demo_fullpage_info = Information
+demo_fullpage_description_info_heading = Themes information
+
+
+demo_fullpage_confirm_setup = Existing data will be deleted. Continue?
+
+demo_fullpage_package_not_available      = Required version of package <b>"{0}"</b> not available!
+demo_fullpage_package_not_exists         = Package <b>"{0}"</b> not available!
+demo_fullpage_package_failed_to_download = Error downloading <b>"{0}"</b>!
+demo_fullpage_package_failed_to_validate = Error validating <b>"{0}"</b>!
+demo_fullpage_package_failed_to_extract  = Error unpacking <b>"{0}"</b>!
+demo_fullpage_package_failed_to_install  = Error installing <b>"{0}"</b>!
+demo_fullpage_package_failed_to_activate = Error activating <b>"{0}"</b>!
+demo_fullpage_package_failed_to_import   = Error imprting <b>"{0}"</b>!
+
+demo_fullpage_installation_error         = The demo could no be installed:
+demo_fullpage_installation_success       = Demo successfully installed!
