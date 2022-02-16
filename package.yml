@@ -1,31 +1,28 @@
 package: demo_fullpage
-version: 1.1.0beta
+version: 2.0.0
 author: 'Friends Of REDAXO'
 supportpage: 'https://github.com/FriendsOfREDAXO/demo_fullpage'
-
 page:
-    title: 'translate:title'
+    title: 'translate:demo_fullpage_title'
     perm: 'demo_fullpage[]'
     pjax: true
     icon: 'rex-icon fa-rocket'
     subpages:
-        install: { title: 'translate:title', icon: 'rex-icon fa-rocket' }
-        settings: { title: 'translate:settings', icon: 'rex-icon fa-wrench' }
-        info: { title: 'translate:info' }
-
+        install: { title: 'translate:demo_fullpage_title', icon: 'rex-icon fa-rocket' }
+        settings: { title: 'translate:demo_fullpage_settings', icon: 'rex-icon fa-wrench' }
+        themes: { title: 'translate:demo_fullpage_themes', icon: 'rex-icon fa-desktop' }
 requires:
     packages:
-        # Important: require system addOns only! Find other addOns required in `package.setup.yml`.
-        # This is because we want the demo to be installed in first place without the need to install
-        # any other addOns beforehand. The demo comes with a setup feature which checks the
-        # `package.setup.yml` file where all additional addOns are defined. It will download and
-        # install these addOns seamlessly for you once you’ve clicked the setup button.
-        # After setup, both package files get merged. Be sure to not publish a merged `package.yml`
-        # with your new release. Always use the original un-merged file!
-        backup: '>=2.0.4'
-        structure/content: '>=2.3.0'
-    redaxo: '>=5.3.0'
-    php: '>=5.6'
-
-system_plugins:
-    - documentation
+        backup: ^2.3.0
+        structure/content: ^2.7.0
+    redaxo: ^5.12.0
+console_commands:
+    'demo_fullpage:install': rex_command_demo_fullpage_install
+setup:
+    installSequence:
+        - backup
+        - structure/content
+    dbimport:
+        - demo_fullpage.sql
+    fileimport:
+        - demo_fullpage.tar.gz

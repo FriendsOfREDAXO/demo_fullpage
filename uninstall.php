@@ -1,15 +1,15 @@
 <?php
 
-/** @var rex_addon $this */
+$addon = rex_addon::get('demo_fullpage');
 
 // update config
 // remove additional config from base config
 $config = array_diff_recursive(
-    rex_file::getConfig($this->getPath('package.yml')),
-    rex_file::getConfig($this->getPath('package.setup.yml'))
+    rex_file::getConfig($addon->getPath('package.yml')),
+    rex_file::getConfig($addon->getPath('package.setup.yml'))
 );
 
-rex_file::putConfig($this->getPath('package.yml'), $config);
+rex_file::putConfig($addon->getPath('package.yml'), $config);
 
 // Computes the difference of two arrays recursively
 // https://gist.github.com/t3chnik/6b3b14d3859d810c02f4

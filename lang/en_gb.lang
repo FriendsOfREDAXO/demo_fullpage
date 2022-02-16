@@ -1,4 +1,4 @@
-demo_fullpage_title = Demo
+demo_fullpage_title = Fullpage-Demo
 
 demo_fullpage_install = Installation
 demo_fullpage_install_heading = Installation
@@ -16,6 +16,10 @@ demo_fullpage_config_addmedia = Add media
 demo_fullpage_config_deletemedia = Delete selected media
 demo_fullpage_config_showmedia = Show selected media
 demo_fullpage_config_showscrollbar = Show scrollbar
+demo_fullpage_config_responsivewidth =
+demo_fullpage_config_responsivewidth_note =
+demo_fullpage_config_responsiveheight =
+demo_fullpage_config_responsiveheight_note =
 demo_fullpage_config_scrollingspeed = Scrolling speed
 demo_fullpage_config_autoscrolling = Scroll to next page automatically
 demo_fullpage_config_shownavigation = Show navigation pager (dots)
@@ -29,10 +33,10 @@ demo_fullpage_config_usesubcategories = Use child categories as slides (instead 
 demo_fullpage_save = Save settings
 
 demo_fullpage_config_saved = Settings saved!
+demo_fullpage_compile_theme =
 
-demo_fullpage_info = Information
-demo_fullpage_description_info_heading = Themes information
-
+demo_fullpage_themes = Themes
+demo_fullpage_description_themes_heading = Themes information
 
 demo_fullpage_confirm_setup = Existing data will be deleted. Continue?
 
@@ -47,3 +51,11 @@ demo_fullpage_package_failed_to_import   = Error imprting <b>"{0}"</b>!
 
 demo_fullpage_installation_error         = The demo could no be installed:
 demo_fullpage_installation_success       = Demo successfully installed!
+
+demo_fullpage_success_message = The demo can now be installed on the page {0}.
+
+demo_fullpage_meta_bgimage =
+demo_fullpage_meta_bgcolor =
+demo_fullpage_meta_bgvideo =
+demo_fullpage_meta_autoheight =
+demo_fullpage_meta_nomenu =

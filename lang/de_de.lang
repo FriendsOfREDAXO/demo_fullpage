@@ -15,8 +15,12 @@ demo_fullpage_config_selectmedia = Medium auswählen
 demo_fullpage_config_addmedia = Neues Medium hinzufügen
 demo_fullpage_config_deletemedia = Ausgewähltes Medium löschen
 demo_fullpage_config_showmedia = Ausgewähltes Medium anzeigen
-demo_fullpage_config_showscrollbar = Scrollbar anzeigen
-demo_fullpage_config_scrollingspeed = Scrolling-Speed
+demo_fullpage_config_showscrollbar = Scrollbar im Fullpage-Modus anzeigen
+demo_fullpage_config_responsivewidth = Responsive Breite
+demo_fullpage_config_responsivewidth_note = Bei Viewport-Breite kleiner diesem Wert wird in den responsive-Modus gewechselt
+demo_fullpage_config_responsiveheight = Responsive Höhe
+demo_fullpage_config_responsiveheight_note = Bei Viewport-Höhe kleiner diesem Wert wird in den responsive-Modus gewechselt
+demo_fullpage_config_scrollingspeed = Scrolling-Speed in ms
 demo_fullpage_config_autoscrolling = Automatisch zur nächsten 'Seite' scrollen
 demo_fullpage_config_shownavigation = Seiten-Navigation (dots) anzeigen
 demo_fullpage_config_shownavigationtooltip = Tooltip für Seiten-Navigation (dots) anzeigen
@@ -29,10 +33,10 @@ demo_fullpage_config_usesubcategories = Unterkategorien als Slides verwenden (zu
 demo_fullpage_save = Einstellungen speichern
 
 demo_fullpage_config_saved = Einstellungen wurden gespeichert!
+demo_fullpage_compile_theme = Theme wird compiliert. (Sollte hier ein Fehler des SCSS-Compilers auftreten muss dieser erst behoben werden!)
 
-demo_fullpage_info = Informationen
-demo_fullpage_description_info_heading = Informationen zu Themes
-
+demo_fullpage_themes = Themes
+demo_fullpage_description_themes_heading = Informationen zu Themes
 
 demo_fullpage_confirm_setup = Bestehende Daten gehen verloren. Fortfahren?
 
@@ -47,3 +51,11 @@ demo_fullpage_package_failed_to_import   = Fehler beim Importieren von <b>"{0}"<
 
 demo_fullpage_installation_error         = Demo konnte nicht installiert werden:
 demo_fullpage_installation_success       = Demo wurde erfolgreich installiert!
+
+demo_fullpage_success_message = Die Demo kann nun auf der Seite {0} installiert werden.
+
+demo_fullpage_meta_bgimage = fullPage: Hintergrundbild
+demo_fullpage_meta_bgcolor = fullPage: Hintergrundfarbe
+demo_fullpage_meta_bgvideo = fullPage: Hintergrund-Video
+demo_fullpage_meta_autoheight = <b>fullPage</b>: Höhe automatisch an den Inhalt anpassen<br>(nicht fullpage, sollte bei der Einstellung <b>Automatisch zur nächsten 'Seite' scrollen</b> nicht verwendet werden, wird bei vorhandenen horizontalen Slides ignoriert)
+demo_fullpage_meta_nomenu = <b>fullPage</b>: In der Haupt-Navigation ausblenden
