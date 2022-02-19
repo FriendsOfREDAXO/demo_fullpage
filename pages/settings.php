@@ -64,8 +64,8 @@ $sel_dirs->setName('settings[theme]');
 $sel_dirs->setSelected($Values['theme']);
 $sel_dirs->setStyle('class="form-control"');
 
-// get themes
-$myPath = rex_url::base('redaxo/src/addons/demo_fullpage/assets/themes/');
+// get themes from demo_fullpage-Addon
+$myPath = $addon->getPath('assets/themes/');
 $directories = glob($myPath . '/*' , GLOB_ONLYDIR);
 foreach ($directories as $dir) {
     $dir = basename($dir);
@@ -73,6 +73,19 @@ foreach ($directories as $dir) {
         if ($ff = file($myPath  .$dir . '/css/theme.css')) {
             if (isset($ff[0]) and trim($ff[0]) == '/*' and isset($ff[3]) and trim($ff[3]) == '*/' and isset($ff[2])) {
                 $sel_dirs->addOption($ff[2], $dir);
+            }
+        }
+    }
+}
+// get themes from project-Addon
+$myPath = rex_addon::get('project')->getPath('fpthemes/');
+$directories = glob($myPath . '/*' , GLOB_ONLYDIR);
+foreach ($directories as $dir) {
+    $dir = basename($dir);
+    if (file_exists($myPath  .$dir . '/css/theme.css')) {
+        if ($ff = file($myPath  .$dir . '/css/theme.css')) {
+            if (isset($ff[0]) and trim($ff[0]) == '/*' and isset($ff[3]) and trim($ff[3]) == '*/' and isset($ff[2])) {
+                $sel_dirs->addOption('project: ' . $ff[2], 'project:'.$dir);
             }
         }
     }

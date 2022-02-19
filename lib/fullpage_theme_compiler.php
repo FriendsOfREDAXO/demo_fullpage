@@ -7,8 +7,18 @@ class fullpage_theme_compiler {
 
         $compiler = new rex_scss_compiler();
 
-        $sourcePath = $addon->getPath('assets/themes/' . $theme . '/css/');
+        if (substr($theme, 0, 8) == 'project:') {
+            $theme = str_replace('project:', '', $theme);
+            $sourcePath = rex_addon::get('project')->getPath('fpthemes/' . $theme . '/css/');
+        } else {
+            $sourcePath = $addon->getPath('assets/themes/' . $theme . '/css/');
+        }
         $destPath = $addon->getAssetsPath('themes/' . $theme . '/css/');
+
+        if (!rex_dir::isWritable($sourcePath)) {
+            echo rex_view::error('Directory not writeable! ' . $sourcePath);
+            return;
+        }
 
         $cssfiles = [];
         foreach (glob($sourcePath . '*.css') as $filename) {
@@ -25,6 +35,8 @@ class fullpage_theme_compiler {
             $compiler->compile();
         }
 
+        $sourcePath = substr($sourcePath, 0, -4);
+        $destPath = substr($destPath, 0, -4);
         rex_dir::copy($sourcePath, $destPath);
     }
 
