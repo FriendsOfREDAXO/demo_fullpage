@@ -1,14 +1,50 @@
 # Themes für das Addon Fullpage-Demo
 
-Das Addon `demo_fullpage` kommt automatisch mit 4 verschiedenen Themes die als Basis für ein eigenes Theme verwendet werden können.
+Das Addon `demo_fullpage` kommt automatisch mit vier verschiedenen Themes die als Basis für ein eigenes Theme verwendet werden können.
 
-In den Themes sind so gut wie möglich alle Einstellungen und Funktionen umgesetzt und zum größten Teil auch kommentiert. Hier lohnt sich auf jeden Fall ein Blick auf die beiden Dateien **theme.js** und **theme.css** des jeweiligen Themes.
-
-Die beste Basis für ein eigenes Theme ist das Theme **minimal**. Hier sind alle notwendigen CSS und JavaScript-Definitionen für eine minimal gestylte Fullpage-Webseite vorhanden.
+In den Themes sind so gut wie möglich alle Einstellungen und Funktionen umgesetzt und zum größten Teil auch kommentiert. Hier lohnt sich auf jeden Fall ein Blick auf die Dateien **theme.js**, **theme.css** und **_theme.scss** des jeweiligen Themes.
 
 Für die Themes wird SCSS unterstützt. Für das Frontend wird auf jeden Fall die **theme.css** in **theme.min.css** compiliert. Egal ob SCSS verwendet wird oder nicht.
 
 Variablen können direkt in der theme.css definiert werden oder mittels import z.B. `@import "theme"` eingefügt werden. Die Datei mit den Variablen muss im Theme-Verzeichnis dann entsprechend als **_theme.scss** abgespeichert werden.
+
+> **Hinweis:**
+Alle .css-Dateien im Theme-Verzeichnis werden minimiert in [filename].min.css!
+
+Die beste Basis für ein eigenes Theme ist das Theme **minimal**. Hier sind alle notwendigen CSS und JavaScript-Definitionen für eine minimal gestylte Fullpage-Webseite vorhanden.
+
+## Mitgelieferte Themes
+
+### Theme Coffee
+
+Eigenschaften
+- horizontale Naviation
+- Fixed-Background-Images
+- GLightbox für Bilder
+- Navigation blendet im Responsive-Mode beim scrollen aus/ein
+
+### Theme Bike
+
+Eigenschaften
+- horizontale Navitaion
+- Easing-Effekt beim scrollen im Fullpage-Modus
+- GLightbox für Bilder
+
+### Theme Road
+
+Eigenschaften
+- vertikale Navigation
+- Blurry Backgrounds
+- Continuous Scrolling
+- GLightbox für Bilder
+
+### Theme Minimal
+
+Eigenschaften
+- minimale CSS und JavaScript-Definitonen
+- keine Lightbox
+
+
 
 ## Einbindung CSS/JavaScript im Frontend
 
@@ -20,7 +56,7 @@ Die notwendigen Stylesheets und Javascripte für eine "Fullpage-Webseite" werden
 <link rel="stylesheet" href="./assets/addons/demo_fullpage/css/uikit.min.css">
 <link rel="stylesheet" href="./assets/addons/demo_fullpage/css/jquery.fullpage.min.css">
 
-<link rel="stylesheet" href="./assets/addons/demo_fullpage/themes/#####/css/theme.min.css">
+<link rel="stylesheet" href="./assets/addons/demo_fullpage/themes/[themename]/css/theme.min.css">
 
 ```
 
@@ -32,14 +68,14 @@ Die notwendigen Stylesheets und Javascripte für eine "Fullpage-Webseite" werden
 <script src="./assets/addons/demo_fullpage/js/uikit.min.js"></script>
 <script src="./assets/addons/demo_fullpage/js/uikit-icons.min.js"></script>
 
-<script src="./assets/addons/demo_fullpage/themes/#####/js/theme.js"></script>
+<script src="./assets/addons/demo_fullpage/themes/[themename]/js/theme.js"></script>
 
 ```
 
 ## Verzeichnisstruktur assets
 
 Das Addon-Verzeichnis **assets** enthält die CCS und JavaScript-Dateien die bei der Installation/Reinstall automatisch
-in das Verzeichnis `assets/addons/demo-fullpage` kopiert werden.
+in das Verzeichnis `assets/addons/demo_fullpage` kopiert werden.
 
 * **css**
 	animate.min.css
