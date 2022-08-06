@@ -1,32 +1,181 @@
-/* Variables */
+/* Fonts */
+
+$body-font: 'Outfit', Arial, sans-serif;
+$headline-font: 'Outfit', Arial, sans-serif;
 
 /* Body-Background & Color */
-$body-bg: #000;
-$text-color: #333;
+
+$body-bg: #999;
+$text-color: #fff;
+$text-color-negative: #333;
+
+$text-color-odd: #333;
+$text-color-even: #fff;
+
+$font-size: 19px;
+
+/* Decoration-Color */
+
+$deko-color: rgba(67, 198, 219, 1);
+
+/* Text colors */
+
+$text-muted-odd: #bbb;
+$text-primary-odd: rgba(67, 198, 219, 1);
+$text-secondary-odd: #333;
+$text-success-odd: #0a0;
+$text-warning-odd: #d90;
+$text-danger-odd: #d00;
+
+$text-muted-even: #bbb;
+$text-primary-even: rgba(67, 198, 219, 1);
+$text-secondary-even: #fff;
+$text-success-even: #0a0;
+$text-warning-even: #d90;
+$text-danger-even: #d00;
+
+/* Headlines */
+
+$headline-color-odd: #333;
+$headline-shadow-odd: 1px 1px 1px rgba(255, 255, 255, .5);
+
+$headline-color-even: #fff;
+$headline-shadow-even: 1px 1px 1px rgba(0, 0, 0, .5);
+
+/* Links */
+
+$link-color-odd: #666;
+$link-hover-color-odd: darken($link-color-odd, 10);
+
+$link-color-even: #ccc;
+$link-hover-color-even: lighten($link-color-even, 10);
 
 /* Main-Navigation */
-$mainnav-color: #fff;
-$mainnav-hover-color: #f00;
+
+$mainnav-bg: transparent;
+$mainnav-color: rgba(51, 51, 51, 1);
+$mainnav-hover-bg: rgba(51, 51, 51, 1);
+$mainnav-hover-color: #fff;
+
+$mainnav-active-bg: #333;
+$mainnav-active-color: #ddd;
+$mainnav-active-hover-bg: #333;
+$mainnav-active-hover-color: #fff;
+
+/* Responsive Navigation */
+
+$navbar-bg: rgba(255, 255, 255, .8);
+$navbar-link-bg: rgba(255, 255, 255, .8);
+$navbar-link-color: #333;
+$navbar-link-hover-bg: rgba(51, 51, 51, .8);
+$navbar-link-hover-color: #fff;
+
+$navbar-link-active-bg: rgba(51, 51, 51, .8);
+$navbar-link-active-color: #ddd;
+$navbar-link-active-hover-bg: rrgba(51, 51, 51, .8);
+$navbar-link-active-hover-color: #fff;
+
+$navbar-active-bg: rgba(255, 255, 255, 1);
+
+/* Hamburger */
+
+$hamburger-color: rgba(51, 51, 51, 1);
+$hamburger-hover-color: rgba(136, 136, 136, 1);
+
+/* Sections */
+
+$section-bg: #999;
+$section-bg-odd: #999;
+$section-bg-even: #444;
 
 /* Backgrounds */
 
+$section-1-bg: url('../img/bg01.webp');
+$section-2-bg: url('../img/bg02.webp');
+$section-3-bg: url('../img/bg03.webp');
+$section-4-bg: url('../img/bg04.webp');
+$section-5-bg: url('../img/bg05.webp');
+$section-6-bg: url('../img/bg06.webp');
+$section-13-bg: url('../img/bg13.webp');
 
-/* Sections */
-$section-bg: #222;
-$section-bg-even: #222;
-$section-bg-odd: #444;
+/* Content Backgrounds */
+
+$default-bg-odd: rgba(255, 255, 255, 0.8);
+$default-bg-even: rgba(0, 0, 0, 0.6);
+
+/* Navi-Dots */
+
+$navidot-bg: rgba(255, 255, 255, .6);
+$navidot-hover-bg: rgba(255, 255, 255, 1);
+$navidot-active-bg: rgba(255, 255, 255, .8);
+$navidot-active-hover-bg: rgba(255, 255, 255, 1);
+
+$navidot-dark-bg: rgba(102, 102, 102, .6);
+$navidot-dark-hover-bg: rgba(102, 102, 102, 1);
+$navidot-dark-active-bg: rgba(102, 102, 102, .8);
+$navidot-dark-active-hover-bg: rgba(102, 102, 102, 1);
+
+/* Prev/Next-Arrows */
+
+$arrow-color: rgba(255, 255, 255, .7);
+$arrow-hover-color: rgba(255, 255, 255, 1);
+$arrow-dark-color: rgba(102, 102, 102, .7);
+$arrow-dark-hover-color: rgba(102, 102, 102, 1);
+
+/* Up/Down-Arrows */
+
+$arrowup-color: rgba(255, 255, 255, .7);
+$arrowup-hover-color: rgba(51, 51, 51, .8);
+$arrowup-shadow: -3px 3px 3px -2px rgba(51, 51, 51, 0.5);
+$arrowdown-color: rgba(255, 255, 255, .7);
+$arrowdown-hover-color: rgba(51, 51, 51, .8);
+$arrowdown-shadow: -3px 3px 3px -2px rgba(51, 51, 51, 0.5);
 
 /* Tooltips */
-$tooltip-bg: #000;
+
+$tooltip-font-size: 12px;
+$tooltip-bg: #666;
 $tooltip-color: #fff;
 
-/* glightbox-Buttons */
+/* GLightbox */
+
 $glightbox-button-bg: rgba(0, 0, 0, 0.6);
-$glightbox-button-hover-bg: rgba(235, 160, 0, .8);
+$glightbox-button-hover-bg: rgba(221, 221, 221, .8);
+$glightbox-desc-bg: #222;
+$glightbox-text-color: #ddd;
 
 /* Overlay */
-$overlay-bg: rgba(0, 0, 0, 0.7);
 
-/* Scrollbar */
-$scrollbar-track-bg: #999;
-$scrollbar-thumb-bg: #222;
+$overlay-bg: rgba(0, 0, 0, 0.8);
+
+/* plyr */
+
+$plyr-shadow: 0 14px 25px rgba(0, 0, 0, .5);
+
+/* Back to top arrow */
+
+$toparrow-color: rgba(153, 153, 153, .7);
+$toparrow-hover-color: rgba(67, 198, 219, 1);
+
+/* UIkit Backgrounds */
+
+$uk-bg-default-odd: rgba(255, 255, 255, 0.8);
+$uk-bg-muted-odd: rgba(255, 255, 255, .4);
+$uk-bg-primary-odd: rgba(67, 198, 219, .8);
+$uk-bg-secondary-odd: rgba(0, 0, 0, .8);
+
+$uk-bg-default-even: rgba(0, 0, 0, 0.6);
+$uk-bg-muted-even: rgba(0, 0, 0, .3);
+$uk-bg-primary-even: rgba(67, 198, 219, .8);
+$uk-bg-secondary-even: rgba(255, 255, 255, .8);
+
+/* Buttons */
+
+$uk-btn-default: rgba(255, 255, 255, 1);
+$uk-btn-primary: rgba(67, 198, 219, 1);
+$uk-btn-secondary: rgba(51, 51, 51, 1);
+$uk-btn-danger: rgba(221, 0, 0, 1);
+
+/* lighboxcontent */
+
+$lightboxcontent-bg: rgba(68, 68, 68, 1);

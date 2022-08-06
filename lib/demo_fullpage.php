@@ -1,8 +1,9 @@
 <?php
 
 class rex_demo_fullpage {
-    public static function install() {
+    public static function install() : array {
         $addon = rex_addon::get('demo_fullpage');
+        $packagesFromInstaller = [];
 
         // in some cases rex_addon has the old package.yml in cache. But we need our new merged package.yml
         $addon->loadProperties();

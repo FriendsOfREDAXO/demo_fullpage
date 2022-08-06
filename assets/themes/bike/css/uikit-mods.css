@@ -1,0 +1,398 @@
+/*
+-------------------------------------------------------------------------------
+UIkit Overrides
+-------------------------------------------------------------------------------
+*/
+
+/* SCSS-Variablen _theme.scss */
+@import "theme";
+
+.uk-h1,
+.uk-h2,
+.uk-h3,
+.uk-h4,
+.uk-h5,
+.uk-h6,
+.uk-heading-2xlarge,
+.uk-heading-large,
+.uk-heading-medium,
+.uk-heading-small,
+.uk-heading-xlarge,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: inherit;
+    color: $headline-color-odd;
+}
+
+div.uk-container em {
+    color: inherit;
+    padding-right: .2em;
+}
+
+/* Tooltip */
+
+div.uk-tooltip {
+    max-width: 300px;
+    padding: 5px 10px;
+    background: $tooltip-bg;
+    border-radius: 2px;
+    color: $tooltip-color;
+    font-size: $tooltip-font-size;
+    line-height: 1.5em;
+}
+
+/* Backgrounds */
+
+.section-odd .uk-background-default {
+    background-color: $uk-bg-default-odd;
+}
+.section-odd .uk-background-muted {
+    background-color: $uk-bg-muted-odd;
+}
+.section-odd .uk-background-primary {
+    background-color: $uk-bg-primary-odd;
+}
+.section-odd .uk-background-secondary {
+    background-color: $uk-bg-secondary-odd;
+}
+
+.section-even .uk-background-default {
+    background-color: $uk-bg-default-even;
+}
+.section-even .uk-background-muted {
+    background-color: $uk-bg-muted-even;
+}
+.section-even .uk-background-primary {
+    background-color: $uk-bg-primary-even;
+}
+.section-even .uk-background-secondary {
+    background-color: $uk-bg-secondary-even;
+    color: $text-color-odd !important;
+}
+
+/* Text Color */
+
+.section-odd .uk-text-muted {
+    color: $text-muted-odd !important;
+}
+.section-odd .uk-text-primary {
+    color: $text-primary-odd !important;
+}
+.section-odd .uk-text-secondary {
+    color: $text-secondary-odd !important;
+}
+.section-odd .uk-text-success {
+    color: $text-success-odd !important;
+}
+.section-odd .uk-text-warning {
+    color: $text-warning-odd !important;
+}
+.section-odd .uk-text-danger {
+    color: $text-danger-odd !important;
+}
+
+.section-even .uk-text-muted {
+    color: $text-muted-even !important;
+}
+.section-even .uk-text-primary {
+    color: $text-primary-even !important;
+}
+.section-even .uk-text-secondary {
+    color: $text-secondary-even !important;
+}
+.section-even .uk-text-success {
+    color: $text-success-even !important;
+}
+.section-even .uk-text-warning {
+    color: $text-warning-even !important;
+}
+.section-even .uk-text-danger {
+    color: $text-danger-even !important;
+}
+
+/* Cards */
+
+.uk-card,
+.uk-card-default,
+.uk-card-primary,
+.uk-card-secondary {
+    box-shadow: none;
+    transition: none;
+}
+
+.section-odd .uk-card,
+.section-odd .uk-card-default {
+    background-color: $uk-bg-default-odd;
+    color: $text-color-odd;
+}
+
+.section-odd .uk-card h1,
+.section-odd .uk-card h2,
+.section-odd .uk-card h3,
+.section-odd .uk-card h4,
+.section-odd .uk-card-default h1,
+.section-odd .uk-card-default h2,
+.section-odd .uk-card-default h3,
+.section-odd .uk-card-default h4 {
+    color: $headline-color-odd !important;
+    text-shadow: $headline-shadow-odd !important;
+}
+
+.section-odd .uk-card.uk-card-hover:hover,
+.section-odd .uk-card-default.uk-card-hover:hover {
+    background-color: opacify($uk-bg-default-odd, .6);
+    color: $text-color-odd;
+}
+
+.section-odd .uk-card:not(.uk-card-primary):not(.uk-card-secondary).uk-card-hover:hover>h1,
+.section-odd .uk-card:not(.uk-card-primary):not(.uk-card-secondary).uk-card-hover:hover>h2,
+.section-odd .uk-card:not(.uk-card-primary):not(.uk-card-secondary).uk-card-hover:hover>h3,
+.section-odd .uk-card:not(.uk-card-primary):not(.uk-card-secondary).uk-card-hover:hover>h4,
+.section-odd .uk-card-default.uk-card-hover:hover>h1,
+.section-odd .uk-card-default.uk-card-hover:hover>h2,
+.section-odd .uk-card-default.uk-card-hover:hover>h3,
+.section-odd .uk-card-default.uk-card-hover:hover>h4 {
+    color: $headline-color-odd !important;
+    text-shadow: $headline-shadow-odd !important;
+}
+
+.section-odd .uk-card-primary {
+    background-color: $uk-bg-primary-odd;
+}
+
+.section-odd .uk-card-secondary {
+    background-color: $uk-bg-secondary-odd;
+}
+
+.section-odd .uk-card-primary.uk-card-hover:hover {
+    background-color: opacify($uk-bg-primary-odd, .2);
+}
+
+.section-odd .uk-card-secondary.uk-card-hover:hover {
+    background-color: opacify($uk-bg-secondary-odd, .2);
+}
+
+/**/
+
+.section-even .uk-card,
+.section-even .uk-card-default {
+    background-color: $uk-bg-default-even;
+    color: $text-color-even;
+}
+
+.section-even .uk-card h1,
+.section-even .uk-card h2,
+.section-even .uk-card h3,
+.section-even .uk-card h4,
+.section-even .uk-card-default h1,
+.section-even .uk-card-default h2,
+.section-even .uk-card-default h3,
+.section-even .uk-card-default h4 {
+    color: $headline-color-even !important;
+    text-shadow: $headline-shadow-even !important;
+}
+
+.section-even .uk-card.uk-card-hover:hover,
+.section-even .uk-card-default.uk-card-hover:hover {
+    background-color: opacify($uk-bg-default-even, .6);
+    color: $text-color-even;
+}
+
+.section-even .uk-card:not(.uk-card-primary):not(.uk-card-secondary).uk-card-hover:hover>h1,
+.section-even .uk-card:not(.uk-card-primary):not(.uk-card-secondary).uk-card-hover:hover>h2,
+.section-even .uk-card:not(.uk-card-primary):not(.uk-card-secondary).uk-card-hover:hover>h3,
+.section-even .uk-card:not(.uk-card-primary):not(.uk-card-secondary).uk-card-hover:hover>h4,
+.section-even .uk-card-default.uk-card-hover:hover>h1,
+.section-even .uk-card-default.uk-card-hover:hover>h2,
+.section-even .uk-card-default.uk-card-hover:hover>h3,
+.section-even .uk-card-default.uk-card-hover:hover>h4 {
+    color: $headline-color-even !important;
+    text-shadow: $headline-shadow-even !important;
+}
+
+.section-even .uk-card-primary {
+    background-color: $uk-bg-primary-even;
+}
+
+.section-even .uk-card-primary.uk-card-hover:hover {
+    background-color: opacify($uk-bg-primary-even, .2);
+}
+
+.section-even .uk-card-secondary {
+    background-color: $uk-bg-secondary-even;
+}
+.section-even .uk-card-secondary >* {
+    color: $text-color-odd;
+}
+.section-even .uk-card-secondary h1,
+.section-even .uk-card-secondary h2,
+.section-even .uk-card-secondary h3,
+.section-even .uk-card-secondary h4,
+.section-even .uk-card-secondary .uk-card h1,
+.section-even .uk-card-secondary .uk-card h2,
+.section-even .uk-card-secondary .uk-card h3,
+.section-even .uk-card-secondary .uk-card h4,
+.section-even .uk-card-secondary .uk-card-default h1,
+.section-even .uk-card-secondary .uk-card-default h2,
+.section-even .uk-card-secondary .uk-card-default h3,
+.section-even .uk-card-secondary .uk-card-default h4 {
+    text-shadow: none;
+    color: $text-color-odd;
+}
+
+.section-even .uk-card-secondary.uk-card-hover:hover {
+    background-color: opacify($uk-bg-secondary-even, .2);
+}
+
+/* Buttons */
+
+.uk-button {
+    font-size: 1.0em;
+    text-transform: none;
+}
+.uk-button:hover {
+    text-decoration: none !important;
+}
+
+.uk-button-default {
+    background-color: $uk-btn-default;
+}
+
+.uk-button-default:hover {
+    background-color: darken($uk-btn-default, 5);
+}
+
+.uk-button-primary {
+    background-color: $uk-btn-primary;
+}
+
+.uk-button-primary:hover {
+    background-color: darken($uk-btn-primary, 5);
+}
+
+.uk-button-secondary {
+    color: $text-color;
+    background-color: $uk-btn-secondary;
+}
+
+.uk-button-secondary:hover {
+    background-color: darken($uk-btn-secondary, 5);
+}
+
+.uk-button-danger {
+    color: $text-color;
+    background-color: $uk-btn-danger;
+}
+
+.uk-button-danger:hover {
+    background-color: darken($uk-btn-danger, 5);
+}
+
+.uk-button-text {
+    font-size: 1em;
+    text-transform: none;
+    color: $link-color-odd;
+}
+
+.uk-button-text:hover {
+    font-size: 1em;
+    text-transform: none;
+    color: $link-hover-color-odd;
+}
+
+.uk-button-link {
+    font-size: 1em;
+    color: $link-color-odd;
+}
+
+.uk-button-link:hover {
+    color: $link-hover-color-odd;
+    text-decoration: underline !important;
+}
+
+div.uk-container a.uk-button {
+    color: $text-color;
+    text-decoration: none;
+}
+
+div.uk-container a.uk-button:hover {
+    color: $text-color;
+    text-decoration: none;
+}
+
+div.uk-container a.uk-button-default {
+    color: $text-color-negative;
+    text-decoration: none;
+}
+
+div.uk-container a.uk-button-default:hover {
+    color: $text-color-negative;
+    text-decoration: none;
+}
+
+.section-even .uk-button-text {
+    font-size: 1em;
+    text-transform: none;
+    color: $link-color-even;
+}
+
+.section-even .uk-button-text:hover {
+    font-size: 1em;
+    text-transform: none;
+    color: $link-hover-color-even;
+}
+
+.section-even .uk-button-link {
+    font-size: 1em;
+    color: $link-color-even;
+}
+
+.section-even .uk-button-link:hover {
+    color: $link-hover-color-even;
+    text-decoration: underline !important;
+}
+
+
+/* UIkit-Slideshow */
+
+.uk-slideshow-items img {
+    cursor: pointer;
+    width: 100%;
+    max-width: 900px;
+    max-height: 450px;
+}
+
+div.uk-container .uk-slideshow .uk-slideshow-arrow {
+    color: $deko-color !important;
+}
+
+div.uk-container .uk-slideshow .uk-slideshow-arrow:hover {
+    color: darken($deko-color, 10) !important;
+}
+
+/* dotnav */
+
+.uk-dotnav>*>* {
+    width: 12px;
+    height: 12px;
+    border: 1px solid $deko-color !important;
+}
+
+.uk-dotnav>*> :hover {
+    background-color: darken($deko-color, 10) !important;
+    border-color: transparent;
+}
+
+.uk-dotnav>*> :active {
+    background-color: darken($deko-color, 10) !important;
+    border-color: transparent;
+}
+
+.uk-dotnav>.uk-active>* {
+    background-color: $deko-color !important;
+    border-color: transparent;
+}

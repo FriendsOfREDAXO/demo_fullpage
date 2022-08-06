@@ -1,6 +1,6 @@
 /*
 Demonstriert eine Onepage-Website auf Basis von REDAXO 5, fullPage.js und UIkit
-Theme Bike - Einfache Demo, feste horizontale Navigation, Easing-Effect im fullpage-Modus
+Theme Bike - Fixe horizontale Navigation, Easing-Effect im fullPage-Modus
 */
 
 /* SCSS-Variablen _theme.scss */
@@ -8,20 +8,19 @@ Theme Bike - Einfache Demo, feste horizontale Navigation, Easing-Effect im fullp
 
 /*
 -------------------------------------------------------------------------------
-Fonts, Fontawesome, Loader, Hamburger, Styleswitch
+Fonts, Fontawesome
 -------------------------------------------------------------------------------
 */
 
 /* outfit-regular - latin */
 @font-face {
+    font-display: fallback;
     font-family: 'Outfit';
     font-style: normal;
     font-weight: 400;
     src: local(''),
         url('../fonts/outfit-v4-latin-regular.woff2') format('woff2'),
-        /* Chrome 26+, Opera 23+, Firefox 39+ */
         url('../fonts/outfit-v4-latin-regular.woff') format('woff');
-    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
 /* outfit-700 - latin */
@@ -31,16 +30,24 @@ Fonts, Fontawesome, Loader, Hamburger, Styleswitch
     font-weight: 700;
     src: local(''),
         url('../fonts/outfit-v4-latin-700.woff2') format('woff2'),
-        /* Chrome 26+, Opera 23+, Firefox 39+ */
         url('../fonts/outfit-v4-latin-700.woff') format('woff');
-    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
-@import url('../../../css/font-awesome.min.css');
+/* outfit-900 - latin
+@font-face {
+    font-family: 'Outfit';
+    font-style: normal;
+    font-weight: 900;
+    src: local(''),
+        url('../fonts/outfit-v4-latin-900.woff2') format('woff2'),
+        url('../fonts/outfit-v4-latin-900.woff') format('woff');
+}*/
+
+@import url('../../../css/fontawesome.all.min.css');
 
 /*
 -------------------------------------------------------------------------------
-Loader, Hamburger, Styleswitch, glightbox, UIkit-Overrides
+Loader, Styleswitch, plyr, Hamburger, glightbox, UIkit-Overrides
 -------------------------------------------------------------------------------
 */
 
@@ -48,9 +55,11 @@ Loader, Hamburger, Styleswitch, glightbox, UIkit-Overrides
 
 @import url('../../../css/styleswitch.css');
 
+@import url('../../../css/plyr.css');
+
 @import url('hamburger.min.css');
 
-@import url('glightbox.min.css');
+@import url('../../../css/glightbox.min.css');
 
 @import url('uikit-mods.min.css');
 
@@ -59,36 +68,44 @@ Loader, Hamburger, Styleswitch, glightbox, UIkit-Overrides
 Glightbox & Overlay-Color, Buttons
 -------------------------------------------------------------------------------
 */
-.goverlay {
-    background: rgba(0, 0, 0, 0.7);
+
+.glightbox-container .goverlay {
+    background: $overlay-bg;
 }
 
 .glightbox-clean .gprev,
 .glightbox-clean .gnext,
 .glightbox-clean .gclose {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: $glightbox-button-bg;
+}
+
+.glightbox-clean .gclose,
+.gclose {
+    opacity: 1;
+    z-index: 9999999;
+    min-width: 40px;
+    min-height: 40px;
+    right: 30px;
 }
 
 .glightbox-clean .gprev:hover,
 .glightbox-clean .gnext:hover,
 .glightbox-clean .gclose:hover {
-    background-color: rgba(0, 0, 0, 1.0);
+    background-color: $glightbox-button-hover-bg;
 }
 
-/*
--------------------------------------------------------------------------------
-UIkit Overrides
--------------------------------------------------------------------------------
-*/
+.glightbox-clean .gslide-description {
+    background-color: $glightbox-desc-bg;
+    color: $glightbox-text-color;
+    text-align: center;
+}
 
-div.uk-tooltip {
-    max-width: 250px;
-    padding: 5px 10px;
-    background: #000;
-    border-radius: 2px;
-    color: #fff;
-    font-size: 12px;
-    line-height: 1.5em;
+.glightbox-mobile .glightbox-container .gslide-desc {
+    color: $glightbox-text-color;
+}
+
+.gslide-external {
+    max-height: calc(100vh - 80px);
 }
 
 /*
@@ -103,48 +120,18 @@ html * {
 }
 
 body {
-    background: #000;
-    font-family: 'Outfit', Arial, sans-serif;
-    font-size: 18px;
+    font-family: $body-font;
+    font-size: $font-size;
     font-weight: 400;
     letter-spacing: 0px;
-    transition: all 0.3s ease;
     line-height: 1.5em;
-    color: #fff;
+    background: $body-bg;
+    color: $text-color;
 }
 
 .pagewrapper {
     display: block;
     opacity: 0;
-}
-
-div.uk-container a {
-    color: #eee;
-    text-decoration: none;
-}
-
-div.uk-container a:hover {
-    color: #ddd;
-    text-decoration: underline;
-}
-
-div.uk-container a.extern {
-    padding-left: 22px;
-    background: url('../img/extlink.gif') no-repeat left center;
-}
-
-a,
-a:active,
-a:focus,
-a:focus-visible,
-:focus,
-:focus-visible,
-:focus:not([tabindex^='-']) {
-    outline: 0;
-}
-
-i.fa {
-    padding-right: 10px;
 }
 
 /*
@@ -160,7 +147,7 @@ nav {
     background-color: transparent;
     height: 0px;
     width: 100%;
-    z-index: 69;
+    z-index: 71;
     padding: 0;
     margin: 0;
 }
@@ -170,7 +157,6 @@ nav .pagelogo {
     top: 0px;
     left: 0px;
     z-index: 70;
-    transition: all 0.3s ease;
     width: 100%;
 }
 
@@ -187,11 +173,10 @@ nav .logosmall {
     width: 100%;
     top: 0px;
     left: 0px;
-    background-color: #fff;
-    opacity: .8;
+    background-color: $navbar-bg;
 }
 
-nav .logosmall img {
+nav .pagelogo.logosmall img {
     position: absolute;
     top: 10px;
     left: 20px;
@@ -199,19 +184,22 @@ nav .logosmall img {
 }
 
 .mainnav {
-    display: none;
     position: fixed;
     top: 15px;
     right: 15px;
     z-index: 70;
     padding: 0;
     margin: 0;
+    display: block;
+}
+
+.mainnav.navsmall {
+    top: 0px;
 }
 
 .mainnav li {
     list-style: none;
     float: left;
-    height: 50px;
 }
 
 .mainnav li a {
@@ -220,44 +208,37 @@ nav .logosmall img {
     font-weight: bold;
     text-decoration: none;
     display: block;
-    color: #333;
+    color: $mainnav-color;
+    background: $mainnav-bg;
     margin: 0;
     height: 50px;
     line-height: 50px;
     padding: 0px 10px;
-}
-
-.mainnav li.active {
-    background: #333;
-}
-
-.mainnav li.active a {
-    color: #fff;
-}
-
-.mainnav li.active a:hover {
-    color: #fff;
-}
-
-.mainnav li:hover {
-    background: #333;
+    letter-spacing: 0px;
 }
 
 .mainnav li a:hover {
-    color: #fff;
+    color: $mainnav-hover-color;
+    background: $mainnav-hover-bg;
+    transition: all .3s ease-out;
 }
 
-li.mainnaventry-1 {
+.mainnav li.active a {
+    color: $mainnav-active-color;
+    background: $mainnav-active-bg;
+}
+
+.mainnav li.active a:hover {
+    color: $mainnav-active-hover-color;
+}
+
+/* Kategorie ausblenden */
+.mainnav li.hide-mainnav {
     display: none;
 }
 
-.navsmall {
-    top: 0px;
-    transition: all 0.3s ease;
-}
-
-/* Startseite ausblenden */
-li.mainnaventry-1 {
+/* Startseite auf jeden Fall ausblenden */
+.mainnav li.mainnaventry-1 {
     display: none;
 }
 
@@ -269,29 +250,35 @@ Backgrounds will cover all the section
 */
 
 .section {
-    text-align: center;
-    min-height: 200px;
-    position: relative;
-    background-color: #717884;
-    background-size: cover;
+    background-color: $section-bg;
     background-position: center center;
-    padding: 0;
-}
-
-.section-even {
-    background-color: #717884;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .section-odd {
-    background-color: #485261;
+    background-color: $section-bg-odd;
+    color: $text-color-odd;
+}
+
+.section-even {
+    background-color: $section-bg-even;
+    color: $text-color-even;
 }
 
 .slide {
-    text-align: center;
-    min-height: 200px;
-    position: relative;
-    background-size: cover;
     background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+/* wg. Slide-Effekt beim 1. Slide */
+.section-1 {
+    overflow: hidden;
 }
 
 /*
@@ -304,7 +291,7 @@ Section Background-Images
     background:
         linear-gradient(rgba(255, 255, 255, 0.5),
             rgba(255, 255, 255, 0.5)),
-        url('../img/bg01.jpg');
+        $section-1-bg;
     background-size: cover;
     background-position: center center;
 }
@@ -313,61 +300,61 @@ Section Background-Images
     background:
         linear-gradient(rgba(255, 255, 255, 0.5),
             rgba(255, 255, 255, 0.5)),
-        url('../img/bg01.jpg');
+        $section-1-bg;
     background-size: cover;
     background-position: center center;
 }
 
-.section-2 {
+.section-2.loaded {
     background:
         linear-gradient(rgba(0, 0, 0, 0.5),
             rgba(0, 0, 0, 0.5)),
-        url('../img/bg02.jpg');
+        $section-2-bg;
     background-size: cover;
     background-position: center center;
 }
 
-.section-3 {
+.section-3.loaded {
     background:
         linear-gradient(rgba(255, 255, 255, 0.5),
             rgba(255, 255, 255, 0.5)),
-        url('../img/bg03.jpg');
+        $section-3-bg;
     background-size: cover;
     background-position: center center;
 }
 
-.section-4 {
+.section-4.loaded {
     background:
         linear-gradient(rgba(0, 0, 0, 0.5),
             rgba(0, 0, 0, 0.5)),
-        url('../img/bg04.jpg');
+        $section-4-bg;
     background-size: cover;
     background-position: center center;
 }
 
-.section-5 {
+.section-5.loaded {
     background:
         linear-gradient(rgba(255, 255, 255, 0.5),
             rgba(255, 255, 255, 0.5)),
-        url('../img/bg05.jpg');
+        $section-5-bg;
     background-size: cover;
     background-position: center center;
 }
 
-.section-6 {
+.section-6.loaded {
     background:
         linear-gradient(rgba(0, 0, 0, 0.5),
             rgba(0, 0, 0, 0.5)),
-        url('../img/bg06.jpg');
+        $section-6-bg;
     background-size: cover;
     background-position: center center;
 }
 
-.section-13 {
+.section-13.loaded {
     background:
         linear-gradient(rgba(255, 255, 255, 0.5),
             rgba(255, 255, 255, 0.5)),
-        url('../img/bg13.jpg');
+        $section-13-bg;
     background-size: cover;
     background-position: center center;
 }
@@ -379,80 +366,54 @@ Content Container & Content-Elemente
 */
 
 div.uk-container {
-    xpadding-top: 50px;
-    xpadding-bottom: 100px;
-    xborder: solid 1px red;
+    margin-top: 0;
+    margin-bottom: 0;
+    position: relative;
+    word-wrap: break-word;
 }
 
-.container {
+.uk-container> :last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.fp-auto-height div.uk-container {
+    margin-top: 120px;
+    margin-bottom: 120px;
+}
+
+div.container {
     padding: 0;
     margin: 0;
-}
-
-.pictext div.uk-card-body {
-    text-align: left;
-}
-
-.section-even .pictext {
-    background: rgba(0, 0, 0, 0.6);
-    word-wrap: break-word;
-}
-
-.section-odd .pictext {
-    background: rgba(255, 255, 255, 0.4);
-    word-wrap: break-word;
-}
-
-.section-even .gallery-wrap {
-    background: rgba(0, 0, 0, 0.6);
-}
-
-.section-odd .gallery-wrap {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-/* Images */
-
-img.full {
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
-    height: auto;
-    box-sizing: border-box;
-}
-
-.pictext img.content {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-}
-
-.gallery-wrap img {
-    width: 100%;
-    max-width: 100%;
+    text-align: center;
 }
 
 /* Headlines */
 
 h1,
 h2,
-h3 {
-    color: #fff;
+h3,
+h4,
+h5,
+h6 {
+    font-family: $headline-font;
+    color: $headline-color-odd;
+    text-shadow: $headline-shadow-odd;
+    font-weight: 700;
     margin: 0;
-    line-height: 1.3em;
-    font-weight: 700;
-    margin-bottom: .5em;
+    line-height: 1.0em;
+    margin: 0 0 20px 0;
     text-align: center;
-    width: 100%;
-    letter-spacing: 1px;
-    font-family: 'Outfit', Arial, sans-serif;
-    font-weight: 700;
 }
 
 .section-even h1,
 .section-even h2,
-.section-even h3 {
-    color: #333;
+.section-even h3,
+.section-even h4,
+.section-even h5,
+.section-even h6 {
+    color: $headline-color-even;
+    text-shadow: $headline-shadow-even;
 }
 
 h1 {
@@ -460,11 +421,180 @@ h1 {
 }
 
 h2 {
-    font-size: 1.9em;
+    font-size: 2.2em;
 }
 
 h3 {
+    font-size: 1.9em;
+}
+
+h4 {
     font-size: 1.6em;
+}
+
+h5 {
+    font-size: 1.3em;
+}
+
+h6 {
+    font-size: 1.0em;
+}
+
+h1 i {
+    font-size: $font-size;
+    padding-left: 5px;
+    vertical-align: top;
+}
+
+/* Links */
+
+.section-odd div.uk-container a, .section-odd div.uk-container a>* {
+    color: $link-color-odd !important;
+    text-decoration: none;
+}
+
+.section-odd div.uk-container a:hover, .section-odd div.uk-container a:hover>* {
+    color: $link-hover-color-odd !important;
+    text-decoration: underline;
+}
+
+.section-even div.uk-container a, .section-even div.uk-container a>* {
+    color: $link-color-even !important;
+    text-decoration: none;
+}
+
+.section-even div.uk-container a:hover, .section-even div.uk-container a:hover>* {
+    color: $link-hover-color-even !important;
+    text-decoration: underline;
+}
+
+.section-odd div.uk-container a.uk-button, .section-even div.uk-container a.uk-button,
+.section-odd div.uk-container a.uk-button >*, .section-even div.uk-container a.uk-button >*{
+    color: #fff !important;
+    text-decoration: none;
+}
+
+.section-odd div.uk-container a.uk-button-default, .section-even div.uk-container a.uk-button-default,
+.section-odd div.uk-container a.uk-button-default >*, .section-even div.uk-container a.uk-button-default >*{
+    color: $text-color-negative !important;
+    text-decoration: none;
+}
+
+a,
+a:active,
+a:focus,
+a:focus-visible,
+:focus,
+:focus-visible,
+:focus:not([tabindex^='-']) {
+    outline: 0;
+}
+
+/* Fontawesome icons */
+
+div.uk-container i.fas {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/* Images */
+
+img.full {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    height: auto;
+    box-sizing: border-box;
+}
+
+img.content {
+    display: block;
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 0;
+}
+
+/* Bildergalerie */
+
+a.gallery {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    height: 200px;
+    background-color: $deko-color;
+    cursor: pointer;
+}
+
+a.gallery img.thumbnail {
+    min-height: 300px;
+    min-width: 500px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transition: all .3s ease-out;
+    -webkit-transform: translateY(-50%) translateX(-50%);
+    transform: translateY(-50%) translateX(-50%);
+}
+
+a.gallery img.thumbnail:hover {
+    opacity: .5;
+    transition: all .3s ease-out;
+    -webkit-transform: translateY(-50%) translateX(-40%);
+    transform: translateY(-50%) translateX(-40%);
+    cursor: zoom-in;
+}
+
+.section-odd .gallery-wrap {
+    background: $default-bg-odd;
+}
+
+.section-even .gallery-wrap {
+    background: $default-bg-even;
+}
+
+/* Background-Videos */
+
+.fullpage-bgvideo {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    width: 100vw;
+    height: 100%;
+    z-index: 0;
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    object-fit: cover;
+    object-position: center;
+
+}
+
+/* Background Images */
+
+.fullpage-slidebackground {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    width: 100vw;
+    height: 100%;
+    z-index: 0;
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+/* Video */
+
+div.plyr {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+    box-shadow: $plyr-shadow;
 }
 
 /*
@@ -478,65 +608,73 @@ fullPage Navigation Dots
 }
 
 #fp-nav.right {
-    right: 10px;
+    right: 0px;
 }
 
 #fp-nav.left {
-    left: 10px;
+    left: 0px;
 }
 
-.fp-slidesNav.bottom {
-    bottom: 10px;
+#fp-nav ul {
+    padding-top: 30px;
 }
 
-.fp-slidesNav.top {
-    top: 10px;
-}
-
-#fp-nav ul li,
-.fp-slidesNav ul li {
+#fp-nav ul li {
     width: 22px;
     height: 22px;
     margin: 10px;
-    transition: all 2.3s ease-out;
     padding: 0;
 }
 
-.fp-slidesNav ul li {
-    margin: 5px;
-}
-
-#fp-nav ul li a span,
-.fp-slidesNav ul li a span {
-    background: rgba(255, 255, 255, .6);
+#fp-nav ul li a span {
+    background: $navidot-bg;
     height: 8px;
     width: 8px;
     margin: -4px 0 0 -4px;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
 }
 
 #fp-nav ul li a span:hover,
-.fp-slidesNav ul li a span:hover {
-    background: rgba(255, 255, 255, 1.0);
+#fp-nav ul li:hover a span {
+    width: 14px;
+    height: 14px;
+    margin: -7px 0px 0px -7px;
+    background: $navidot-hover-bg;
 }
 
-#fp-nav ul li a.active span,
-.fp-slidesNav ul li a.active span,
-#fp-nav ul li:hover a.active span,
-.fp-slidesNav ul li:hover a.active span {
+#fp-nav ul li a.active span {
     height: 16px;
     width: 16px;
     margin: -8px 0 0 -8px;
     border-radius: 100%;
-    background: rgba(255, 255, 255, .8);
+    background: $navidot-active-bg;
 }
 
-#fp-nav ul li:hover a span,
-.fp-slidesNav ul li:hover a span {
-    width: 14px;
-    height: 14px;
-    margin: -7px 0px 0px -7px;
-    background: rgba(255, 255, 255, 1.0);
+#fp-nav ul li a.active span:hover,
+#fp-nav ul li:hover a.active span {
+    height: 16px;
+    width: 16px;
+    margin: -8px 0 0 -8px;
+    background: $navidot-active-hover-bg;
+}
+
+/* Dark Dots */
+
+#fp-nav.dark ul li a span {
+    background: $navidot-dark-bg;
+}
+
+#fp-nav.dark ul li a span:hover,
+#fp-nav.dark ul li:hover a span {
+    background: $navidot-dark-hover-bg;
+}
+
+#fp-nav.dark ul li a.active span {
+    background: $navidot-dark-active-bg;
+}
+
+#fp-nav.dark ul li a.active span:hover,
+#fp-nav.dark ul li:hover a.active span {
+    background: $navidot-dark-active-hover-bg;
 }
 
 /*
@@ -548,10 +686,10 @@ Tooltip Navigation Dots
 #fp-nav ul li .fp-tooltip {
     max-width: 250px;
     padding: 5px 10px;
-    background: #000;
+    background: $tooltip-bg;
     border-radius: 2px;
-    color: #fff;
-    font-size: 12px;
+    color: $tooltip-color;
+    font-size: $tooltip-font-size;
     line-height: 1.5em;
     display: none;
     transition: all 0.3s ease-out;
@@ -559,7 +697,6 @@ Tooltip Navigation Dots
 
 #fp-nav ul li:hover .fp-tooltip,
 #fp-nav.fp-show-active a.active+.fp-tooltip {
-    transition: all 0.3s ease-out;
     width: auto;
     opacity: 1;
     display: block;
@@ -575,35 +712,143 @@ Tooltip Navigation Dots
 
 /*
 -------------------------------------------------------------------------------
-Horizontal Slide arrows
+Horizontal Slide Navigation dots
 -------------------------------------------------------------------------------
 */
 
-.fp-controlArrow.fp-prev {
-    left: 60px;
-    border-width: 28.5px 24px 28.5px 0;
-    border-color: transparent #fff transparent transparent;
-    opacity: .6;
+.fp-slidesNav {
+    position: absolute;
+    text-align: center;
 }
 
-.fp-controlArrow.fp-next {
-    right: 60px;
-    border-width: 32.5px 0 28.5px 24px;
-    border-color: transparent transparent transparent #fff;
-    opacity: .6;
+.fp-slidesNav.bottom {
+    bottom: 40px;
 }
 
-.fp-controlArrow.fp-prev:hover,
-.fp-controlArrow.fp-next:hover {
-    opacity: 1;
+.fp-slidesNav.top {
+    top: 90px;
+}
+
+.fp-slidesNav ul li {
+    width: 22px;
+    height: 22px;
+    margin: 10px;
+    transition: all 2.3s ease-out;
+    padding: 0;
+}
+
+.fp-slidesNav ul li {
+    margin: 5px;
+}
+
+.fp-slidesNav ul li a span {
+    background: $navidot-bg;
+    height: 8px;
+    width: 8px;
+    margin: -4px 0 0 -4px;
+}
+
+.fp-slidesNav ul li a span:hover,
+.fp-slidesNav ul li:hover a span {
+    width: 14px;
+    height: 14px;
+    margin: -7px 0px 0px -7px;
+    background: $navidot-hover-bg;
+}
+
+.fp-slidesNav ul li a.active span {
+    height: 16px;
+    width: 16px;
+    margin: -8px 0 0 -8px;
+    border-radius: 100%;
+    background: $navidot-active-bg;
+}
+
+.fp-slidesNav ul li a.active span:hover,
+.fp-slidesNav ul li:hover a.active span {
+    height: 16px;
+    width: 16px;
+    margin: -8px 0 0 -8px;
+    background: $navidot-active-hover-bg;
+}
+
+/* Dark Dots */
+
+.fp-slidesNav.dark ul li a span {
+    background: $navidot-dark-bg;
+}
+
+.fp-slidesNav.dark ul li a span:hover,
+.fp-slidesNav.dark ul li:hover a span {
+    background: $navidot-dark-hover-bg;
+}
+
+.fp-slidesNav.dark ul li a.active span {
+    background: $navidot-dark-active-bg;
+}
+
+.fp-slidesNav.dark ul li a.active span:hover,
+.fp-slidesNav.dark ul li:hover a.active span {
+    background: $navidot-dark-active-hover-bg;
 }
 
 /*
 -------------------------------------------------------------------------------
-Scoll down indicator arrow - https://codepen.io/nxworld/pen/OyRrGy
+Horizontal Slide arrows
 -------------------------------------------------------------------------------
 */
 
+.fp-controlArrow {
+    display: inline-block;
+    position: absolute;
+    z-index: 100;
+    top: 50%;
+    margin-top: -30px;
+}
+
+.fp-controlArrow.fp-prev {
+    left: 50px;
+    border-width: 28.5px 24px 28.5px 0;
+    border-color: transparent $arrow-color transparent transparent !important;
+}
+
+.fp-controlArrow.fp-next {
+    right: 50px;
+    border-width: 28.5px 0 28.5px 24px;
+    border-color: transparent transparent transparent $arrow-color !important;
+}
+
+.fp-controlArrow.fp-prev:hover {
+    border-color: transparent $arrow-hover-color transparent transparent !important;
+}
+
+.fp-controlArrow.fp-next:hover {
+    border-color: transparent transparent transparent $arrow-hover-color !important;
+}
+
+.fp-controlArrow.dark.fp-prev {
+    border-color: transparent $arrow-dark-color transparent transparent !important;
+}
+
+.fp-controlArrow.dark.fp-next {
+    border-color: transparent transparent transparent $arrow-dark-color !important;
+}
+
+.fp-controlArrow.dark.fp-prev:hover {
+    border-color: transparent $arrow-dark-hover-color transparent transparent !important;
+}
+
+.fp-controlArrow.dark.fp-next:hover {
+    border-color: transparent transparent transparent $arrow-dark-hover-color !important;
+}
+
+/*
+-------------------------------------------------------------------------------
+Scoll down/up indicator arrow - https://codepen.io/nxworld/pen/OyRrGy
+-------------------------------------------------------------------------------
+*/
+
+/* arrow down */
 a.arrowdown {
     position: relative;
     display: inline-block;
@@ -612,9 +857,10 @@ a.arrowdown {
     transition: opacity .3s;
     width: 40px;
     height: 40px;
-    opacity: .7;
     margin: 0 auto;
+    margin-top: 20px;
     line-height: 1;
+    opacity: 0;
 }
 
 a.arrowdown:hover {
@@ -625,26 +871,27 @@ a.arrowdown span {
     position: absolute;
     top: 0;
     left: 50%;
-    width: 24px;
-    height: 24px;
-    margin-left: -12px;
-    border-left: 6px solid #fff;
-    border-bottom: 6px solid #fff;
+    width: 30px;
+    height: 30px;
+    margin-left: -15px;
+    border-left: 6px solid $arrowdown-color;
+    border-bottom: 6px solid $arrowdown-color;
     -webkit-transform: rotate(-45deg);
     transform: rotate(-45deg);
-    -webkit-animation: sdanimation 3s infinite;
-    animation: sdanimation 3s infinite;
+    -webkit-animation: arrowdownanimation 3s infinite;
+    animation: arrowdownanimation 3s infinite;
     box-sizing: border-box;
-    box-shadow: -3px 3px 3px -2px rgba(51, 51, 51, 0.5);
+    box-shadow: $arrowdown-shadow;
+    text-indent:-9999px;
 }
 
-a.arrowdown span:hover {
+a.arrowdown:hover span {
     transition: all 0.3s ease;
-    border-left: 6px solid #666;
-    border-bottom: 6px solid #666;
+    border-left: 6px solid $arrowdown-hover-color;
+    border-bottom: 6px solid $arrowdown-hover-color;
 }
 
-@-webkit-keyframes sdanimation {
+@-webkit-keyframes arrowdownanimation {
     0% {
         -webkit-transform: rotate(-45deg) translate(0, 0);
     }
@@ -658,7 +905,7 @@ a.arrowdown span:hover {
     }
 }
 
-@keyframes sdanimation {
+@keyframes arrowdownanimation {
     0% {
         transform: rotate(-45deg) translate(0, 0);
     }
@@ -672,6 +919,77 @@ a.arrowdown span:hover {
     }
 }
 
+/* arrow up */
+a.arrowup {
+    position: relative;
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    transition: opacity .3s;
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    line-height: 1;
+    opacity: 0;
+}
+
+a.arrowup:hover {
+    opacity: 1;
+}
+
+a.arrowup span {
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin-left: -15px;
+    border-left: 6px solid $arrowup-color;
+    border-bottom: 6px solid $arrowup-color;
+    -webkit-transform: rotate(+135deg);
+    transform: rotate(+135deg);
+    -webkit-animation: arrowupanimation 3s infinite;
+    animation: arrowupanimation 3s infinite;
+    box-sizing: border-box;
+    box-shadow: $arrowdown-shadow;
+    text-indent:-9999px;
+}
+
+a.arrowup:hover span {
+    transition: all 0.3s ease;
+    border-left: 6px solid $arrowup-hover-color;
+    border-bottom: 6px solid $arrowup-hover-color;
+}
+
+@-webkit-keyframes arrowupanimation {
+    0% {
+        -webkit-transform: rotate(+135deg) translate(0, 0);
+    }
+
+    20% {
+        -webkit-transform: rotate(+135deg) translate(-10px, 10px);
+    }
+
+    40% {
+        -webkit-transform: rotate(+135deg) translate(0, 0);
+    }
+}
+
+@keyframes arrowupanimation {
+    0% {
+        transform: rotate(+135deg) translate(0, 0);
+    }
+
+    20% {
+        transform: rotate(+135deg) translate(-10px, 10px);
+    }
+
+    40% {
+        transform: rotate(+135deg) translate(0, 0);
+    }
+}
+
 /*
 -------------------------------------------------------------------------------
 back to top arrow
@@ -679,109 +997,167 @@ back to top arrow
 */
 
 .back-to-top {
-    background: none;
-    margin: 0;
     position: fixed;
     bottom: 20px;
-    right: 15px;
+    right: 20px;
     width: 40px;
     height: 40px;
     z-index: 200;
     display: none;
     text-decoration: none;
-    color: #fff;
-    opacity: .5;
+    color: $toparrow-color;
     transition: all 0.3s ease;
 }
 
 .back-to-top:hover {
-    color: #fff;
-    opacity: 1;
+    color: $toparrow-hover-color;
 }
 
 .back-to-top i {
     font-size: 44px;
 }
 
+.back-to-top span {
+    display: none;
+}
+
 /*
 -------------------------------------------------------------------------------
-Responsive / Breakpoints
+Responsive Modus
 -------------------------------------------------------------------------------
 */
 
-/*.fp-responsive .hamburger {
+/* Navigation */
+
+.fp-responsive .hamburger {
     display: block;
-}*/
+}
+
+.fp-responsive nav {
+    position: sticky;
+    transition: top 200ms ease-in-out;
+}
 
 .fp-responsive .mainnav {
     top: 50px;
     left: 0px;
     display: block;
     width: 100%;
-    opacity: .8;
-    transition: none;
+}
+
+.fp-responsive .mainnav.active {
+    background-color: $navbar-active-bg;
+    transition: all .2s ease-out;
+}
+
+.fp-responsive div.pagelogo.active {
+    background-color: $navbar-active-bg;
+    transition: all .2s ease-out;
 }
 
 .fp-responsive .mainnav li {
     list-style: none;
     float: left;
-    display: block;
     width: 100%;
-    background: #fff;
     height: auto;
-    padding: 0;
 }
 
-.fp-responsive .mainnav li a {
+.fp-responsive .mainnav a {
     height: auto;
     line-height: 2.2em;
-    font-size: 1.5em;
+    font-size: 1.4em;
     margin: 0;
     padding: 0;
     text-align: center;
+    color: $navbar-link-color;
+    background-color: $navbar-link-bg;
 }
 
-.fp-responsive .mainnav li.active {
-    background: #333;
+.fp-responsive .mainnav a:hover {
+    color: $navbar-link-hover-color;
+    background-color: $navbar-link-hover-bg;
 }
 
 .fp-responsive .mainnav li.active a {
-    color: #fff;
+    background: $navbar-link-active-bg;
+    color: $navbar-link-active-color;
 }
 
 .fp-responsive .mainnav li.active a:hover {
-    color: #fff;
+    background: $navbar-link-active-hover-bg;
+    color: $navbar-link-active-hover-color;
 }
 
-.fp-responsive .mainnav li:hover {
-    background: #333;
-}
-
-.fp-responsive .mainnav li a:hover {
-    color: #fff;
-}
-
-.fp-responsive li.mainnaventry-1 {
-    display: none;
-}
+/* Uikit-Container */
 
 .fp-responsive div.uk-container {
-    padding-top: 50px;
-    padding-bottom: 100px;
+    margin-top: 100px;
+    margin-bottom: 100px;
 }
 
+/* Slide Navigation dots */
+
+.fp-responsive .fp-slidesNav.top {
+    top: 70px;
+}
+
+.fp-responsive .fp-slidesNav.bottom {
+    bottom: 40px;
+}
+
+.fp-responsive .fp-slidesNav.slidefixed {
+    top: 60px;
+    bottom: initial;
+}
+
+/* Minimum Viewport-Höhe */
+
+.fp-responsive .fp-auto-height-responsive {
+    min-height: 100vh;
+}
+
+.fp-responsive .fp-auto-height-responsive .slide {
+    min-height: 100vh;
+}
+
+.fp-responsive .fp-tableCell.slidefixed {
+    vertical-align: top;
+}
+
+/* Horizontal Slide arrows */
+
 .fp-responsive .fp-controlArrow.fp-prev {
-    left: 10px;
+    left: 5px;
 }
 
 .fp-responsive .fp-controlArrow.fp-next {
-    right: 0px;
+    right: 5px;
 }
 
-@media (max-width: 1100px) {
+/*
+-------------------------------------------------------------------------------
+Breakpoints
+-------------------------------------------------------------------------------
+*/
+
+@media (orientation: landscape) {}
+
+@media (orientation: portrait) {}
+
+@media (max-width: 1299px) {
+
+    nav .pagelogo img {
+        top: 20px;
+        left: 20px;
+        width: 250px;
+    }
+
+}
+
+@media (max-width: 1199px) {
 
     body {
-        font-size: 17px;
+        font-size: 18px;
     }
 
 }
@@ -789,7 +1165,7 @@ Responsive / Breakpoints
 @media (max-width: 960px) {
 
     body {
-        font-size: 16px;
+        font-size: 17px;
     }
 
 }
@@ -800,12 +1176,78 @@ Responsive / Breakpoints
         font-size: 16px;
     }
 
+    .back-to-top {
+        bottom: 10px;
+        right: 10px;
+    }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 480px) {
 
     body {
         font-size: 16px;
     }
 
+}
+
+/*
+-------------------------------------------------------------------------------
+Testseite - andere Headline-Color bei dunklem Hintergrund
+-------------------------------------------------------------------------------
+*/
+.section-odd div.slide-13-15 h2, .section-odd .slide-13-9 h2, .section-odd .slide-13-20 h2 {
+    color: $headline-color-even;
+    text-shadow: $headline-shadow-even;
+}
+
+/*
+-------------------------------------------------------------------------------
+Interner Content in der glightbox
+-------------------------------------------------------------------------------
+*/
+
+body.lightboxcontent {
+    height: auto;
+    width: 100vw;
+    max-width: 100vw;
+    overflow-x: hidden;
+    background-color: $lightboxcontent-bg;
+}
+
+section.lightboxcontent {
+    min-height: 100vh;
+    width: 100vw;
+    max-width: 100vw;
+    display: table;
+}
+
+section.lightboxcontent div.lightboxcontent{
+    padding-top: 80px;
+    padding-bottom: 80px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+section.lightboxcontent h2 {
+    color: $headline-color-even;
+    text-shadow: $headline-shadow-even;
+}
+
+section.lightboxcontent .uk-card {
+    background-color: $uk-bg-default-even !important;
+}
+
+section.lightboxcontent a {
+    color: $link-color-even !important;
+}
+
+@media (max-width: 768px) {
+    section.lightboxcontent {
+        display: block;
+    }
+    section.lightboxcontent div.lightboxcontent{
+        padding-top: 40px;
+        padding-bottom: 40px;
+        display: block;
+    }
 }

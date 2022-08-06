@@ -9,11 +9,11 @@ $addon->setProperty('successmsg', rex_i18n::rawMsg('demo_fullpage_success_messag
 if (!$addon->hasConfig() or ($addon->getConfig('theme') == '')) {
     $addon->setConfig('theme', 'coffee');
     $addon->setConfig('logo', '');
+    $addon->setConfig('autoscrolling', '1');
     $addon->setConfig('showscrollbar', '0');
     $addon->setConfig('responsivewidth', '1200');
     $addon->setConfig('responsiveheight', '750');
     $addon->setConfig('scrollingspeed', '800');
-    $addon->setConfig('autoscrolling', '1');
     $addon->setConfig('shownavigation', '1');
     $addon->setConfig('shownavigationtooltip', '1');
     $addon->setConfig('navigationposition', 'right');

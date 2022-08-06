@@ -7,6 +7,8 @@ ul.styleswitch {
     left: 20px;
     margin: 0;
     padding: 0;
+    transition: all 0.3s ease;
+    display: none;
 }
 
 ul.styleswitch li {
@@ -19,8 +21,10 @@ ul.styleswitch li a {
     width: 22px;
     height: 22px;
     margin-right: 10px;
-    opacity: .7;
+    opacity: .6;
     border: solid 1px transparent;
+    transition: all 0.3s ease;
+    text-indent:-9999px;
 }
 
 ul.styleswitch li a:hover {
@@ -37,7 +41,7 @@ ul.styleswitch li a.bike {
 }
 
 ul.styleswitch li a.road {
-    background: #546E7A;
+    background: #337777;
 }
 
 ul.styleswitch li a.minimal {
@@ -48,28 +52,31 @@ ul.styleswitch li a.minimal {
 
 div.for {
     position: fixed;
-    bottom: -20px;
+    bottom: -30px;
     right: 80px;
     width: 60px;
     height: 60px;
     z-index: 70;
     background-image: url('../img/for.png');
     background-size: cover;
-    transition: all 0.3s ease;
+    transition: all .3s ease;
     transform: rotate(15deg);
-    opacity: .5;
+    opacity: 0;
 }
 
 div.for:hover {
-    opacity: 1;
-    bottom: -10px;
+    opacity: 1 !important;
+    bottom: -8px;
     transform: rotate(0deg);
+    width: 70px;
+    height: 70px;
 }
 
 div.for a {
     display: block;
     width: 60px;
     height: 60px;
+    text-indent:-9999px;
 }
 
 @media (max-width: 1200px) {
@@ -85,15 +92,15 @@ div.for a {
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     div.for {
         display: none;
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     ul.styleswitch {
-        bottom: 5px;
-        left: 5px;
+        bottom: 10px;
+        left: 10px;
     }
 }

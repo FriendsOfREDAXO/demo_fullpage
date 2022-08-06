@@ -32,7 +32,7 @@ if ($func == 'update') {
     echo rex_view::info($addon->i18n('compile_theme'));
 
     $compiler = new fullpage_theme_compiler();
-    $compiler->compile($addon->getConfig('theme'));
+    $compiler->compile($addon->getConfig('theme'), true);
 
 }
 
@@ -132,11 +132,22 @@ $fragment = new rex_fragment();
 $fragment->setVar('elements', $formElements, false);
 $content .= $fragment->parse('core/form/container.php');
 
+// Autoscrolling
+$formElements = [];
+$n = [];
+$n['label'] = '<label for="autoscrolling">' . htmlspecialchars_decode($addon->i18n('config_autoscrolling')) . '</label>';
+$n['field'] = '<input type="checkbox" id="autoscrolling" name="settings[autoscrolling]"' . ($Values['autoscrolling'] !== '' && $Values['autoscrolling'] === '1' ? ' checked="checked"' : '') . ' value="1" />';
+$formElements[] = $n;
+
+$fragment = new rex_fragment();
+$fragment->setVar('elements', $formElements, false);
+$content .= $fragment->parse('core/form/checkbox.php');
+
 // Scrollbar anzeigen
 $formElements = [];
 $n = [];
 $n['label'] = '<label for="showscrollbar">' . htmlspecialchars_decode($addon->i18n('config_showscrollbar')) . '</label>';
-$n['field'] = '<input type="checkbox" id="showscrollbar" name="settings[showscrollbar]"' . (!empty($Values['showscrollbar']) && $Values['showscrollbar'] == '1' ? ' checked="checked"' : '') . ' value="1" />';
+$n['field'] = '<input type="checkbox" id="showscrollbar" name="settings[showscrollbar]"' . ($Values['showscrollbar'] !== '' && $Values['showscrollbar'] === '1' ? ' checked="checked"' : '') . ' value="1" />';
 $formElements[] = $n;
 
 $fragment = new rex_fragment();
@@ -178,22 +189,11 @@ $fragment = new rex_fragment();
 $fragment->setVar('elements', $formElements, false);
 $content .= $fragment->parse('core/form/container.php');
 
-// Autoscrolling
-$formElements = [];
-$n = [];
-$n['label'] = '<label for="autoscrolling">' . htmlspecialchars_decode($addon->i18n('config_autoscrolling')) . '</label>';
-$n['field'] = '<input type="checkbox" id="autoscrolling" name="settings[autoscrolling]"' . (!empty($Values['autoscrolling']) && $Values['autoscrolling'] == '1' ? ' checked="checked"' : '') . ' value="1" />';
-$formElements[] = $n;
-
-$fragment = new rex_fragment();
-$fragment->setVar('elements', $formElements, false);
-$content .= $fragment->parse('core/form/checkbox.php');
-
 // Show navigation
 $formElements = [];
 $n = [];
 $n['label'] = '<label for="shownavigation">' . htmlspecialchars_decode($addon->i18n('config_shownavigation')) . '</label>';
-$n['field'] = '<input type="checkbox" id="shownavigation" name="settings[shownavigation]"' . (!empty($Values['shownavigation']) && $Values['shownavigation'] == '1' ? ' checked="checked"' : '') . ' value="1" />';
+$n['field'] = '<input type="checkbox" id="shownavigation" name="settings[shownavigation]"' . ($Values['shownavigation'] !== '' && $Values['shownavigation'] === '1' ? ' checked="checked"' : '') . ' value="1" />';
 $formElements[] = $n;
 
 $fragment = new rex_fragment();
@@ -204,7 +204,7 @@ $content .= $fragment->parse('core/form/checkbox.php');
 $formElements = [];
 $n = [];
 $n['label'] = '<label for="shownavigationtooltip">' . htmlspecialchars_decode($addon->i18n('config_shownavigationtooltip')) . '</label>';
-$n['field'] = '<input type="checkbox" id="shownavigationtooltip" name="settings[shownavigationtooltip]"' . (!empty($Values['shownavigationtooltip']) && $Values['shownavigationtooltip'] == '1' ? ' checked="checked"' : '') . ' value="1" />';
+$n['field'] = '<input type="checkbox" id="shownavigationtooltip" name="settings[shownavigationtooltip]"' . ($Values['shownavigationtooltip'] !== '' && $Values['shownavigationtooltip'] === '1' ? ' checked="checked"' : '') . ' value="1" />';
 $formElements[] = $n;
 
 $fragment = new rex_fragment();
@@ -236,7 +236,7 @@ $content .= $fragment->parse('core/form/container.php');
 $formElements = [];
 $n = [];
 $n['label'] = '<label for="showslidearrows">' . htmlspecialchars_decode($addon->i18n('config_showslidearrows')) . '</label>';
-$n['field'] = '<input type="checkbox" id="showslidearrows" name="settings[showslidearrows]"' . (!empty($Values['showslidearrows']) && $Values['showslidearrows'] == '1' ? ' checked="checked"' : '') . ' value="1" />';
+$n['field'] = '<input type="checkbox" id="showslidearrows" name="settings[showslidearrows]"' . ($Values['showslidearrows'] !== '' && $Values['showslidearrows'] === '1' ? ' checked="checked"' : '') . ' value="1" />';
 $formElements[] = $n;
 
 $fragment = new rex_fragment();
@@ -247,7 +247,7 @@ $content .= $fragment->parse('core/form/checkbox.php');
 $formElements = [];
 $n = [];
 $n['label'] = '<label for="showslidenavigation">' . htmlspecialchars_decode($addon->i18n('config_showslidenavigation')) . '</label>';
-$n['field'] = '<input type="checkbox" id="showslidenavigation" name="settings[showslidenavigation]"' . (!empty($Values['showslidenavigation']) && $Values['showslidenavigation'] == '1' ? ' checked="checked"' : '') . ' value="1" />';
+$n['field'] = '<input type="checkbox" id="showslidenavigation" name="settings[showslidenavigation]"' . ($Values['showslidenavigation'] !== '' && $Values['showslidenavigation'] == '1' ? ' checked="checked"' : '') . ' value="1" />';
 $formElements[] = $n;
 
 $fragment = new rex_fragment();
@@ -279,7 +279,7 @@ $content .= $fragment->parse('core/form/container.php');
 $formElements = [];
 $n = [];
 $n['label'] = '<label for="usesubcategories">' . htmlspecialchars_decode($addon->i18n('config_usesubcategories')) . '</label>';
-$n['field'] = '<input type="checkbox" id="usesubcategories" name="settings[usesubcategories]"' . (!empty($Values['usesubcategories']) && $Values['usesubcategories'] == '1' ? ' checked="checked"' : '') . ' value="1" />';
+$n['field'] = '<input type="checkbox" id="usesubcategories" name="settings[usesubcategories]"' . ($Values['usesubcategories'] !== '' && $Values['usesubcategories'] == '1' ? ' checked="checked"' : '') . ' value="1" />';
 $formElements[] = $n;
 
 $fragment = new rex_fragment();

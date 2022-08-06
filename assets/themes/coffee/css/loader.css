@@ -1,5 +1,8 @@
 /* Page loading animation - https://projects.lukehaas.me/css-loaders/ */
 
+/* SCSS-Variablen _theme.scss */
+@import "theme";
+
 .loader,
 .loader:before,
 .loader:after {
@@ -8,12 +11,12 @@
     height: 2.5em;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
-    -webkit-animation: load7 1.8s infinite ease-in-out;
-    animation: load7 1.8s infinite ease-in-out;
+    -webkit-animation: loader7 1.8s infinite ease-in-out;
+    animation: loader7 1.8s infinite ease-in-out;
 }
 
 .loader {
-    color: #fa0;
+    color: $deko-color;
     font-size: .6em;
     position: absolute;
     top: 47%;
@@ -45,7 +48,7 @@
     left: 3.5em;
 }
 
-@-webkit-keyframes load7 {
+@-webkit-keyframes loader7 {
 
     0%,
     80%,
@@ -58,7 +61,7 @@
     }
 }
 
-@keyframes load7 {
+@keyframes loader7 {
 
     0%,
     80%,

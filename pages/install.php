@@ -65,7 +65,7 @@ if (is_readable($package->getPath('README.'. rex_i18n::getLanguage() .'.md'))) {
     $content .= rex_view::info(rex_i18n::msg('package_no_help_file'));
 }
 
-if (!empty($content)) {
+if ($content !== '') {
     $fragment = new rex_fragment();
     $fragment->setVar('title', rex_i18n::msg('package_help') . ' ' . $name, false);
     $fragment->setVar('body', $content, false);

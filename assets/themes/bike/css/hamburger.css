@@ -6,6 +6,9 @@
  * @link https://github.com/jonsuh/hamburgers
  */
 
+/* SCSS-Variablen _theme.scss */
+@import "theme";
+
 .hamburger {
     display: none;
     position: fixed;
@@ -25,18 +28,12 @@
     transition-property: opacity, filter;
     transition-duration: 0.15s;
     transition-timing-function: linear;
-    font: inherit;
-    color: inherit;
     text-transform: none;
     background-color: transparent;
     border: 0;
     margin: 0;
     margin-top: 3px;
     overflow: visible;
-}
-
-.hamburger:hover {
-    opacity: 0.6;
 }
 
 .hamburger-box {
@@ -52,17 +49,20 @@
     margin-top: -2px;
 }
 
-.hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
     width: 40px;
     height: 5px;
-    background-color: #333;
+    background-color: $hamburger-color;
     position: absolute;
     transition-property: transform;
     transition-duration: 0.15s;
     transition-timing-function: ease;
 }
 
-.hamburger-inner::before, .hamburger-inner::after {
+.hamburger-inner::before,
+.hamburger-inner::after {
     content: "";
     display: block;
 }
@@ -73,6 +73,12 @@
 
 .hamburger-inner::after {
     bottom: -10px;
+}
+
+.hamburger:hover .hamburger-inner,
+.hamburger:hover .hamburger-inner::before,
+.hamburger:hover .hamburger-inner::after {
+    background-color: $hamburger-hover-color;
 }
 
 /*

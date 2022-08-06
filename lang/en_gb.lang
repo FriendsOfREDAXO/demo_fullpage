@@ -16,24 +16,25 @@ demo_fullpage_config_addmedia = Add media
 demo_fullpage_config_deletemedia = Delete selected media
 demo_fullpage_config_showmedia = Show selected media
 demo_fullpage_config_showscrollbar = Show scrollbar
-demo_fullpage_config_responsivewidth =
+demo_fullpage_config_responsivewidth = Responsive width
 demo_fullpage_config_responsivewidth_note =
-demo_fullpage_config_responsiveheight =
+demo_fullpage_config_responsiveheight = Responsive height
 demo_fullpage_config_responsiveheight_note =
-demo_fullpage_config_scrollingspeed = Scrolling speed
-demo_fullpage_config_autoscrolling = Scroll to next page automatically
+demo_fullpage_config_scrollingspeed = Scrolling speed in ms
+demo_fullpage_config_autoscrolling = Scroll to next page automatically (<strong>Fullpage-Mode</strong>)
 demo_fullpage_config_shownavigation = Show navigation pager (dots)
 demo_fullpage_config_shownavigationtooltip = Show tooltip for navigation pager (dots)
 demo_fullpage_config_navigationposition = Position of navigation pager (dots)
 demo_fullpage_config_showslidearrows = Show arrows for horizontal slides
 demo_fullpage_config_showslidenavigation = Show pager navigation (dots) for horizontal slides
 demo_fullpage_config_slidenavigationposition = Position of pager navigation (dots)
-demo_fullpage_config_usesubcategories = Use child categories as slides (instead of child articles)
+demo_fullpage_config_usesubcategories = Use child categories as slides (additionally of child articles)
 
 demo_fullpage_save = Save settings
 
 demo_fullpage_config_saved = Settings saved!
 demo_fullpage_compile_theme =
+demo_fullpage_compile_error =
 
 demo_fullpage_themes = Themes
 demo_fullpage_description_themes_heading = Themes information
@@ -47,7 +48,7 @@ demo_fullpage_package_failed_to_validate = Error validating <b>"{0}"</b>!
 demo_fullpage_package_failed_to_extract  = Error unpacking <b>"{0}"</b>!
 demo_fullpage_package_failed_to_install  = Error installing <b>"{0}"</b>!
 demo_fullpage_package_failed_to_activate = Error activating <b>"{0}"</b>!
-demo_fullpage_package_failed_to_import   = Error imprting <b>"{0}"</b>!
+demo_fullpage_package_failed_to_import   = Error impoting <b>"{0}"</b>!
 
 demo_fullpage_installation_error         = The demo could no be installed:
 demo_fullpage_installation_success       = Demo successfully installed!
@@ -59,3 +60,7 @@ demo_fullpage_meta_bgcolor =
 demo_fullpage_meta_bgvideo =
 demo_fullpage_meta_autoheight =
 demo_fullpage_meta_nomenu =
+
+demo_fullpage_changelog = Changelog
+demo_fullpage_description_changelog_heading = Changelog demo_fullpage
+demo_fullpage_no_changelog_file =

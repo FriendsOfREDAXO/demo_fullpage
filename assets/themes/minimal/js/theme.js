@@ -1,141 +1,249 @@
-/* Options and Callbacks for fullpage.js */
+/* Globals */
+
+let gallerylightbox = null;
+let contentlightbox = null;
+
+let active_section = 1;
+let active_section_id = '';
+let active_slide = 0;
+let active_slide_id = '';
+let after_render = 0;
+let fpresizing = false;
+
+/* Helper Functions */
+
+// Return viewport-dimensions
+function viewport() {
+    var e = window, a = 'inner';
+    if (!('innerWidth' in window)) {
+        a = 'client';
+        e = document.documentElement || document.body;
+    }
+    return { width: e[a + 'Width'], height: e[a + 'Height'] };
+}
+
+// Return scrollbar-width
+function fpScrollbarWidth() {
+    return window.innerWidth - document.documentElement.clientWidth;
+}
+
+// Return responsive mode
+function fpIsResponsive() {
+    return $('body').hasClass('fp-responsive');
+}
+
+// Navigation-Dots in der Main-Navi ausblenden (class=hide-mainnav)
+function fpHideNaviDots() {
+    $('.hide-mainnav').each(function (index) {
+        $('#fp-nav').find('a[href$="#' + $(this).data('menuanchor') + '"]').parent().css('display', 'none');
+    });
+}
+
+// Srcoll to top of section
+function fpScrollToTopOfSection(sel, index) {
+    if (!fpIsResponsive()) return;
+    var scrolledTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrolledTop != $(sel).offset().top) {
+        $('html,body').animate({ scrollTop: $(sel).offset().top }, 200);
+        $.fn.fullpage.moveTo(index);
+    }
+}
+
+// Load Background-Images, set Background-Images, set Background-Videos
+function fpSetBackgrounds() {
+    $('.section').addClass('loaded');
+    $('section[data-bgvideo]').each(function () {
+        $(this).prepend('<video class="fullpage-bgvideo" autoplay data-autoplay muted loop><source data-src="' + $(this).data('bgvideo') + '" type="' + $(this).data('videotype') + '"></video>');
+    });
+    $('.slide[data-bgvideo]').each(function () {
+        $(this).prepend('<video class="fullpage-bgvideo" autoplay data-autoplay muted loop><source data-src="' + $(this).data('bgvideo') + '" type="' + $(this).data('videotype') + '"></video>');
+    });
+    $('section[data-bgstyle]').each(function () {
+        $(this).prepend('<div class="fullpage-slidebackground" style="' + $(this).data('bgstyle') + '"></div>');
+    });
+    $('.slide[data-bgstyle]').each(function () {
+        $(this).prepend('<div class="fullpage-slidebackground" style="' + $(this).data('bgstyle') + '"></div>');
+    });
+    $('.fullpage-slidebackground').css('width', 'calc(100vw - ' + fpScrollbarWidth() + 'px)');
+}
+
+// Preload Images with data-src
+function fpPreloadImages() {
+    $('div.fullpage').find('img[data-src]').each(function () {
+        $(this).attr('src', $(this).data('src')).removeAttr('data-src');
+    });
+}
+
+// use plyr for videos
+function fpUsePlyr() {
+    $.getScript('assets/addons/demo_fullpage/js/plyr.js', function () {
+        localStorage.removeItem('plyr');
+        const player = new Plyr('.video');
+    });
+}
+
+// Fix Background-Images + Background-Video
+function fpFixBackgrounds() {
+    $('.fullpage-bgvideo').css('width', 'calc(100vw - ' + fpScrollbarWidth() + 'px)');
+    $('.fullpage-slidebackground').css('width', 'calc(100vw - ' + fpScrollbarWidth() + 'px)');
+}
+
+// Fix Navigation - Main/Hamburger
+function fpFixNavigation() {
+    if (fpIsResponsive()) {
+        $('.mainnav').hide();
+        $('.hamburger').removeClass('is-active');
+    } else {
+        $('.mainnav').fadeIn(300);
+    }
+}
+
+/* Options and Callbacks for fullPage.js */
+
 var fps_settings = {
-    scrollBar: false,
-    scrollingSpeed: 600,
-    css3: true,
+    //navigation
     menu: '.mainnav',
-    verticalCentered: true,
-    recordHistory: false,
-    autoScrolling: false,
-    fitToSection: false,
-    responsiveWidth: 1050,
-    responsiveHeight: 600,
-    paddingTop: '0px',
     navigation: false,
     navigationPosition: 'right',
     showActiveTooltip: false,
-    controlArrows: false,
     slidesNavigation: false,
     slidesNavPosition: 'bottom',
+
+    //scrolling
+    scrollBar: false,
+    css3: true, // bei "fixed" Hintergrundbildern muss dieser Parameter auf false stehen!
+    easing: 'easeInOutCubic', // für weitere Effekte jquery.easings.min.js im Template Footer aktivieren
+    scrollingSpeed: 800,
+    autoScrolling: false,
+    fitToSection: true,
+    fitToSectionDelay: 1000,
+    loopBottom: false,
+    loopTop: false,
     loopHorizontal: true,
-    bigSectionsDestination: 'top',
-    lazyLoading: true,
     continuousVertical: false,
+    touchSensitivity: 15,
+    normalScrollElementTouchThreshold: 5,
+    bigSectionsDestination: 'top',
+
+    //Accessibility
+    keyboardScrolling: true,
+    animateAnchor: true,
+    recordHistory: true,
+
+    //design
+    controlArrows: false,
+    controlArrowColor: '#333',
+    verticalCentered: true,
+    paddingTop: 0,
+    paddingBottom: 0,
+    responsive: 0,
+    responsiveWidth: 1200,
+    responsiveHeight: 750,
+
+    lazyLoading: true,
+
+    // After rebuild of fullPage
+    afterReBuild: function () {
+    },
 
     // Init, hide loader fadein pagewrapper ...
     afterRender: function () {
-        $('.loader').fadeOut(700);
-        $('.pagewrapper').animate({ opacity: 1 }, 600);
-        if ($('.hamburger').is(':visible')) {
-            $('.mainnav').hide();
-        } else {
-            $('.mainnav').fadeIn(600);
-        }
-        $('#fp-nav').fadeIn(600);
-        viewportheight = window.innerHeight;
-        //$('section').css('min-height', viewportheight);
+        after_render = 1;
+
+        $('.loader').fadeOut(600); // Loading-Animation ausblenden
+
+        // ausgeblendete Sections auch bei den Navi-Dots ausblenden
+        //fpHideNaviDots();
+
+        // pagewrapper einblenden
+        $('.pagewrapper').animate({ opacity: 1 }, 400, function () { // Animation complete.
+            // Animation Styleswitch
+            $('.styleswitch').addClass('uk-animation-slide-bottom').show();
+            // Animation TRex
+            $('div.for').animate({ opacity: .5 }, 1000, function () { });
+        });
     },
-    // After loading slide
-    afterLoad: function (anchorLink, index) {
-        active_slide = index;
-    },
-    // leaving slide
-    onLeave: function (index, nextIndex, direction) {
-        $('a.arrowdown-' + index).hide();
-        $('a.arrowdown-' + nextIndex).show();
-    },
+
     // Switch responsive mode
     afterResponsive: function (isResponsive) {
-        if (isResponsive) {
-            $('.mainnav').hide();
-            $('.hamburger').show();
-            //$('section:not(.fp-auto-height)').addClass('rem-fp-auto-height').addClass('fp-auto-height');
-        } else {
-            $('.mainnav').show();
-            $('.hamburger').hide();
-            //$('section.rem-fp-auto-height').removeClass('fp-auto-height').removeClass('rem-fp-auto-height');
-        }
+        fpFixNavigation();
+        fpFixBackgrounds();
+        $.fn.fullpage.moveTo(active_section, active_slide);
     },
+
     // After resize page
     afterResize: function () {
+        fpresizing = false;
+        fpFixNavigation();
+        fpFixBackgrounds();
+        $.fn.fullpage.moveTo(active_section, active_slide);
+    },
+
+    // After loading slide
+    afterLoad: function (anchorLink, index) {
+        if (!fpresizing) {
+            active_section = index;
+            active_section_id = anchorLink;
+            fpFixBackgrounds();
+        }
+    },
+
+    // Leaving slide
+    onLeave: function (index, nextIndex, direction) {
+    },
+
+    // After loading horizontal slide
+    afterSlideLoad: function (anchorLink, index, slideAnchor, slideIndex) {
+        if (!fpresizing) {
+            active_section = index;
+            active_section_id = anchorLink;
+            active_slide = slideIndex;
+            active_slide_id = slideAnchor;
+        }
+    },
+
+    // leaving horizontal slide
+    onSlideLeave: function (anchorLink, index, slideIndex, direction, nextSlideIndex) {
     }
+
 };
 
 // Extend options mit Addon-Einstellungen
 jQuery.extend(fps_settings, fps_options);
 
-var active_slide = 1;
+// Window Resize
+$(window).on('resize', function () {
+    fpresizing = true;
+});
 
 $(document).ready(function () {
 
     // Initiate fullpage.js - https://alvarotrigo.com/fullPage/
     $('.fullpage').fullpage(fps_settings);
 
-    // Window Resize - Navigation aus/einblenden
-    $(window).on('resize', function () {
-        if ($('.hamburger').is(':visible')) {
-            $('.mainnav').hide();
-            $('.hamburger').removeClass('is-active');
-        } else {
-            $('.mainnav').show();
-        }
-    });
-
     // Logo click zum 1. Slide
-    $('.pagelogo').click(function () {
-        if ($('.hamburger').hasClass('is-active') === true) {
-            $('.hamburger').trigger('click');
-        }
+    $('.pagelogo img').click(function (e) {
+        e.preventDefault();
+        document.activeElement.blur();
         $.fn.fullpage.moveTo(1);
+        $('html, body').animate({ scrollTop: 0 }, 400);
     });
 
-    // Klick auf Navigation, bei mobiler Navi Navigation ausblenden
+    // Klick auf Navigation, bei mobiler Navigation ausblenden
     $('.mainnav').find('a').click(function () {
         if ($('.hamburger').hasClass('is-active') === true) {
             $('.hamburger').trigger('click');
         }
-    });
-
-    // Scroll Indicator Click
-    $('a.arrowdown').click(function (e) {
-        e.preventDefault();
-        if ($('.hamburger').hasClass('is-active') === true) {
-            $('.hamburger').trigger('click');
+        if ($(this).parent().hasClass('active')) {
+            fpScrollToTopOfSection('.section-' + $(this).data('sectionid'), $(this).data('sectionid'));
         }
-        $.fn.fullpage.moveSectionDown();
-    });
-
-    // externe links in neuem Fenster öffnen
-    $(".container a[href^='http://']").addClass('extern');
-    $(".container a[href^='https://']").addClass('extern');
-    $('a.extern, a.newwindow').click(function (e) {
-        e.preventDefault();
-        window.open($(this).attr('href'));
-    });
-
-    // back to top arrow
-    var backToTopOffset = 250;
-    var backToTopDuration = 300;
-    $('.pagewrapper').append('<a href="#" class="back-to-top"><i class="fa fa-arrow-circle-up"></i></a>');
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > backToTopOffset) {
-            $('.back-to-top').fadeIn(backToTopDuration);
-        } else {
-            $('.back-to-top').fadeOut(backToTopDuration);
-        }
-    });
-    $('.back-to-top').click(function (e) {
-        e.preventDefault();
-        if ($('.hamburger').hasClass('is-active') === true) {
-            $('.hamburger').trigger('click');
-        }
-        $.fn.fullpage.moveTo(1);
     });
 
     // Hambuger Menu
-    $('.hamburger').addClass('hamburger--elastic');
+    $('.hamburger').addClass('hamburger--squeeze');
     $('.hamburger').on('click', function (e) {
         e.preventDefault();
+        document.activeElement.blur();
         if ($(this).hasClass('is-active') === true) {
             $('.mainnav').slideUp(300);
         } else {
@@ -144,4 +252,48 @@ $(document).ready(function () {
         $(this).toggleClass('is-active');
     });
 
+    // ScrollDown/ScrollUp arrow click
+    $('a.arrowdown').click(function (e) {
+        e.preventDefault();
+        if ($('.hamburger').hasClass('is-active') === true) {
+            $('.hamburger').trigger('click');
+        }
+        $.fn.fullpage.moveSectionDown();
+    });
+    $('a.arrowup').click(function (e) {
+        e.preventDefault();
+        if ($('.hamburger').hasClass('is-active') === true) {
+            $('.hamburger').trigger('click');
+        }
+        $.fn.fullpage.moveSectionUp();
+    });
+
+    // externe links in neuem Fenster öffnen
+    $(".uk-container a[href^='http://']:not(.lightboxcontent)").addClass('extern');
+    $(".uk-container a[href^='https://']:not(.lightboxcontent)").addClass('extern');
+    $('a.extern, a.newwindow').click(function (e) {
+        e.preventDefault();
+        window.open($(this).attr('href'));
+    });
+
+    // externe Links um Icon erweitern
+    $('a.extern').each(function (e) {
+        $(this).html('<i class="fas fa-external-link-alt"></i>' + $(this).html());
+    });
+
+});
+
+// Load Background-Images, set Background, set Background-Video
+// Preload Images
+// Use plyr + glightbox
+window.addEventListener('DOMContentLoaded', function (event) {
+    setTimeout(function () {
+        fpSetBackgrounds();
+    }, 200);
+    setTimeout(function () {
+        fpUsePlyr();
+    }, 200);
+    setTimeout(function () {
+        fpPreloadImages();
+    }, 700);
 });

@@ -1,6 +1,6 @@
 /*
 Demonstriert eine Onepage-Website auf Basis von REDAXO 5, fullPage.js und UIkit
-Theme Road - Einfache Demo, vertikale Navigation links
+Theme Road - Vertikale Navigation, blurry Backgrounds
 */
 
 /* SCSS-Variablen _theme.scss */
@@ -8,57 +8,62 @@ Theme Road - Einfache Demo, vertikale Navigation links
 
 /*
 -------------------------------------------------------------------------------
-Fonts, Loader, Hamburger
+Fonts, Fontawesome
 -------------------------------------------------------------------------------
-*/
-/*
-@import url('https://fonts.googleapis.com/css2?family=Road+Rage&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
 */
 
 /* road-rage-regular - latin */
 @font-face {
+    font-display: fallback;
     font-family: 'Road Rage';
     font-style: normal;
     font-weight: 400;
     src: local(''),
         url('../fonts/road-rage-v3-latin-regular.woff2') format('woff2'),
-        /* Chrome 26+, Opera 23+, Firefox 39+ */
         url('../fonts/road-rage-v3-latin-regular.woff') format('woff');
-    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
 /* source-sans-pro-regular - latin */
 @font-face {
+    font-display: fallback;
     font-family: 'Source Sans Pro';
     font-style: normal;
     font-weight: 400;
     src: local(''),
         url('../fonts/source-sans-pro-v18-latin-regular.woff2') format('woff2'),
-        /* Chrome 26+, Opera 23+, Firefox 39+ */
         url('../fonts/source-sans-pro-v18-latin-regular.woff') format('woff');
-    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
-/* source-sans-pro-700 - latin */
+/* source-sans-pro-700 - latin
 @font-face {
+    font-display: fallback;
     font-family: 'Source Sans Pro';
     font-style: normal;
     font-weight: 700;
     src: local(''),
         url('../fonts/source-sans-pro-v18-latin-700.woff2') format('woff2'),
-        /* Chrome 26+, Opera 23+, Firefox 39+ */
         url('../fonts/source-sans-pro-v18-latin-700.woff') format('woff');
-    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
+}*/
 
-@import url('../../../css/font-awesome.min.css');
-@import url('../../../css/animate.min.css');
+@import url('../../../css/fontawesome.all.min.css');
 
-@import url('loader.css');
-@import url('hamburger.css');
+/*
+-------------------------------------------------------------------------------
+Loader, Styleswitch, plyr, Hamburger, glightbox, UIkit-Overrides
+-------------------------------------------------------------------------------
+*/
+
+@import url('loader.min.css');
 
 @import url('../../../css/styleswitch.css');
+
+@import url('../../../css/plyr.css');
+
+@import url('hamburger.min.css');
+
+@import url('../../../css/glightbox.min.css');
+
+@import url('uikit-mods.min.css');
 
 /*
 -------------------------------------------------------------------------------
@@ -66,38 +71,43 @@ Glightbox & Overlay-Color, Buttons
 -------------------------------------------------------------------------------
 */
 
-@import url('glightbox.min.css');
-
-.goverlay {
-    background: rgba(0, 0, 0, 0.7);
+.glightbox-container .goverlay {
+    background: $overlay-bg;
 }
 
 .glightbox-clean .gprev,
 .glightbox-clean .gnext,
 .glightbox-clean .gclose {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: $glightbox-button-bg;
+}
+
+.glightbox-clean .gclose,
+.gclose {
+    opacity: 1;
+    z-index: 9999999;
+    min-width: 40px;
+    min-height: 40px;
+    right: 30px;
 }
 
 .glightbox-clean .gprev:hover,
 .glightbox-clean .gnext:hover,
 .glightbox-clean .gclose:hover {
-    background-color: rgba(0, 0, 0, 1.0);
+    background-color: $glightbox-button-hover-bg;
 }
 
-/*
--------------------------------------------------------------------------------
-UIkit Overrides
--------------------------------------------------------------------------------
-*/
+.glightbox-clean .gslide-description {
+    background-color: $glightbox-desc-bg;
+    color: $glightbox-text-color;
+    text-align: center;
+}
 
-div.uk-tooltip {
-    max-width: 250px;
-    padding: 5px 10px;
-    background: #000;
-    border-radius: 2px;
-    color: #fff;
-    font-size: 12px;
-    line-height: 1.5em;
+.glightbox-mobile .glightbox-container .gslide-desc {
+    color: $glightbox-text-color;
+}
+
+.gslide-external {
+    max-height: calc(100vh - 80px);
 }
 
 /*
@@ -112,12 +122,11 @@ html * {
 }
 
 body {
-    background: #000;
-    font-family: 'Source Sans Pro', Arial, sans-serif;
-    font-size: 18px;
-    transition: all 0.3s ease;
+    font-family: $body-font;
+    font-size: $font-size;
     line-height: 1.5em;
-    color: #fff;
+    background: $body-bg;
+    color: $text-color;
 }
 
 .pagewrapper {
@@ -127,66 +136,11 @@ body {
 
 .blurry {
     transition: all 0.3s ease;
-    -webkit-filter: blur(3px);
-    -moz-filter: blur(3px);
-    -o-filter: blur(3px);
-    -ms-filter: blur(3px);
-    filter: blur(3px);
-}
-
-div.uk-container a {
-    color: #eee;
-    text-decoration: none;
-}
-
-div.uk-container a:hover {
-    color: #eee;
-    text-decoration: underline;
-}
-
-div.uk-container a.extern {
-    padding-left: 22px;
-    background: url('../img/extlink.gif') no-repeat left center;
-}
-
-a,
-a:active,
-a:focus,
-a:focus-visible,
-:focus,
-:focus-visible,
-:focus:not([tabindex^='-']) {
-    outline: 0;
-}
-
-i.fa {
-    padding-right: 10px;
-}
-
-
-/*
--------------------------------------------------------------------------------
-Logo
--------------------------------------------------------------------------------
-*/
-
-.pagelogo {
-    position: fixed;
-    top: 20px;
-    left: 0px;
-    z-index: 70;
-    background-color: #333;
-    transition: all 0.3s ease;
-    padding: 20px;
-}
-
-.pagelogo:hover {
-    background-color: #666;
-}
-
-.pagelogo img {
-    width: 200px;
-    cursor: pointer;
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px);
 }
 
 /*
@@ -195,21 +149,50 @@ Main navigation
 -------------------------------------------------------------------------------
 */
 
+nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    height: 0px;
+    width: 100%;
+    z-index: 69;
+    padding: 0;
+    margin: 0;
+}
+
+nav .pagelogo {
+    position: fixed;
+    top: 20px;
+    left: 0px;
+    z-index: 70;
+    background-color: $mainnavbar-bg;
+    transition: all 0.3s ease;
+    padding: 20px;
+    cursor: pointer;
+}
+
+nav .pagelogo:hover {
+    background-color: $mainnav-hover-bg;
+}
+
+nav .pagelogo img {
+    width: 200px;
+    cursor: pointer;
+}
+
 .mainnav {
-    display: none;
     position: fixed;
     top: 115px;
     left: 0px;
     z-index: 70;
     padding: 0;
     margin: 0;
+    display: block;
 }
 
 .mainnav li {
     list-style: none;
-    background-color: #333;
-    width: 240px;
-    margin-bottom: 1px;
 }
 
 .mainnav li a {
@@ -218,32 +201,35 @@ Main navigation
     text-decoration: none;
     padding: 10px 20px;
     display: block;
-    color: #fff;
+    color: $mainnav-color;
+    background: $mainnav-bg;
     margin: 0;
-}
-
-.mainnav li.active {
-    background: #666;
-}
-
-.mainnav li.active a {
-    color: #fff;
-}
-
-.mainnav li.active a:hover {
-    color: #fff;
-}
-
-.mainnav li:hover {
-    background: #666;
+    margin-bottom: 1px;
+    width: 200px;
+    transition: all 0.3s ease;
 }
 
 .mainnav li a:hover {
-    color: #fff;
+    color: $mainnav-hover-color;
+    background: $mainnav-hover-bg;
 }
 
-/* Startseite ausblenden */
-li.mainnaventry-1 {
+.mainnav li.active a {
+    color: $mainnav-active-color;
+    background: $mainnav-active-bg;
+}
+
+.mainnav li.active a:hover {
+    color: $mainnav-active-hover-color;
+}
+
+/* Kategorie ausblenden */
+.mainnav li.hide-mainnav {
+    display: none;
+}
+
+/* Startseite auf jeden Fall ausblenden */
+.mainnav li.mainnaventry-1 {
     display: none;
 }
 
@@ -255,28 +241,28 @@ Backgrounds will cover all the section
 */
 
 .section {
-    text-align: center;
-    min-height: 200px;
-    position: relative;
-    background-color: #c0c0c0;
-    background-size: cover;
+    background-color: $section-bg;
     background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     z-index: 0;
-    xborder-bottom: solid 1px rgba(255, 255, 255, .5);
 }
 
 .section-even {
-    background-color: #c0c0c0;
+    background-color: $section-bg-even;
 }
 
 .section-odd {
-    background-color: #d4d4d4;
+    background-color: $section-bg-odd;
 }
 
 .slide {
-    text-align: center;
-    min-height: 200px;
-    position: relative;
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
 }
 
@@ -294,17 +280,20 @@ Section Background-Images
     right: 0;
     width: 100%;
     height: 100%;
-    -webkit-filter: blur(1px);
-    -moz-filter: blur(1px);
-    -o-filter: blur(1px);
-    -ms-filter: blur(1px);
-    filter: blur(1px);
-    background-size: cover;
+    -webkit-filter: blur(4px);
+    -moz-filter: blur(4px);
+    -o-filter: blur(4px);
+    -ms-filter: blur(4px);
+    filter: blur(4px);
     background-position: center center;
-    background-image: url('../img/bg01.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-image: $section-1-bg;
 }
 
-.section-2:before {
+.section-2.loaded:before {
     z-index: -1;
     content: "";
     position: absolute;
@@ -312,17 +301,20 @@ Section Background-Images
     right: 0;
     width: 100%;
     height: 100%;
-    -webkit-filter: blur(3px);
-    -moz-filter: blur(3px);
-    -o-filter: blur(3px);
-    -ms-filter: blur(3px);
-    filter: blur(3px);
-    background-size: cover;
+    -webkit-filter: blur(4px);
+    -moz-filter: blur(4px);
+    -o-filter: blur(4px);
+    -ms-filter: blur(4px);
+    filter: blur(4px);
     background-position: center center;
-    background-image: url('../img/bg02.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-image: $section-2-bg;
 }
 
-.section-3:before {
+.section-3.loaded:before {
     z-index: -1;
     content: "";
     position: absolute;
@@ -330,17 +322,20 @@ Section Background-Images
     right: 0;
     width: 100%;
     height: 100%;
-    -webkit-filter: blur(3px);
-    -moz-filter: blur(3px);
-    -o-filter: blur(3px);
-    -ms-filter: blur(3px);
-    filter: blur(3px);
-    background-size: cover;
+    -webkit-filter: blur(4px);
+    -moz-filter: blur(4px);
+    -o-filter: blur(4px);
+    -ms-filter: blur(4px);
+    filter: blur(4px);
     background-position: center center;
-    background-image: url('../img/bg03.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-image: $section-3-bg;
 }
 
-.section-4:before {
+.section-4.loaded:before {
     z-index: -1;
     content: "";
     position: absolute;
@@ -348,17 +343,20 @@ Section Background-Images
     right: 0;
     width: 100%;
     height: 100%;
-    -webkit-filter: blur(3px);
-    -moz-filter: blur(3px);
-    -o-filter: blur(3px);
-    -ms-filter: blur(3px);
-    filter: blur(3px);
-    background-size: cover;
+    -webkit-filter: blur(4px);
+    -moz-filter: blur(4px);
+    -o-filter: blur(4px);
+    -ms-filter: blur(4px);
+    filter: blur(4px);
     background-position: center center;
-    background-image: url('../img/bg04.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-image: $section-4-bg;
 }
 
-.section-5:before {
+.section-5.loaded:before {
     z-index: -1;
     content: "";
     position: absolute;
@@ -366,17 +364,20 @@ Section Background-Images
     right: 0;
     width: 100%;
     height: 100%;
-    -webkit-filter: blur(3px);
-    -moz-filter: blur(3px);
-    -o-filter: blur(3px);
-    -ms-filter: blur(3px);
-    filter: blur(3px);
-    background-size: cover;
+    -webkit-filter: blur(4px);
+    -moz-filter: blur(4px);
+    -o-filter: blur(4px);
+    -ms-filter: blur(4px);
+    filter: blur(4px);
     background-position: center center;
-    background-image: url('../img/bg05.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-image: $section-5-bg;
 }
 
-.section-6:before {
+.section-6.loaded:before {
     z-index: -1;
     content: "";
     position: absolute;
@@ -384,17 +385,20 @@ Section Background-Images
     right: 0;
     width: 100%;
     height: 100%;
-    -webkit-filter: blur(3px);
-    -moz-filter: blur(3px);
-    -o-filter: blur(3px);
-    -ms-filter: blur(3px);
-    filter: blur(3px);
-    background-size: cover;
+    -webkit-filter: blur(4px);
+    -moz-filter: blur(4px);
+    -o-filter: blur(4px);
+    -ms-filter: blur(4px);
+    filter: blur(4px);
     background-position: center center;
-    background-image: url('../img/bg06.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-image: $section-6-bg;
 }
 
-.section-13:before {
+.section-13.loaded:before {
     z-index: -1;
     content: "";
     position: absolute;
@@ -402,14 +406,17 @@ Section Background-Images
     right: 0;
     width: 100%;
     height: 100%;
-    -webkit-filter: blur(3px);
-    -moz-filter: blur(3px);
-    -o-filter: blur(3px);
-    -ms-filter: blur(3px);
-    filter: blur(3px);
-    background-size: cover;
+    -webkit-filter: blur(4px);
+    -moz-filter: blur(4px);
+    -o-filter: blur(4px);
+    -ms-filter: blur(4px);
+    filter: blur(4px);
     background-position: center center;
-    background-image: url('../img/bg13.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-image: $section-13-bg;
 }
 
 /*
@@ -419,72 +426,198 @@ Content Container & Content-Elemente
 */
 
 div.uk-container {
-    padding-left: 260px;
-    xpadding-top: 50px;
-    xpadding-top: 100px;
-    filter: none;
-    -webkit-filter: none;
+    padding-left: 280px;
+    margin-top: 0;
+    margin-bottom: 0;
+    position: relative;
+    word-wrap: break-word;
+}
+
+.uk-container> :last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.fp-auto-height div.uk-container {
+    margin-top: 120px;
+    margin-bottom: 120px;
 }
 
 .container {
     padding: 0;
     margin: 0;
-}
-
-.pictext {
-    word-wrap: break-word;
-}
-
-.pictext div.uk-card-body {
-    text-align: left;
-}
-
-/* Images */
-
-img.full {
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
-    height: auto;
-    box-sizing: border-box;
-}
-
-.pictext img.content {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-}
-
-.gallery-wrap img {
-    width: 100%;
-    max-width: 100%;
+    text-align: center;
 }
 
 /* Headlines */
 
 h1,
 h2,
-h3 {
-    font-family: 'Road Rage', cursive;
-    color: #fff;
+h3,
+h4,
+h5,
+h6 {
+    font-family: $headline-font;
+    color: $headline-color;
     margin: 0;
-    line-height: 1.3em;
-    margin-bottom: .2em;
+    line-height: 1.0em;
+    margin: 0 0 20px 0;
     text-align: center;
-    width: 100%;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
 }
 
 h1 {
-    font-size: 4.6em;
+    font-size: 3.6em;
 }
 
 h2 {
-    font-size: 3.0em;
+    font-size: 2.8em;
 }
 
 h3 {
-    font-size: 2.2em;
+    font-size: 2.4em;
+}
+
+h4 {
+    font-size: 2.0em;
+}
+
+h5 {
+    font-size: 1.6em;
+}
+
+h6 {
+    font-size: 1.2em;
+}
+
+.headline {
+}
+
+h1 i {
+    font-size: $font-size;
+    padding-left: 5px;
+    vertical-align: top;
+}
+
+/* Links */
+
+div.uk-container a {
+    color: $link-color;
+    text-decoration: none;
+}
+
+div.uk-container a:hover {
+    color: $link-hover-color;
+    text-decoration: underline;
+}
+
+a,
+a:active,
+a:focus,
+a:focus-visible,
+:focus,
+:focus-visible,
+:focus:not([tabindex^='-']) {
+    outline: 0;
+}
+
+/* Fontawesome icons */
+
+div.uk-container i.fas {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/* Images */
+
+img.full {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    height: auto;
+    box-sizing: border-box;
+}
+
+img.content {
+    display: block;
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 0;
+}
+
+/* Bildergalerie */
+
+a.gallery {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    height: 200px;
+    background-color: $deko-color;
+    cursor: pointer;
+}
+
+a.gallery img.thumbnail {
+    min-height: 300px;
+    min-width: 500px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transition: all .3s ease-out;
+    -webkit-transform: translateY(-50%) translateX(-50%);
+    transform: translateY(-50%) translateX(-50%);
+}
+
+a.gallery img.thumbnail:hover {
+    opacity: .5;
+    transition: all .3s ease-out;
+    -webkit-transform: translateY(-40%) translateX(-50%);
+    transform: translateY(-40%) translateX(-50%);
+    cursor: zoom-in;
+}
+
+/* Background-Videos */
+
+.fullpage-bgvideo {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    width: 100vw;
+    height: 100%;
+    z-index: 0;
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    object-fit: cover;
+    object-position: center;
+
+}
+
+/* Background Images */
+
+.fullpage-slidebackground {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    width: 100vw;
+    height: 100%;
+    z-index: 0;
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+/* Video */
+
+div.plyr {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+    box-shadow: $plyr-shadow;
 }
 
 /*
@@ -498,65 +631,53 @@ fullPage Navigation Dots
 }
 
 #fp-nav.right {
-    right: 10px;
+    right: 0px;
 }
 
 #fp-nav.left {
-    left: 10px;
+    left: 240px;
 }
 
-.fp-slidesNav.bottom {
-    bottom: 10px;
+#fp-nav ul {
+    padding-top: 30px;
 }
 
-.fp-slidesNav.top {
-    top: 10px;
-}
-
-#fp-nav ul li,
-.fp-slidesNav ul li {
+#fp-nav ul li {
     width: 22px;
     height: 22px;
     margin: 10px;
-    transition: all 2.3s ease-out;
     padding: 0;
 }
 
-.fp-slidesNav ul li {
-    margin: 5px;
-}
-
-#fp-nav ul li a span,
-.fp-slidesNav ul li a span {
-    background: rgba(255, 255, 255, .6);
+#fp-nav ul li a span {
+    background: $navidot-bg;
     height: 8px;
     width: 8px;
     margin: -4px 0 0 -4px;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
 }
 
 #fp-nav ul li a span:hover,
-.fp-slidesNav ul li a span:hover {
-    background: rgba(255, 255, 255, 1.0);
+#fp-nav ul li:hover a span {
+    width: 14px;
+    height: 14px;
+    margin: -7px 0px 0px -7px;
+    background: $navidot-hover-bg;
 }
 
-#fp-nav ul li a.active span,
-.fp-slidesNav ul li a.active span,
-#fp-nav ul li:hover a.active span,
-.fp-slidesNav ul li:hover a.active span {
+#fp-nav ul li a.active span {
     height: 16px;
     width: 16px;
     margin: -8px 0 0 -8px;
     border-radius: 100%;
-    background: rgba(255, 255, 255, .8);
+    background: $navidot-active-bg;
 }
 
-#fp-nav ul li:hover a span,
-.fp-slidesNav ul li:hover a span {
-    width: 14px;
-    height: 14px;
-    margin: -7px 0px 0px -7px;
-    background: rgba(255, 255, 255, 1.0);
+#fp-nav ul li a.active span:hover,
+#fp-nav ul li:hover a.active span {
+    height: 16px;
+    width: 16px;
+    margin: -8px 0 0 -8px;
+    background: $navidot-active-hover-bg;
 }
 
 /*
@@ -566,15 +687,22 @@ Tooltip Navigation Dots
 */
 
 #fp-nav ul li .fp-tooltip {
-    padding: 4px 8px;
-    background: #000;
+    max-width: 250px;
+    padding: 5px 10px;
+    background: $tooltip-bg;
+    border-radius: 2px;
+    color: $tooltip-color;
+    font-size: $tooltip-font-size;
+    line-height: 1.5em;
+    display: none;
+    transition: all 0.3s ease-out;
 }
 
 #fp-nav ul li:hover .fp-tooltip,
 #fp-nav.fp-show-active a.active+.fp-tooltip {
-    transition: all 0.3s ease-out;
     width: auto;
     opacity: 1;
+    display: block;
 }
 
 #fp-nav ul li .fp-tooltip.right {
@@ -587,27 +715,98 @@ Tooltip Navigation Dots
 
 /*
 -------------------------------------------------------------------------------
+Horizontal Slide Navigation dots
+-------------------------------------------------------------------------------
+*/
+
+.fp-slidesNav {
+    position: absolute;
+    text-align: center;
+}
+
+.fp-slidesNav.bottom {
+    bottom: 40px;
+}
+
+.fp-slidesNav.top {
+    top: 90px;
+}
+
+.fp-slidesNav ul li {
+    width: 22px;
+    height: 22px;
+    margin: 10px;
+    transition: all 2.3s ease-out;
+    padding: 0;
+}
+
+.fp-slidesNav ul li {
+    margin: 5px;
+}
+
+.fp-slidesNav ul li a span {
+    background: $navidot-bg;
+    height: 8px;
+    width: 8px;
+    margin: -4px 0 0 -4px;
+}
+
+.fp-slidesNav ul li a span:hover,
+.fp-slidesNav ul li:hover a span {
+    width: 14px;
+    height: 14px;
+    margin: -7px 0px 0px -7px;
+    background: $navidot-hover-bg;
+}
+
+.fp-slidesNav ul li a.active span {
+    height: 16px;
+    width: 16px;
+    margin: -8px 0 0 -8px;
+    border-radius: 100%;
+    background: $navidot-active-bg;
+}
+
+.fp-slidesNav ul li a.active span:hover,
+.fp-slidesNav ul li:hover a.active span {
+    height: 16px;
+    width: 16px;
+    margin: -8px 0 0 -8px;
+    background: $navidot-active-hover-bg;
+}
+
+/*
+-------------------------------------------------------------------------------
 Horizontal Slide arrows
 -------------------------------------------------------------------------------
 */
 
+.fp-controlArrow {
+    display: inline-block;
+    position: absolute;
+    z-index: 100;
+    top: 50%;
+    margin-top: -30px;
+}
+
 .fp-controlArrow.fp-prev {
-    left: 310px;
+    left: 290px;
     border-width: 28.5px 24px 28.5px 0;
-    border-color: transparent #fff transparent transparent;
-    opacity: .6;
+    border-color: transparent $arrow-color transparent transparent !important;
 }
 
 .fp-controlArrow.fp-next {
-    right: 100px;
-    border-width: 32.5px 0 28.5px 24px;
-    border-color: transparent transparent transparent #fff;
-    opacity: .6;
+    right: 50px;
+    border-width: 28.5px 0 28.5px 24px;
+    border-color: transparent transparent transparent $arrow-color !important;
 }
 
-.fp-controlArrow.fp-prev:hover,
+.fp-controlArrow.fp-prev:hover {
+    border-color: transparent $arrow-hover-color transparent transparent !important;
+}
+
 .fp-controlArrow.fp-next:hover {
-    opacity: 1;
+    border-color: transparent transparent transparent $arrow-hover-color !important;
 }
 
 /*
@@ -616,34 +815,29 @@ Scoll down indicator arrow - https://codepen.io/nxworld/pen/OyRrGy
 -------------------------------------------------------------------------------
 */
 
+/* arrow down */
 a.arrowdown {
-    position: absolute;
-    bottom: 0px;
-    left: 50%;
+    position: relative;
     z-index: 60;
     display: inline-block;
-    -webkit-transform: translate(0, -50%);
-    transform: translate(0, -50%);
-    color: #fff;
+    color: $arrowdown-color;
     text-decoration: none;
     transition: opacity .3s;
-    width: 40px;
-    height: 40px;
-    opacity: .7;
-    margin-left: -8px;
-    padding-left: 240px;
+    width: 46px;
+    height: 46px;
+    margin-top: 10px;
 }
 
 a.arrowdown span {
     position: absolute;
     top: 0;
-    left: 50%;
+    left: 0;
     width: 46px;
     height: 46px;
-    margin-left: -23px;
-    border: 2px solid #fff;
+    border: 2px solid $arrowdown-color;
     border-radius: 100%;
     box-sizing: border-box;
+    text-indent:-9999px;
 }
 
 a.arrowdown span::after {
@@ -654,20 +848,26 @@ a.arrowdown span::after {
     width: 16px;
     height: 16px;
     margin: -12px 0 0 -8px;
-    border-left: 3px solid #fff;
-    border-bottom: 3px solid #fff;
+    border-left: 3px solid $arrowdown-color;
+    border-bottom: 3px solid $arrowdown-color;
     -webkit-transform: rotate(-45deg);
     transform: rotate(-45deg);
     box-sizing: border-box;
-    -webkit-animation: sdanimation 2s infinite;
-    animation: sdanimation 2s infinite;
+    -webkit-animation: arrowdownanimation 2s infinite;
+    animation: arrowdownanimation 2s infinite;
 }
 
-a.arrowdown:hover {
-    opacity: 1;
+a.arrowdown:hover span {
+    border: 2px solid $arrowdown-hover-color;
+    background-color: $arrowdown-hover-bg;
 }
 
-@-webkit-keyframes sdanimation {
+a.arrowdown:hover span::after {
+    border-left: 3px solid $arrowdown-hover-color;
+    border-bottom: 3px solid $arrowdown-hover-color;
+}
+
+@-webkit-keyframes arrowdownanimation {
     0% {
         -webkit-transform: rotate(-45deg) translate(0, 0);
     }
@@ -681,7 +881,7 @@ a.arrowdown:hover {
     }
 }
 
-@keyframes sdanimation {
+@keyframes arrowdownanimation {
     0% {
         transform: rotate(-45deg) translate(0, 0);
     }
@@ -695,6 +895,86 @@ a.arrowdown:hover {
     }
 }
 
+/* arrow up */
+a.arrowup {
+    position: relative;
+    z-index: 60;
+    display: inline-block;
+    color: $arrowdown-color;
+    text-decoration: none;
+    transition: opacity .3s;
+    width: 46px;
+    height: 46px;
+    margin-bottom: 10px;
+}
+
+a.arrowup span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 46px;
+    height: 46px;
+    border: 2px solid #fff;
+    border-radius: 100%;
+    box-sizing: border-box;
+    text-indent:-9999px;
+}
+
+a.arrowup span::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    content: '';
+    width: 16px;
+    height: 16px;
+    margin: -4px 0 0 -8px;
+    border-left: 3px solid $arrowup-color;
+    border-bottom: 3px solid $arrowup-color;
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+    box-sizing: border-box;
+    -webkit-animation: aarrowupanimation 2s infinite;
+    animation: arrowupanimation 2s infinite;
+}
+
+a.arrowup:hover span {
+    border: 2px solid $arrowup-hover-color;
+    background-color: $arrowup-hover-bg;
+}
+
+a.arrowup:hover span::after {
+    border-left: 3px solid $arrowup-hover-color;
+    border-bottom: 3px solid $arrowup-hover-color;
+}
+
+@-webkit-keyframes arrowupanimation {
+    0% {
+        -webkit-transform: rotate(135deg) translate(0, 0);
+    }
+
+    20% {
+        -webkit-transform: rotate(135deg) translate(-3px, 3px);
+    }
+
+    40% {
+        -webkit-transform: rotate(135deg) translate(0, 0);
+    }
+}
+
+@keyframes arrowupanimation {
+    0% {
+        transform: rotate(135deg) translate(0, 0);
+    }
+
+    20% {
+        transform: rotate(135deg) translate(-3px, 3px);
+    }
+
+    40% {
+        transform: rotate(135deg) translate(0, 0);
+    }
+}
+
 /*
 -------------------------------------------------------------------------------
 back to top arrow
@@ -702,106 +982,187 @@ back to top arrow
 */
 
 .back-to-top {
-    background: none;
-    margin: 0;
     position: fixed;
-    bottom: 0;
-    right: 0;
-    width: 50px;
-    height: 50px;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
     z-index: 200;
     display: none;
     text-decoration: none;
-    color: #fff;
-    opacity: .7;
+    color: $toparrow-color;
     transition: all 0.3s ease;
 }
 
 .back-to-top:hover {
-    color: #333;
-    opacity: 1;
+    color: $toparrow-hover-color;
 }
 
 .back-to-top i {
     font-size: 44px;
 }
 
+.back-to-top span {
+    display: none;
+}
+
 /*
 -------------------------------------------------------------------------------
-Responsive / Breakpoints
+Responsive Modus
 -------------------------------------------------------------------------------
 */
 
+/* Navigation */
+
 .fp-responsive .hamburger {
+    z-index: 200;
     display: block;
+}
+
+.fp-responsive nav {
+    position: sticky;
+    transition: top 300ms ease-in-out;
 }
 
 .fp-responsive .pagelogo {
-    position: fixed;
     top: 0px;
     left: 0px;
-    padding: 10px;
-    opacity: .8;
-    width: 240px;
+    z-index: 170;
+    background-color: transparent;
+}
+
+.fp-responsive nav .pagelogo:hover {
+    background-color: transparent;
 }
 
 .fp-responsive .mainnav {
-    top: 70px;
-    left: -240px;
+    top: -600px;
+    left: 0px;
     display: block;
-    opacity: .8;
+    width: 100%;
+    padding-top: 70px;
+    background-color: $navbar-bg;
 }
+
+.fp-responsive .mainnav.active {
+    background-color: $navbar-active-bg;
+    transition: all .3s ease-out;
+}
+
+.fp-responsive div.pagelogo.active {
+    background-color: $navbar-active-bg;
+    transition: all .3s ease-out;
+}
+
+.fp-responsive .mainnav li {
+    list-style: none;
+    float: left;
+    width: 100%;
+    height: auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.fp-responsive .mainnav a {
+    height: auto;
+    line-height: 2.2em;
+    font-size: 1.3em;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: $navbar-link-color;
+    background-color: transparent;
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.fp-responsive .mainnav a:hover {
+    color: $navbar-link-hover-color;
+    background-color: $navbar-link-hover-bg;
+}
+
+.fp-responsive .mainnav li.active a {
+    background: $navbar-link-active-bg;
+    color: $navbar-link-active-color;
+}
+
+.fp-responsive .mainnav li.active a:hover {
+    background: $navbar-link-active-hover-bg;
+    color: $navbar-link-active-hover-color;
+}
+
+
+/* Uikit-Container */
 
 .fp-responsive div.uk-container {
-    padding: 0px 40px;
-
+    margin-top: 100px;
+    margin-bottom: 100px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
-.fp-responsive a.arrowdown {
-    padding-left: 0px;
+/* Slide Navigation dots */
+
+.fp-responsive .fp-slidesNav.top {
+    top: 70px;
 }
 
 .fp-responsive .fp-slidesNav.bottom {
-    padding-left: 0px;
+    bottom: 40px;
 }
 
-.fp-responsive .fp-slidesNav.top {
-    padding-left: 0px;
+.fp-responsive .fp-slidesNav.slidefixed {
+    top: 60px;
+    bottom: initial;
 }
 
+/* Minimum Viewport-Höhe */
 
-@media (max-width: 1016px) {
-
-    .hamburger {
-        display: block;
-    }
-
-    .mainnav {
-        display: none;
-    }
-
-    div.container {
-        padding-bottom: 4.0em;
-    }
-
-    .fp-controlArrow.fp-prev {
-        left: 10px;
-    }
-
-    .fp-controlArrow.fp-next {
-        right: 10px;
-    }
-
+.fp-responsive .fp-auto-height-responsive {
+    min-height: 100vh;
 }
 
-@media (max-width: 992px) {
+.fp-responsive .fp-auto-height-responsive .slide {
+    min-height: 100vh;
+}
+
+.fp-responsive .fp-tableCell.slidefixed {
+    vertical-align: top;
+}
+
+/* Horizontal Slide arrows */
+
+.fp-responsive .fp-controlArrow.fp-prev {
+    left: 5px;
+}
+
+.fp-responsive .fp-controlArrow.fp-next {
+    right: 5px;
+}
+
+/*
+-------------------------------------------------------------------------------
+Breakpoints
+-------------------------------------------------------------------------------
+*/
+
+@media (orientation: landscape) {}
+
+@media (orientation: portrait) {}
+
+@media (max-width: 1199px) {
 
     body {
-        transition: all 0.3s ease;
+        font-size: 18px;
     }
 
-    div.container {
-        padding-bottom: 4.0em;
+}
+
+@media (max-width: 960px) {
+
+    body {
+        font-size: 17px;
     }
 
 }
@@ -809,13 +1170,63 @@ Responsive / Breakpoints
 @media (max-width: 768px) {
 
     body {
-        transition: all 0.3s ease;
+        font-size: 16px;
+    }
+
+    .back-to-top {
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    body {
+        font-size: 16px;
     }
 
 }
 
-@media (max-width: 576px) {
-    body {
-        transition: all 0.3s ease;
+/*
+-------------------------------------------------------------------------------
+Interner Content in der glightbox
+-------------------------------------------------------------------------------
+*/
+
+body.lightboxcontent {
+    height: auto;
+    width: 100vw;
+    max-width: 100vw;
+    overflow-x: hidden;
+    background-color: $lightboxcontent-bg;
+}
+
+section.lightboxcontent {
+    min-height: 100vh;
+    width: 100vw;
+    max-width: 100vw;
+    display: table;
+}
+
+section.lightboxcontent div.lightboxcontent{
+    padding-top: 80px;
+    padding-bottom: 80px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+section.lightboxcontent div.lightboxcontent div.uk-container {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+@media (max-width: 768px) {
+    section.lightboxcontent {
+        display: block;
+    }
+    section.lightboxcontent div.lightboxcontent{
+        padding-top: 40px;
+        padding-bottom: 40px;
+        display: block;
     }
 }

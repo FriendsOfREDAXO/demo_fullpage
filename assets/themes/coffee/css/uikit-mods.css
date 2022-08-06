@@ -7,84 +7,125 @@ UIkit Overrides
 /* SCSS-Variablen _theme.scss */
 @import "theme";
 
+.uk-h1,
+.uk-h2,
+.uk-h3,
+.uk-h4,
+.uk-h5,
+.uk-h6,
+.uk-heading-2xlarge,
+.uk-heading-large,
+.uk-heading-medium,
+.uk-heading-small,
+.uk-heading-xlarge,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: inherit;
+    color: $headline-color;
+}
+
 div.uk-container em {
     color: inherit;
     padding-right: .2em;
 }
 
+/* Tooltip */
+
 div.uk-tooltip {
-    max-width: 250px;
+    max-width: 300px;
     padding: 5px 10px;
     background: $tooltip-bg;
     border-radius: 2px;
     color: $tooltip-color;
-    font-size: 12px;
+    font-size: $tooltip-font-size;
     line-height: 1.5em;
 }
 
 /* Backgrounds */
 
 .uk-background-default {
-    background-color: rgba(255, 255, 255, .8);
+    background-color: $uk-bg-default;
 }
 
 .uk-background-muted {
-    background-color: rgba(255, 255, 255, .8);
-    color: #999;
+    background-color: $uk-bg-muted;
 }
 
 .uk-background-primary {
-    background-color: rgba(255, 180, 0, .8);
+    background-color: $uk-bg-primary;
 }
 
 .uk-background-secondary {
-    background-color: rgba(51, 51, 51, .8);
+    background-color: $uk-bg-secondary;
+}
+
+/* Text Color */
+
+.uk-text-muted {
+    color: $text-muted !important;
+}
+
+.uk-text-primary {
+    color: $text-primary !important;
+}
+
+.uk-text-secondary {
+    color: $text-secondary !important;
+}
+
+.uk-text-success {
+    color: $text-success !important;
+}
+
+.uk-text-warning {
+    color: $text-warning !important;
+}
+
+.uk-text-danger {
+    color: $text-danger !important;
 }
 
 /* Cards */
 
 .uk-card {
     transition: none;
-    background-color: rgba(255, 255, 255, .8);
     box-shadow: none;
+    background-color: $uk-bg-default;
 }
 
 .uk-card-default {
-    background-color: rgba(255, 255, 255, .8);
+    background-color: $uk-bg-default;
 }
 
 .uk-card-primary {
-    background-color: rgba(255, 180, 0, .8);
-}
-
-.uk-card-secondary {
-    background-color: rgba(51, 51, 51, .8);
-}
-
-.uk-card-hover:not(.uk-card-default):not(.uk-card-primary):not(.uk-card-secondary):hover {
-    background-color: rgba(255, 255, 255, .9);
-}
-
-.uk-card-default.uk-card-hover:hover {
-    background-color: rgba(255, 255, 255, .8);
-    box-shadow: none;
+    background-color: $uk-bg-primary;
 }
 
 .uk-card-primary.uk-card-hover:hover {
-    background-color: rgba(255, 180, 0, .8);
-    box-shadow: none;
+    background-color: opacify($uk-bg-primary, .2);
+}
+
+.uk-card-secondary {
+    background-color: $uk-bg-secondary;
 }
 
 .uk-card-secondary.uk-card-hover:hover {
-    background-color: rgba(51, 51, 51, .8);
-    box-shadow: none;
+    background-color: opacify($uk-bg-secondary, .2);
 }
 
+.uk-card h1,
+.uk-card h2,
+.uk-card h3,
+.uk-card h4,
 .uk-card-hover h1,
 .uk-card-hover h2,
 .uk-card-hover h3,
 .uk-card-hover h4 {
-    color: #333;
+    color: $text-color;
 }
 
 /* Buttons */
@@ -95,69 +136,69 @@ div.uk-tooltip {
 }
 
 .uk-button-default {
-    background-color: rgba(255, 255, 255, 1);
+    background-color: $uk-btn-default;
 }
 
 .uk-button-default:hover {
-    background-color: rgba(255, 255, 255, .8);
+    background-color: darken($uk-btn-default, 5);
 }
 
 .uk-button-primary {
-    color: #fff;
-    background-color: rgba(255, 180, 0, 1);
+    color: $text-color-negative;
+    background-color: $uk-btn-primary;
 }
 
 .uk-button-primary:hover {
-    background-color: rgba(255, 180, 0, .8);
+    background-color: darken($uk-btn-primary, 5);
 }
 
 .uk-button-secondary {
-    color: #fff;
-    background-color: rgba(51, 51, 51, 1);
+    color: $text-color-negative;
+    background-color: $uk-btn-secondary;
 }
 
 .uk-button-secondary:hover {
-    background-color: rgba(51, 51, 51, .8);
+    background-color: darken($uk-btn-secondary, 5);
 }
 
 .uk-button-danger {
-    color: #fff;
-    background-color: rgba(204, 0, 0, 1)
+    color: $text-color-negative;
+    background-color: $uk-btn-danger;
 }
 
 .uk-button-danger:hover {
-    background-color: rgba(204, 0, 0, .8)
+    background-color: darken($uk-btn-danger, 5);
 }
 
 .uk-button-text {
     font-size: 1em;
     text-transform: none;
-    color: #4a605a;
+    color: $link-color;
 }
 
 .uk-button-text:hover {
     font-size: 1em;
     text-transform: none;
-    color: #4a605a;
+    color: $link-hover-color;
 }
 
 .uk-button-link {
     font-size: 1em;
-    color: #4a605a;
+    color: $link-color;
 }
 
 .uk-button-link:hover {
-    color: #4a605a;
+    color: $link-hover-color;
     text-decoration: underline;
 }
 
 div.uk-container a.uk-button {
-    color: #fff;
+    color: $text-color-negative;
     text-decoration: none;
 }
 
 div.uk-container a.uk-button:hover {
-    color: #fff;
+    color: $text-color-negative;
     text-decoration: none;
 }
 
@@ -169,4 +210,44 @@ div.uk-container a.uk-button-default {
 div.uk-container a.uk-button-default:hover {
     color: inherit;
     text-decoration: none;
+}
+
+/* UIkit-Slideshow */
+
+.uk-slideshow-items img {
+    cursor: pointer;
+    width: 100%;
+    max-width: 900px;
+    max-height: 450px;
+}
+
+div.uk-container .uk-slideshow .uk-slideshow-arrow {
+    color: $deko-color !important;
+}
+
+div.uk-container .uk-slideshow .uk-slideshow-arrow:hover {
+    color: darken($deko-color, 10) !important;
+}
+
+/* dotnav */
+
+.uk-dotnav>*>* {
+    width: 12px;
+    height: 12px;
+    border: 1px solid $deko-color !important;
+}
+
+.uk-dotnav>*> :hover {
+    background-color: darken($deko-color, 10) !important;
+    border-color: transparent;
+}
+
+.uk-dotnav>*> :active {
+    background-color: darken($deko-color, 10) !important;
+    border-color: transparent;
+}
+
+.uk-dotnav>.uk-active>* {
+    background-color: $deko-color !important;
+    border-color: transparent;
 }

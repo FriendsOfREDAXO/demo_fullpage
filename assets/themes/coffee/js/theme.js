@@ -1,14 +1,16 @@
+/* Globals */
+
+let gallerylightbox = null;
+let contentlightbox = null;
+
+let active_section = 1;
+let active_section_id = '';
+let active_slide = 0;
+let active_slide_id = '';
+let after_render = 0;
+let fpresizing = false;
+
 /* Helper Functions */
-
-// Debug-Ausgabe in der console
-function fpDebuglog(msg) {
-    console.log(msg + ' fpIsResponsive=' + fpIsResponsive() + ' active_section=' + active_section + ' active_slide=' + active_slide + ' viewportheight=' + viewport().height);
-}
-
-// Return responsive mode
-function fpIsResponsive() {
-    return $('body').hasClass('fp-responsive');
-}
 
 // Return viewport-dimensions
 function viewport() {
@@ -20,96 +22,215 @@ function viewport() {
     return { width: e[a + 'Width'], height: e[a + 'Height'] };
 }
 
-// Hide navigation-dots
-function hideNavDots() {
+// Return scrollbar-width
+function fpScrollbarWidth() {
+    return window.innerWidth - document.documentElement.clientWidth;
+}
+
+// Return responsive mode
+function fpIsResponsive() {
+    return $('body').hasClass('fp-responsive');
+}
+
+// Navigation-Dots in der Main-Navi ausblenden (class=hide-mainnav)
+function fpHideNaviDots() {
     $('.hide-mainnav').each(function (index) {
         $('#fp-nav').find('a[href$="#' + $(this).data('menuanchor') + '"]').parent().css('display', 'none');
     });
 }
 
-// Return maximum height of Section with horizontal slides
-function getSectionMaxHeight(index) {
-    $('.section-idx-' + index).find('img[data-src]').each(function () {
-        $(this).attr('src', $(this).data('src')).removeAttr('data-src');
-    });
-    smaxh = $('.section-idx-' + index).height();
-    $('.section-idx-' + index).find('.slide').each(function (index) {
-        //fpDebuglog('getSectionMaxHeight ' + $(this).height());
-        if ($(this).height() > smaxh) {
-            smaxh = $(this).height();
-        }
-    });
-    return smaxh;
-}
-
-// Set min-height horizontal slides
-function setSlidesMinHeight() {
-    $('.hasslides').each(function (index) {
-        $(this).css('min-height', 'initial');
-        $(this).css('max-height', 'initial');
-        $(this).css('height', 'auto');
-        $(this).css('overflow', 'auto');
-        sindex = $(this).data('idx');
-        newheight = getSectionMaxHeight(sindex);
-        //fpDebuglog('setSlidesMinHeight ' + newheight);
-        $(this).find('.slide').each(function (index) {
-            $(this).css('min-height', 'initial');
-            $(this).css('max-height', 'initial');
-            //$(this).css('height', 'auto');
-            $(this).css('overflow', 'auto');
-        });
-    });
-    //$.fn.fullpage.reBuild();
-    $('.hasslides').each(function (index) {
-        sindex = $(this).data('idx');
-        newheight = getSectionMaxHeight(sindex);
-        //fpDebuglog('setSlidesMinHeight ' + newheight + ' ' + $(this).height());
-        $(this).find('.slide').each(function (index) {
-            //$(this).css('min-height', 'initial');
-            //$(this).css('max-height', 'initial');
-            //$(this).css('overflow', 'initial');
-            $(this).css('min-height', newheight + 'px').css('height', newheight + 'px').addClass('slidefixed');
-        });
-        $(this).css('min-height', newheight + 'px');
-    });
-}
-
-// Reset min-height horizontal slides
-function resetSlidesMinHeight() {
-    $('.hasslides').each(function (index) {
-        $(this).find('.slide').each(function (index) {
-            $(this).css('min-height', '100vh')
-            $(this).css('max-height', '100vh')
-            $(this).removeClass('slidefixed');
-        });
-        //$(this).css('min-height', 'initial');
-        $(this).css('min-height', '100vh')
-        $(this).css('max-height', '100vh')
-        $(this).css('overflow', 'hidden');
-    });
-}
-
 // Srcoll to top of section
-function scrollToTopOfSection(sel, index) {
-    //fpDebuglog('scrollToTopOfSection section=' + index);
+function fpScrollToTopOfSection(sel, index) {
     if (!fpIsResponsive()) return;
     var scrolledTop = window.pageYOffset || document.documentElement.scrollTop;
     if (scrolledTop != $(sel).offset().top) {
-        $('html,body').animate({ scrollTop: $(sel).offset().top }, 300);
+        $('html,body').animate({ scrollTop: $(sel).offset().top }, 200);
         $.fn.fullpage.moveTo(index);
     }
 }
 
-// Insert background-videos
-function setBackgroundVideos() {
-    //fpDebuglog('setBackgroundVideos');
+// Load Background-Images, set Background-Images, set Background-Videos
+function fpSetBackgrounds() {
+    $('.section').addClass('loaded');
     $('section[data-bgvideo]').each(function () {
-        //fpDebuglog('SECTION VIDEO video=' + $(this).data('bgvideo') + ' type=' + $(this).data('videotype'));
-        $(this).prepend('<video class="fullpage-bgvideo" autoplay data-autoplay muted loop><source src="' + $(this).data('bgvideo') + '" type="' + $(this).data('videotype') + '"></video>');
+        $(this).prepend('<video class="fullpage-bgvideo" autoplay data-autoplay muted loop><source data-src="' + $(this).data('bgvideo') + '" type="' + $(this).data('videotype') + '"></video>');
     });
     $('.slide[data-bgvideo]').each(function () {
-        //fpDebuglog('SLIDE VIDEO video=' + $(this).data('bgvideo') + ' type=' + $(this).data('videotype'));
-        $(this).prepend('<video class="fullpage-bgvideo" data-autoplay muted loop><source src="' + $(this).data('bgvideo') + '" type="' + $(this).data('videotype') + '"></video>');
+        $(this).prepend('<video class="fullpage-bgvideo" autoplay data-autoplay muted loop><source data-src="' + $(this).data('bgvideo') + '" type="' + $(this).data('videotype') + '"></video>');
+    });
+    $('section[data-bgstyle]').each(function () {
+        $(this).prepend('<div class="fullpage-slidebackground" style="' + $(this).data('bgstyle') + '"></div>');
+    });
+    $('.slide[data-bgstyle]').each(function () {
+        $(this).prepend('<div class="fullpage-slidebackground" style="' + $(this).data('bgstyle') + '"></div>');
+    });
+    $('.fullpage-slidebackground').css('width', 'calc(100vw - ' + fpScrollbarWidth() + 'px)');
+}
+
+// Preload Images with data-src
+function fpPreloadImages() {
+    $('div.fullpage').find('img[data-src]').each(function () {
+        $(this).attr('src', $(this).data('src')).removeAttr('data-src');
+    });
+}
+
+// use plyr for videos
+function fpUsePlyr() {
+    $.getScript('assets/addons/demo_fullpage/js/plyr.js', function () {
+        localStorage.removeItem('plyr');
+        const player = new Plyr('.video');
+    });
+}
+
+// Fix horizontal Slides
+function fpFixSlides() {
+    $('.fullpage-slidebackground').css('width', 'calc(100vw - ' + fpScrollbarWidth() + 'px)');
+    $('section.hasslides').each(function () {
+        $(this).find('.slidefixed').removeClass('slidefixed');
+        if (fpIsResponsive()) {
+            if ($(this).height() > viewport().height) {
+                // Fix für Hintergrundvideos und Hintergrundbilder
+                $(this).find('.fullpage-bgvideo').css('width', 'calc(100vw - ' + fpScrollbarWidth() + 'px)');
+                $(this).find('.fullpage-slidebackground').css('width', 'calc(100vw - ' + fpScrollbarWidth() + 'px)');
+                // Fix vertical align top
+                $(this).find('.slide').each(function () {
+                    $(this).find('.fp-tableCell').addClass('slidefixed');
+                });
+                // Fix für Navi-Dots top
+                $(this).find('.fp-slidesNav').addClass('slidefixed');
+            } else {
+                // Fix für Hintergrundvideos und Hintergrundbilder
+                $(this).find('.fullpage-bgvideo').css('width', 'calc(100vw - ' + fpScrollbarWidth() + 'px)');
+                $(this).find('.fullpage-slidebackground').css('width', 'calc(100vw - ' + fpScrollbarWidth() + 'px)');
+            }
+        } else {
+            // Fix für Hintergrundvideos und Hintergrundbilder
+            if (fps_options.scrollBar || !fps_options.autoScrolling) {
+                $('.fullpage-bgvideo').css('width', 'calc(100vw - ' + fpScrollbarWidth() + 'px)');
+                $('.fullpage-slidebackground').css('width', 'calc(100vw - ' + fpScrollbarWidth() + 'px)');
+            } else {
+                $('.fullpage-bgvideo').css('width', '100vw');
+                $('.fullpage-slidebackground').css('width', '100vw');
+            }
+        }
+    });
+}
+
+// Show horizontal Arrows
+function fpShowArrows(index) {
+    $('.section-idx-' + index).find('.fp-controlArrow').show().addClass('uk-animation-slide-bottom');
+}
+
+// Hide horizontal Arrows
+function fpHideArrows() {
+    $('.fp-controlArrow').hide();
+}
+
+// Fix Navigation - Main/Hamburger
+function fpFixNavigation() {
+    if (fpIsResponsive()) {
+        $('.mainnav').hide().removeClass('uk-animation-slide-top');
+        $('.hamburger').removeClass('is-active');
+        $('.hamburger').fadeIn(300);
+    } else {
+        $('.mainnav').fadeIn(300);
+    }
+}
+
+// Initiate glightbox - https://biati-digital.github.io/glightbox/
+function fpUseGlightbox() {
+    $.getScript('assets/addons/demo_fullpage/js/glightbox.min.js', function () {
+        if (gallerylightbox) gallerylightbox.destroy();
+        if (contentlightbox) contentlightbox.destroy();
+
+        // Bildergalerie
+        gallerylightbox = GLightbox({
+            selector: '.gallery',
+            openEffect: 'zoom',
+            closeEffect: 'zoom',
+            plyr: {
+                css: 'assets/addons/demo_fullpage/css/plyr.css',
+                js: 'assets/addons/demo_fullpage/js/plyr.js',
+                config: {
+                    ratio: '16:9',
+                    fullscreen: {
+                        enabled: true,
+                        iosNative: true
+                    },
+                    youtube: {
+                        noCookie: true,
+                        rel: 0,
+                        showinfo: 0,
+                        iv_load_policy: 3
+                    },
+                    vimeo: {
+                        byline: false,
+                        portrait: false,
+                        title: false,
+                        speed: true,
+                        transparent: false
+                    }
+                }
+            },
+            videosWidth: '1200px',
+            loop: false
+        });
+        gallerylightbox.on('open', function () {
+            $.fn.fullpage.setAllowScrolling(false, 'up, down');
+            $.fn.fullpage.setKeyboardScrolling(false, 'up, down, left, right');
+            if ($('.hamburger').hasClass('is-active') === true) {
+                $('.hamburger').trigger('click');
+            }
+        });
+        gallerylightbox.on('close', function () {
+            $.fn.fullpage.setAllowScrolling(true);
+            $.fn.fullpage.setKeyboardScrolling(true);
+        });
+
+        // Interner/Externer Content
+        contentlightbox = GLightbox({
+            selector: '.lightboxcontent',
+            openEffect: 'zoom',
+            closeEffect: 'zoom',
+            plyr: {
+                css: 'assets/addons/demo_fullpage/css/plyr.css',
+                js: 'assets/addons/demo_fullpage/js/plyr.js',
+                config: {
+                    ratio: '16:9',
+                    fullscreen: {
+                        enabled: true,
+                        iosNative: true
+                    },
+                    youtube: {
+                        noCookie: true,
+                        rel: 0,
+                        showinfo: 0,
+                        iv_load_policy: 3
+                    },
+                    vimeo: {
+                        byline: false,
+                        portrait: false,
+                        title: false,
+                        speed: true,
+                        transparent: false
+                    }
+                }
+            },
+            videosWidth: '1200px',
+            loop: false
+        });
+        contentlightbox.on('open', function () {
+            $.fn.fullpage.setAllowScrolling(false, 'up, down');
+            $.fn.fullpage.setKeyboardScrolling(false, 'up, down, left, right');
+            if ($('.hamburger').hasClass('is-active') === true) {
+                $('.hamburger').trigger('click');
+            }
+        });
+        contentlightbox.on('close', function () {
+            $.fn.fullpage.setAllowScrolling(true);
+            $.fn.fullpage.setKeyboardScrolling(true);
+        });
+
     });
 }
 
@@ -123,11 +244,12 @@ var fps_settings = {
     showActiveTooltip: false,
     slidesNavigation: false,
     slidesNavPosition: 'bottom',
-    scrollBar: false,
 
     //scrolling
+    scrollBar: false,
     css3: false, // bei "fixed" Hintergrundbildern muss dieser Parameter auf false stehen!
-    scrollingSpeed: 600,
+    easing: 'easeInOutCubic', // für weitere Effekte jquery.easings.min.js im Template Footer aktivieren, easeInOutCubic ist Default
+    scrollingSpeed: 800,
     autoScrolling: false,
     fitToSection: true,
     fitToSectionDelay: 1000,
@@ -135,7 +257,7 @@ var fps_settings = {
     loopTop: false,
     loopHorizontal: true,
     continuousVertical: false,
-    touchSensitivity: 5,
+    touchSensitivity: 15,
     normalScrollElementTouchThreshold: 5,
     bigSectionsDestination: 'top',
 
@@ -158,115 +280,114 @@ var fps_settings = {
 
     // After rebuild of fullPage
     afterReBuild: function () {
-        //fpDebuglog('afterReBuild');
     },
 
-    // Init, hide loader, fadeIn pagewrapper ...
+    // Init, hide loader, fadeIn pagewrapper ... und andere Schweinereien
     afterRender: function () {
-        //fpDebuglog('afterRender');
         after_render = 1;
 
-        $('.fp-controlArrow').hide(); // horizontele Slide-Arrows ausblenden, werden bei afterLoad eingeblendet
+        fpHideArrows(); // horizontele Slide-Arrows ausblenden, werden bei afterLoad eingeblendet
 
-        $('.loader').fadeOut(800); // Loading-Animation ausblenden
+        $('.loader').fadeOut(600); // Loading-Animation ausblenden
 
-        // Für Animation beim 1. Slide ausblenden
+        // ausgeblendete Sections auch bei den Navi-Dots ausblenden
+        fpHideNaviDots();
+
+        // Logo, Navi, Headline und Image für Animation beim 1. Slide ausblenden
+        $('.pagelogo img').hide();
+        $('.mainnav').hide();
+        $('.hamburger').hide();
         $('.section-idx-1').find('h1').hide();
         $('.section-idx-1').find('.full').hide();
 
         // pagewrapper einblenden
-        $('.pagewrapper').animate({ opacity: 1 }, 600, function () { // Animation complete.
+        $('.pagewrapper').animate({ opacity: 1 }, 400, function () { // Animation complete.
             if (!fpIsResponsive()) {
-                $('.mainnav').fadeIn(200); // Show Main Navigation
-                $('#fp-nav').fadeIn(200); // Show Navigation-Dots
+                $('.mainnav').addClass('uk-animation-slide-top').fadeIn(300);
+                // Navigation-Dots einblenden
+                if ($('#fp-nav').hasClass('left')) {
+                    $('#fp-nav').addClass('uk-animation-slide-left').fadeIn(300);
+                } else {
+                    $('#fp-nav').addClass('uk-animation-slide-right').fadeIn(300);
+                }
             }
+            // Logo einblenden
+            $('.pagelogo img').addClass('uk-animation-slide-top').show();
+            // Animation der Headline beim 1. Slide
+            $('.section-idx-1').find('h1:nth-child(2)').html($('.section-idx-1').find('h1:nth-child(2)').html() + '<i class="fas fa-registered"></i>');
+            $('.section-idx-1').find('h1').addClass('uk-animation-slide-top').show();
+            // Animation Image beim 1. Slide
+            $('.section-idx-1').find('.full').addClass('uk-animation-slide-bottom').show();
+            // Down Arrow einblenden
+            $('.section-idx-1').find('.arrowdown').removeClass('uk-disabled').animate({ opacity: 1 }, 400, function () { }).addClass('uk-animation-slide-top');
+            // Animation Styleswitch
+            $('.styleswitch').addClass('uk-animation-slide-bottom').show();
+            // Animation TRex
+            $('div.for').animate({ opacity: .5 }, 1000, function () { });
+            // Bilder ausblenden wg. Animation
+            $('img.content').animate({ opacity: .0 }, 1, function () { });
         });
-
-        // Animation der Bilder in voller Größe
-        $('.section').find('.full').addClass('uk-animation-slide-bottom').show();
-
-        // Animation der Headline beim 1. Slide
-        $('.section-idx-1').find('h1:nth-child(2)').html($('.section-idx-1').find('h1:nth-child(2)').html() + '<i class="fas fa-registered"></i>');
-        $('.section-idx-1').find('h1').addClass('uk-animation-slide-top').show();
-
-        // ausgeblendete Sections auch bei den Navi-Dots ausblenden
-        hideNavDots();
     },
 
     // Switch responsive mode
     afterResponsive: function (isResponsive) {
-        //fpDebuglog('afterResponsive');
-        if (isResponsive) { // Responsive-Mode
-            $('.mainnav').hide();
-            $('.hamburger').show();
-            setSlidesMinHeight();
-        } else { // fullpage-Mode
-            $('.hamburger').hide();
-            $('.mainnav').show();
-            resetSlidesMinHeight();
-        }
+        fpFixNavigation();
+        fpFixSlides();
+        $.fn.fullpage.moveTo(active_section, active_slide);
     },
 
     // After resize page
     afterResize: function () {
-        //fpDebuglog('afterResize');
-        //$.fn.fullpage.reBuild();
-        if (fpIsResponsive()) {
-            setSlidesMinHeight();
-        } else {
-            resetSlidesMinHeight();
-        }
+        fpresizing = false;
+        fpFixNavigation();
+        fpFixSlides();
+        $.fn.fullpage.moveTo(active_section, active_slide);
     },
 
     // After loading slide
     afterLoad: function (anchorLink, index) {
-        //fpDebuglog('afterLoad index=' + index);
+        if (!fpresizing) {
+            active_section = index;
+            active_section_id = anchorLink;
+            fpFixSlides();
+        }
+
+        // Bilder animieren
+        $('.section-idx-' + index).find('img.content').addClass('uk-animation-scale-up').show();
 
         // Horizontale Slide-Arrows einblenden
-        $('.section-idx-' + active_section).find('.fp-controlArrow').hide();
-        $('.section-idx-' + index).find('.fp-controlArrow').show();
-        $('.section-idx-' + index).find('.fp-prev').show().addClass('uk-animation-slide-bottom');
-        $('.section-idx-' + index).find('.fp-next').show().addClass('uk-animation-slide-bottom');
+        fpShowArrows(index);
 
         // Up/Down Arrows einblenden
-        $('.section-idx-' + active_section).find('.arrowcontainer').addClass('uk-disabled').animate({ opacity: 0 }, 100, function () { });
-        $('.section-idx-' + index).find('.arrowcontainer').removeClass('uk-disabled').animate({ opacity: 1 }, 200, function () { });
-
-        active_section = index;
-        active_section_id = anchorLink;
-        link_clicked = 0;
-        after_render = 0;
-
-        if (fpIsResponsive()) {
-            setSlidesMinHeight();
-        } else {
-            resetSlidesMinHeight();
+        if (after_render == 1) {
+            $('.section-idx-' + index).find('.arrowup, .arrowdown').removeClass('uk-disabled').animate({ opacity: 1 }, 400, function () { });
+            $('.section-idx-' + index).find('.arrowdown').addClass('uk-animation-slide-top');
+            $('.section-idx-' + index).find('.arrowup').addClass('uk-animation-slide-bottom');
         }
     },
 
     // Leaving slide
     onLeave: function (index, nextIndex, direction) {
-        //fpDebuglog('onLeave index=' + index);
+        fpHideArrows(); // horizontele Slide-Arrows ausblenden, werden bei afterLoad eingeblendet
 
-        // Horizontale Slide-Arrows ausblenden
-        $('.section-idx-' + index).find('.fp-controlArrow').hide();
         // Up/Down Arrows ausblenden
-        $('.section-idx-' + index).find('.arrowcontainer').addClass('uk-disabled').animate({ opacity: 0 }, 100, function () { });
+        $('.section-idx-' + index).find('.arrowup, .arrowdown').addClass('uk-disabled').animate({ opacity: 0 }, 100, function () { });
+        $('.section-idx-' + index).find('.arrowdown').removeClass('uk-animation-slide-top');
+        $('.section-idx-' + index).find('.arrowup').removeClass('uk-animation-slide-bottom');
     },
 
     // After loading horizontal slide
     afterSlideLoad: function (anchorLink, index, slideAnchor, slideIndex) {
-        //fpDebuglog('afterSlideLoad index=' + index + ' slideIndex=' + slideIndex);
-
-        active_section = index;
-        active_section_id = anchorLink;
-        active_slide = slideIndex;
-        active_slide_id = slideAnchor;
+        if (!fpresizing) {
+            active_section = index;
+            active_section_id = anchorLink;
+            active_slide = slideIndex;
+            active_slide_id = slideAnchor;
+        }
     },
 
     // leaving horizontal slide
     onSlideLeave: function (anchorLink, index, slideIndex, direction, nextSlideIndex) {
-        //fpDebuglog('onSlideLeave index=' + index + ' slideIndex=' + slideIndex);
     }
 
 };
@@ -274,51 +395,48 @@ var fps_settings = {
 // Extend options mit Addon-Einstellungen
 jQuery.extend(fps_settings, fps_options);
 
-var active_section = 1;
-var active_section_id = '';
-var active_slide = 0;
-var active_slide_id = '';
-var link_clicked = 0;
-var after_render = 0;
+// Window Resize
+$(window).on('resize', function () {
+    fpresizing = true;
+});
 
 $(document).ready(function () {
-
-    // Hintergrundvideos einfügen
-    setBackgroundVideos();
 
     // Initiate fullpage.js - https://alvarotrigo.com/fullPage/
     $('.fullpage').fullpage(fps_settings);
 
-    // Window Resize - Navigation aus/einblenden
-    $(window).on('resize', function () {
-        if ($('.hamburger').is(':visible')) {
-            $('.mainnav').hide();
-            $('.hamburger').removeClass('is-active');
-        } else {
-            $('.mainnav').fadeIn(300);
-        }
-    });
-
     // Logo-Click zum 1. Slide
     $('.pagelogo img').click(function (e) {
-        link_clicked = 1;
         e.preventDefault();
         document.activeElement.blur();
+        $.fn.fullpage.moveTo(1);
+        $('html, body').animate({ scrollTop: 0 }, 400);
         if ($('.hamburger').hasClass('is-active') === true) {
             $('.hamburger').trigger('click');
         }
-        $.fn.fullpage.moveTo(1);
-        $('html, body').animate({ scrollTop: 0 }, 400);
     });
+
+    // Logo-Effekt bei mouseenter
+    $('.pagelogo img')
+        .mouseenter(function () {
+            if (!fpIsResponsive()) {
+                $(this).removeClass('uk-animation-slide-top');
+                $(this).addClass('uk-animation-kenburns');
+            }
+        })
+        .mouseleave(function () {
+            if (!fpIsResponsive()) {
+                $(this).removeClass('uk-animation-kenburns');
+            }
+        });
 
     // Klick auf Navigation, bei mobiler Navigation ausblenden
     $('.mainnav').find('a').click(function () {
-        link_clicked = 1;
         if ($('.hamburger').hasClass('is-active') === true) {
             $('.hamburger').trigger('click');
         }
         if ($(this).parent().hasClass('active')) {
-            scrollToTopOfSection('.section-' + $(this).data('sectionid'), $(this).data('sectionid'));
+            fpScrollToTopOfSection('.section-' + $(this).data('sectionid'), $(this).data('sectionid'));
         }
     });
     // bei Klick auf Navi-Balken Navi ausblenden
@@ -332,26 +450,31 @@ $(document).ready(function () {
     });
 
     // Im responsive-Modus bei Klick am oberen Rand (50px) Navi-einblenden
-    $('body, div.fp-tableCell').click(function (e) {
-        if (fpIsResponsive() && $(e.target).hasClass('fp-tableCell')) {
-            e.preventDefault();
-            if (e.clientY <= 50) {
-                $('.main-navigation').removeClass('scroll-down').addClass('scroll-up');
+    $('.pagewrapper').click(function (e) {
+        if (fpIsResponsive()) {
+            if ($(e.target).hasClass('fp-tableCell') || $(e.target).hasClass('fullpage-bgvideo') || $(e.target).hasClass('fullpage-slidebackground')) {
+                if (e.clientY <= 50) {
+                    $('.main-navigation').removeClass('scroll-down').addClass('scroll-up');
+                }
             }
         }
     });
 
-    // Navigation-Dot Click
-    $('#fp-nav a').click(function (e) {
-        link_clicked = 1;
-        if ($(this).hasClass('active')) {
-            scrollToTopOfSection('.section-idx-' + active_section, active_section);
+    // Hambuger Menu
+    $('.hamburger').addClass('hamburger--squeeze');
+    $('.hamburger').on('click', function (e) {
+        e.preventDefault();
+        document.activeElement.blur();
+        if ($(this).hasClass('is-active') === true) {
+            $('.mainnav').slideUp(300);
+        } else {
+            $('.mainnav').slideDown(300);
         }
+        $(this).toggleClass('is-active');
     });
 
-    // Scroll Indicator Click
+    // ScrollDown/ScrollUp arrow click
     $('a.arrowdown').click(function (e) {
-        link_clicked = 1;
         e.preventDefault();
         if ($('.hamburger').hasClass('is-active') === true) {
             $('.hamburger').trigger('click');
@@ -359,7 +482,6 @@ $(document).ready(function () {
         $.fn.fullpage.moveSectionDown();
     });
     $('a.arrowup').click(function (e) {
-        link_clicked = 1;
         e.preventDefault();
         if ($('.hamburger').hasClass('is-active') === true) {
             $('.hamburger').trigger('click');
@@ -393,6 +515,7 @@ $(document).ready(function () {
     });
     $('.back-to-top').click(function (e) {
         e.preventDefault();
+        document.activeElement.blur();
         if ($('.hamburger').hasClass('is-active') === true) {
             $('.hamburger').trigger('click');
         }
@@ -400,61 +523,23 @@ $(document).ready(function () {
         $('html, body').animate({ scrollTop: 0 }, 400);
     });
 
-    // Hambuger Menu
-    $('.hamburger').addClass('hamburger--squeeze');
-    $('.hamburger').on('click', function (e) {
-        e.preventDefault();
-        document.activeElement.blur();
-        if ($(this).hasClass('is-active') === true) {
-            $('.mainnav').slideUp(300);
-        } else {
-            $('.mainnav').slideDown(300);
-        }
-        $(this).toggleClass('is-active');
-    });
+});
 
-    // Initiate glightbox - https://biati-digital.github.io/glightbox/
-    $.getScript('./assets/addons/demo_fullpage/themes/coffee/js/glightbox.min.js', function () {
-        // Bildergalerie
-        const gallerylightbox = GLightbox({
-            selector: '.gallery',
-            openEffect: 'zoom',
-            closeEffect: 'zoom',
-            loop: false
-        });
-        gallerylightbox.on('open', function () {
-            $.fn.fullpage.setAllowScrolling(false);
-            $.fn.fullpage.setKeyboardScrolling(false);
-            if ($('.hamburger').hasClass('is-active') === true) {
-                $('.hamburger').trigger('click');
-            }
-        });
-        gallerylightbox.on('close', function () {
-            $.fn.fullpage.setAllowScrolling(true);
-            $.fn.fullpage.setKeyboardScrolling(true);
-        });
-        // Externer Content
-        const contentlightbox = GLightbox({
-            selector: '.lightboxcontent',
-            openEffect: 'zoom',
-            width: 'calc(100vw - 60px)',
-            height: 'calc(100vh - 60px)',
-            closeEffect: 'zoom',
-            loop: false
-        });
-        contentlightbox.on('open', function () {
-            $.fn.fullpage.setAllowScrolling(false);
-            $.fn.fullpage.setKeyboardScrolling(false);
-            if ($('.hamburger').hasClass('is-active') === true) {
-                $('.hamburger').trigger('click');
-            }
-        });
-        contentlightbox.on('close', function () {
-            $.fn.fullpage.setAllowScrolling(true);
-            $.fn.fullpage.setKeyboardScrolling(true);
-        });
-    });
-
+// Load Background-Images, set Background, set Background-Video
+// Preload Images
+// Use plyr + glightbox
+window.addEventListener('DOMContentLoaded', function (event) {
+    setTimeout(function () {
+        fpSetBackgrounds();
+        fpUseGlightbox();
+    }, 200);
+    setTimeout(function () {
+        fpUsePlyr();
+    }, 200);
+    setTimeout(function () {
+        fpPreloadImages();
+        fpUseGlightbox();
+    }, 700);
 });
 
 /* Show/Hide Navigation-Bar on scrolling */

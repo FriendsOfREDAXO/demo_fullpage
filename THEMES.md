@@ -8,43 +8,76 @@ Für die Themes wird SCSS unterstützt. Für das Frontend wird auf jeden Fall di
 
 Variablen können direkt in der theme.css definiert werden oder mittels import z.B. `@import "theme"` eingefügt werden. Die Datei mit den Variablen muss im Theme-Verzeichnis dann entsprechend als **_theme.scss** abgespeichert werden.
 
+Bei allen Themes ist die Verwendung von Hintergrundbildern und Hintergrundvideos für Slides bereits integriert.
+
 > **Hinweis:**
 Alle .css-Dateien im Theme-Verzeichnis werden minimiert in [filename].min.css!
 
-Die beste Basis für ein eigenes Theme ist das Theme **minimal**. Hier sind alle notwendigen CSS und JavaScript-Definitionen für eine minimal gestylte Fullpage-Webseite vorhanden.
+Die beste Basis für ein eigenes Theme ist das Theme **minimal**. Hier sind alle notwendigen Standard CSS und JavaScript-Definitionen für eine minimal gestylte Fullpage-Webseite vorhanden.
 
 ## Mitgelieferte Themes
 
 ### Theme Coffee
 
-Eigenschaften
+![Screenshot Theme coffee](https://raw.githubusercontent.com/FriendsOfREDAXO/demo_fullpage/assets/theme_coffee.png "Screenshot Theme coffee")
+
+**Eigenschaften Theme "coffee"**
+
 - horizontale Naviation
-- Fixed-Background-Images
-- GLightbox für Bilder
-- Navigation blendet im Responsive-Mode beim scrollen aus/ein
+- Fixed-Background-Images (CSS3 muss deaktiviert sein, css3: false)
+- Hintergrundbilder fest im CSS definiert
+- GLightbox für Bilder, Videos, interner Content, externer Content
+- Glightbox mit Zoom-Effekt
+- Continuous Scrolling bei horizontalen Slides
+- Logo/Hamburger blendet im Responsive-Mode beim scrollen aus/ein
+- fixe horizontale Arrows bei horizontalen Slides
+- horizontale Dot-Navigation im Responsive-Modus immer oben
 
 ### Theme Bike
 
-Eigenschaften
+![Screenshot Theme bike](https://raw.githubusercontent.com/FriendsOfREDAXO/demo_fullpage/assets/theme_bike.png "Screenshot Theme bike")
+
+**Eigenschaften Theme "bike"**
+
 - horizontale Navitaion
-- Easing-Effekt beim scrollen im Fullpage-Modus
-- GLightbox für Bilder
+- Easing-Effekt beim scrollen (nur im Fullpage-Modus ohne Scrollbar)
+- Hintergrundbilder fest im CSS definiert
+- Wechsel hell/dunkel der Hintergrundbilder und Content (odd/even)
+- GLightbox für Bilder, Videos, interner Content, externer Content
+- Glightbox mit Fade-Effekt
+- Continuous Scrolling bei horizontalen Slides
+- Logo/Hamburger fix im Responsive-Mode
+- fixe horizontale Arrows bei horizontalen Slides
+- horizontale Dot-Navigation im Responsive-Modus immer oben
 
 ### Theme Road
 
-Eigenschaften
+![Screenshot Theme road](https://raw.githubusercontent.com/FriendsOfREDAXO/demo_fullpage/assets/theme_road.png "Screenshot Theme road")
+
+**Eigenschaften Theme "road"**
+
 - vertikale Navigation
+- Hintergrundbilder fest im CSS definiert
 - Blurry Backgrounds
-- Continuous Scrolling
-- GLightbox für Bilder
+- GLightbox für Bilder, Videos, interner Content, externer Content
+- Glightbox mit Zoom-Effekt
+- Continuous Scrolling vertikal
+- Continuous Scrolling bei horizontalen Slides
+- Logo/Hamburger fix im Responsive-Mode
+- fixe horizontale Arrows bei horizontalen Slides
+- horizontale Dot-Navigation im Responsive-Modus immer oben
 
 ### Theme Minimal
 
-Eigenschaften
+![Screenshot Theme minimal](https://raw.githubusercontent.com/FriendsOfREDAXO/demo_fullpage/assets/theme_minimal.png "Screenshot Theme minimal")
+
+**Eigenschaften Theme "minimal"**
+
+- keine Hintergrundbilder im CSS definiert
 - minimale CSS und JavaScript-Definitonen
-- keine Lightbox
-
-
+- Standard-CSS fullPage.js
+- Standard-CSS uikit
+- kein Lightbox-Script vorbereitet
 
 ## Einbindung CSS/JavaScript im Frontend
 
@@ -57,7 +90,6 @@ Die notwendigen Stylesheets und Javascripte für eine "Fullpage-Webseite" werden
 <link rel="stylesheet" href="./assets/addons/demo_fullpage/css/jquery.fullpage.min.css">
 
 <link rel="stylesheet" href="./assets/addons/demo_fullpage/themes/[themename]/css/theme.min.css">
-
 ```
 
 **Notwendige Javascripte** (Template 20. Footer)
@@ -69,7 +101,6 @@ Die notwendigen Stylesheets und Javascripte für eine "Fullpage-Webseite" werden
 <script src="./assets/addons/demo_fullpage/js/uikit-icons.min.js"></script>
 
 <script src="./assets/addons/demo_fullpage/themes/[themename]/js/theme.js"></script>
-
 ```
 
 ## Verzeichnisstruktur assets
@@ -77,54 +108,32 @@ Die notwendigen Stylesheets und Javascripte für eine "Fullpage-Webseite" werden
 Das Addon-Verzeichnis **assets** enthält die CCS und JavaScript-Dateien die bei der Installation/Reinstall automatisch
 in das Verzeichnis `assets/addons/demo_fullpage` kopiert werden.
 
-* **css**
-	animate.min.css
-	font-awesome.min.css
-	jquery.fullpage.css
-	jquery.fullpage.min.css
-	jquery.fullpage.min.css.map
-	uikit.css
-	uikit.min.css
-	uikit-rtl.css
-	uikit-rtl.min.css
-* **fonts**
-	FontAwesome.otf
-	...
-* **js**
-	jquery.fullpage.extensions.min.js
-	jquery.fullpage.js
-	jquery.fullpage.min.js
-	jquery.fullpage.min.js.map
-	jquery.min.js
-	scrolloverflow.min.js
-	uikit.js
-	uikit.min.js
-	uikit-icons.js
-	uikit-icons.min.js
-* **themes**
-  * **bike** (Theme Bike)
-  * **coffee** (Theme Coffee - DEFAULT)
-  * **minimal** (Theme Minimal)
-  * **road** (Theme Road)
-
----
+- **css**
+- **img**
+- **js**
+- **themes**
+  - **bike** (Theme Bike)
+  - **coffee** (Theme Coffee - DEFAULT)
+  - **minimal** (Theme Minimal)
+  - **road** (Theme Road)
+- **webfonts**
 
 ## Theme Verzeichnis-Struktur
 
 Die einzelnen Themes haben eine fest vorgegebene Verzeichnis-Struktur.
-Absolut notwendig ist die CSS-Datei **theme.css**, optional zusätzliche Dateien.
+Absolut notwendig ist die CSS-Datei **theme.css**, optional sind zusätzliche Dateien.
 
-* **css**
-	theme.css
-    _theme.scss (optional)
-* **img**
-	logo.svg
-* **js**
-	theme.js
+- **css**
+  - theme.css
+  - _theme.scss (optional)
+- **img**
+  - logo.svg
+- **js**
+  - theme.js
 
 ## Theme css - Stylesheets
 
-Das Stylesheet **css/theme.css** des Themes wird automatisch im Frontend eingebunden (Template **11. HTML-Header**).
+Das Stylesheet **css/thememin..css** des Themes wird automatisch im Frontend eingebunden (Template **11. HTML-Header**).
 Zusätzliche Stylesheets können über @import eingebunden werden.
 
 z.B.
@@ -134,6 +143,7 @@ z.B.
 ```
 
 Für eigene Themes muss ein eigenes Unterverzeichnis im Ordner **themes** angelegt werden.
+
 In der Datei **meintheme/css/theme.css** müssen die ersten 4 Zeilen wie folgt aussehen ...
 
 ```
@@ -148,7 +158,9 @@ Der Text in Zeile 3 wird bei den Addoneinstellungen für die Auswahl des Themes 
 ## Theme js - JavaScript
 
 Das Script **js/theme.js** wird automatisch im Frontend eingebunden (Template **20. Footer**).
+
 Für zusätzliche eigene JavaScripte die jQuery-Funktion **getScript** verwenden
+
 z.B.
 
 ```javascript

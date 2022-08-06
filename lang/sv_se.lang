@@ -34,6 +34,7 @@ demo_fullpage_save = Spara inställningarna
 
 demo_fullpage_config_saved = Inställningarna sparades!
 demo_fullpage_compile_theme =
+demo_fullpage_compile_error =
 
 demo_fullpage_themes = Mallarna
 demo_fullpage_description_themes_heading = Informationer till mallarna
@@ -59,3 +60,7 @@ demo_fullpage_meta_bgcolor =
 demo_fullpage_meta_bgvideo =
 demo_fullpage_meta_autoheight =
 demo_fullpage_meta_nomenu =
+
+demo_fullpage_changelog =
+demo_fullpage_description_changelog_heading =
+demo_fullpage_no_changelog_file =

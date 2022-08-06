@@ -1,0 +1,70 @@
+/*
+-------------------------------------------------------------------------------
+UIkit Overrides
+-------------------------------------------------------------------------------
+*/
+
+/* SCSS-Variablen _theme.scss */
+@import "theme";
+
+.uk-h1,
+.uk-h2,
+.uk-h3,
+.uk-h4,
+.uk-h5,
+.uk-h6,
+.uk-heading-2xlarge,
+.uk-heading-large,
+.uk-heading-medium,
+.uk-heading-small,
+.uk-heading-xlarge,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: inherit;
+    color: $headline-color;
+}
+
+/* Tooltip */
+
+div.uk-tooltip {
+    max-width: 300px;
+    padding: 5px 10px;
+    background: $tooltip-bg;
+    border-radius: 2px;
+    color: $tooltip-color;
+    font-size: $tooltip-font-size;
+    line-height: 1.5em;
+}
+
+/* Cards */
+
+.uk-card,
+.uk-card-default,
+.uk-card-primary,
+.uk-card-secondary {
+    box-shadow: none;
+}
+
+.uk-card,
+.uk-card-default {
+    background-color: $uk-bg-default;
+}
+
+/* Buttons */
+
+.uk-button {
+    font-size: 1.0em;
+    text-transform: none;
+}
+
+.uk-button:hover {
+    text-decoration: none;
+}
+
+div.uk-container a.uk-button:hover {
+    text-decoration: none;
+}
