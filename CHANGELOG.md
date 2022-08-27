@@ -1,5 +1,16 @@
 # REDAXO Fullpage-Demo - Changelog
 
+## Version 2.0.1 – xx.xx.2022
+
+### Changes
+
+* Update UIkit 3.15.5
+* Update jQuery Version 3.6.1
+
+### Bugfixes
+
+* keine
+
 ## Version 2.0.0 – 07.08.2022
 
 ### Breaking changes
