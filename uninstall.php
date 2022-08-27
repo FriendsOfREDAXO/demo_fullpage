@@ -24,7 +24,7 @@ function array_diff_recursive($aArray1, $aArray2)
                     $aReturn[$mKey] = $aRecursiveDiff;
                 }
             } else {
-                if ($mValue != $aArray2[$mKey]) {
+                if ($mValue !== $aArray2[$mKey]) {
                     $aReturn[$mKey] = $mValue;
                 }
             }

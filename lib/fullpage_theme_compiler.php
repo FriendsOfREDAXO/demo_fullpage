@@ -7,7 +7,7 @@ class fullpage_theme_compiler {
 
         $compiler = new rex_scss_compiler();
 
-        if (substr($theme, 0, 8) == 'project:') {
+        if (substr($theme, 0, 8) === 'project:') {
             $theme = str_replace('project:', '', $theme);
             $sourcePath = rex_addon::get('project')->getPath('fpthemes/' . $theme . '/css/');
         } else {
@@ -32,7 +32,7 @@ class fullpage_theme_compiler {
         $filenames = (array)glob($sourcePath . '*.css');
         foreach ($filenames as $filename) {
             $filename = (string)$filename;
-            if (substr(basename($filename), -8 ) != '.min.css' && basename($filename) != 'theme.css') {
+            if (substr(basename($filename), -8 ) !== '.min.css' && basename($filename) !== 'theme.css') {
                 $cssfiles[] = pathinfo(basename($filename), PATHINFO_FILENAME);
             }
         }

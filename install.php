@@ -6,7 +6,7 @@ $addon = rex_addon::get('demo_fullpage');
 $addon->setProperty('successmsg', rex_i18n::rawMsg('demo_fullpage_success_message', '<a href="' . rex_url::backendPage('demo_fullpage') . '">' . $addon->i18n('demo_fullpage_title') . '</a>'));
 
 // Defaultwerte Konfiguration setzen
-if (!$addon->hasConfig() or ($addon->getConfig('theme') == '')) {
+if (!$addon->hasConfig() or ($addon->getConfig('theme') === '')) {
     $addon->setConfig('theme', 'coffee');
     $addon->setConfig('logo', '');
     $addon->setConfig('autoscrolling', '1');
