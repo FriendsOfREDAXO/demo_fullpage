@@ -8,7 +8,7 @@ $buttons = '';
 $func = rex_request('func', 'string');
 
 // Konfiguration speichern
-if ($func == 'update') {
+if ($func === 'update') {
 
     $addon->setConfig(rex_post('settings', [
         ['theme', 'string'],
@@ -71,7 +71,7 @@ foreach ($directories as $dir) {
     $dir = basename($dir);
     if (file_exists($myPath  .$dir . '/css/theme.css')) {
         if ($ff = file($myPath  .$dir . '/css/theme.css')) {
-            if (isset($ff[0]) and trim($ff[0]) == '/*' and isset($ff[3]) and trim($ff[3]) == '*/' and isset($ff[2])) {
+            if (isset($ff[0]) and trim($ff[0]) === '/*' and isset($ff[3]) and trim($ff[3]) === '*/' and isset($ff[2])) {
                 $sel_dirs->addOption($ff[2], $dir);
             }
         }
@@ -84,7 +84,7 @@ foreach ($directories as $dir) {
     $dir = basename($dir);
     if (file_exists($myPath  .$dir . '/css/theme.css')) {
         if ($ff = file($myPath  .$dir . '/css/theme.css')) {
-            if (isset($ff[0]) and trim($ff[0]) == '/*' and isset($ff[3]) and trim($ff[3]) == '*/' and isset($ff[2])) {
+            if (isset($ff[0]) and trim($ff[0]) === '/*' and isset($ff[3]) and trim($ff[3]) === '*/' and isset($ff[2])) {
                 $sel_dirs->addOption('project: ' . $ff[2], 'project:'.$dir);
             }
         }
@@ -247,7 +247,7 @@ $content .= $fragment->parse('core/form/checkbox.php');
 $formElements = [];
 $n = [];
 $n['label'] = '<label for="showslidenavigation">' . htmlspecialchars_decode($addon->i18n('config_showslidenavigation')) . '</label>';
-$n['field'] = '<input type="checkbox" id="showslidenavigation" name="settings[showslidenavigation]"' . ($Values['showslidenavigation'] !== '' && $Values['showslidenavigation'] == '1' ? ' checked="checked"' : '') . ' value="1" />';
+$n['field'] = '<input type="checkbox" id="showslidenavigation" name="settings[showslidenavigation]"' . ($Values['showslidenavigation'] !== '' && $Values['showslidenavigation'] === '1' ? ' checked="checked"' : '') . ' value="1" />';
 $formElements[] = $n;
 
 $fragment = new rex_fragment();
@@ -279,7 +279,7 @@ $content .= $fragment->parse('core/form/container.php');
 $formElements = [];
 $n = [];
 $n['label'] = '<label for="usesubcategories">' . htmlspecialchars_decode($addon->i18n('config_usesubcategories')) . '</label>';
-$n['field'] = '<input type="checkbox" id="usesubcategories" name="settings[usesubcategories]"' . ($Values['usesubcategories'] !== '' && $Values['usesubcategories'] == '1' ? ' checked="checked"' : '') . ' value="1" />';
+$n['field'] = '<input type="checkbox" id="usesubcategories" name="settings[usesubcategories]"' . ($Values['usesubcategories'] !== '' && $Values['usesubcategories'] === '1' ? ' checked="checked"' : '') . ' value="1" />';
 $formElements[] = $n;
 
 $fragment = new rex_fragment();
