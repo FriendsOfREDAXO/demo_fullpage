@@ -20,7 +20,7 @@ function array_diff_recursive($aArray1, $aArray2)
         if (array_key_exists($mKey, $aArray2)) {
             if (is_array($mValue)) {
                 $aRecursiveDiff = array_diff_recursive($mValue, $aArray2[$mKey]);
-                if (count($aRecursiveDiff)) {
+                if (count($aRecursiveDiff) > 0) {
                     $aReturn[$mKey] = $aRecursiveDiff;
                 }
             } else {

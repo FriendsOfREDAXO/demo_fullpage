@@ -7,8 +7,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 class rex_command_demo_fullpage_install extends rex_console_command {
     protected function configure() : void
     {
-        $this->setDescription('Installs the REDAXO fullpage demo')
-            ->addOption('yes', 'y', InputOption::VALUE_NONE, 'runs the installation without confirmation');
+        $this->setDescription('Installs the REDAXO fullpage demo');
+        $this->addOption('yes', 'y', InputOption::VALUE_NONE, 'runs the installation without confirmation');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) : int

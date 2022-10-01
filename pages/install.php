@@ -78,13 +78,13 @@ $credits = '';
 $credits .= '<dl class="dl-horizontal">';
 $credits .= '<dt>' . rex_i18n::msg('credits_name') . '</dt><dd>' . htmlspecialchars($name) . '</dd>';
 
-if ($version) {
+if ($version > 0) {
     $credits .= '<dt>' . rex_i18n::msg('credits_version') . '</dt><dd>' . $version . '</dd>';
 }
-if ($author) {
+if ($author !== '') {
     $credits .= '<dt>' . rex_i18n::msg('credits_author') . '</dt><dd>' . htmlspecialchars($author) . '</dd>';
 }
-if ($supportPage) {
+if ($supportPage !== '') {
     $credits .= '<dt>' . rex_i18n::msg('credits_supportpage') . '</dt><dd><a href="' . $supportPage . '" onclick="window.open(this.href); return false;">' . $supportPage . '</a></dd>';
 }
 
