@@ -1,4 +1,4 @@
-/*! UIkit 3.15.7 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.10 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2578,8 +2578,8 @@
         }
       };
 
-      UIkit.prototype.registerObserver = function (observer) {
-        this._observers.push(observer);
+      UIkit.prototype.registerObserver = function () {
+        this._observers.push(...arguments);
       };
 
       UIkit.prototype._disconnectObservers = function () {
@@ -2911,8 +2911,8 @@
           }
         }
 
-        for (const attribute of node.attributes) {
-          const name = getComponentName(attribute.name);
+        for (const attribute of node.getAttributeNames()) {
+          const name = getComponentName(attribute);
           name && UIkit[name](node);
         }
       };
@@ -2937,7 +2937,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.15.7';
+    UIkit.version = '3.15.10';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -7708,8 +7708,8 @@
           return this.target;
         },
 
-        handler(_ref2) {let { type } = _ref2;
-          this.updateAria(type === 'show');
+        handler(_ref2) {let { target, type } = _ref2;
+          this.updateAria(target === this.target[0] && type === 'show');
         } },
 
 
@@ -8053,12 +8053,10 @@
 
       // Get current state
       const currentProps = nodes.map((el) => getProps(el, true));
-      const targetProps = css(target, ['height', 'padding']);
+      const targetProps = { ...css(target, ['height', 'padding']), display: 'block' };
 
       // Cancel previous animations
-      Transition.cancel(target);
-      nodes.forEach(Transition.cancel);
-      reset(target);
+      await Promise.all(nodes.concat(target).map(Transition.cancel));
 
       // Adding, sorting, removing nodes
       action();
@@ -8073,12 +8071,17 @@
       fastdom.flush();
 
       // Get new state
+      const targetStyle = attr(target, 'style');
       const targetPropsTo = css(target, ['height', 'padding']);
       const [propsTo, propsFrom] = getTransitionProps(target, nodes, currentProps);
+      const attrsTo = nodes.map((el) => ({
+        class: attr(el, 'class'),
+        style: attr(el, 'style') }));
+
 
       // Reset to previous state
       nodes.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
-      css(target, { display: 'block', ...targetProps });
+      css(target, targetProps);
 
       // Start transitions on next frame
       await awaitFrame();
@@ -8087,13 +8090,19 @@
       map((el, i) => parent(el) === target && Transition.start(el, propsTo[i], duration, 'ease')).
       concat(Transition.start(target, targetPropsTo, duration, 'ease'));
 
-      await Promise.all(transitions).then(() => {
-        nodes.forEach(
-        (el, i) =>
-        parent(el) === target && css(el, 'display', propsTo[i].opacity === 0 ? 'none' : ''));
-
-        reset(target);
-      }, noop);
+      try {
+        await Promise.all(transitions);
+        nodes.forEach((el, i) => {
+          attr(el, attrsTo[i]);
+          if (parent(el) === target) {
+            css(el, 'display', propsTo[i].opacity === 0 ? 'none' : '');
+          }
+        });
+        attr(target, 'style', targetStyle);
+      } catch (e) {
+        attr(nodes, 'style', '');
+        resetProps(target, targetProps);
+      }
     }
 
     function getProps(el, opacity) {
@@ -8147,29 +8156,22 @@
       return [propsTo, propsFrom];
     }
 
-    function reset(el) {
-      css(el.children, {
-        height: '',
-        left: '',
-        opacity: '',
-        pointerEvents: '',
-        position: '',
-        top: '',
-        marginTop: '',
-        marginLeft: '',
-        transform: '',
-        width: '',
-        zIndex: '' });
-
-      css(el, { height: '', display: '', padding: '' });
+    function resetProps(el, props) {
+      for (const prop in props) {
+        css(el, prop, '');
+      }
     }
 
     function getPositionWithMargin(el) {
       const { height, width } = offset(el);
-      const { top, left } = position(el);
-      const { marginLeft, marginTop } = css(el, ['marginTop', 'marginLeft']);
 
-      return { top, left, height, width, marginLeft, marginTop, transform: '' };
+      return {
+        height,
+        width,
+        transform: '',
+        ...position(el),
+        ...css(el, ['marginTop', 'marginLeft']) };
+
     }
 
     function awaitFrame() {
@@ -8202,10 +8204,7 @@
             return Promise.resolve();
           };
 
-          return animationFn(action, target, this.duration).then(
-          () => this.$update(target, 'resize'),
-          noop);
-
+          return animationFn(action, target, this.duration).catch(noop);
         } } };
 
     var filter = {
@@ -8634,6 +8633,8 @@
       events: [
       {
         name: pointerDown,
+
+        passive: true,
 
         delegate() {
           return this.selSlides;
@@ -11112,10 +11113,18 @@
     }
 
     function appendDrag(container, element) {
-      const clone = append(
-      container,
-      element.outerHTML.replace(/(^<)(?:li|tr)|(?:li|tr)(\/>$)/g, '$1div$2'));
+      let clone;
+      if (['li', 'tr'].some((tag) => isTag(element, tag))) {
+        clone = $('<div>');
+        append(clone, element.cloneNode(true).children);
+        for (const attribute of element.getAttributeNames()) {
+          attr(clone, attribute, element.getAttribute(attribute));
+        }
+      } else {
+        clone = element.cloneNode(true);
+      }
 
+      append(container, clone);
 
       css(clone, 'margin', '0', 'important');
       css(clone, {
@@ -11226,9 +11235,12 @@
 
 
       beforeConnect() {
+        this.id = "uk-tooltip-" + this._uid;
         this._hasTitle = hasAttr(this.$el, 'title');
-        attr(this.$el, 'title', '');
-        this.updateAria(false);
+        attr(this.$el, {
+          title: '',
+          'aria-describedby': this.id });
+
         makeFocusable(this.$el);
       },
 
@@ -11276,15 +11288,13 @@
 
         _show() {
           this.tooltip = append(
-          this.container, "<div class=\"uk-" +
-          this.$options.name + "\"> <div class=\"uk-" +
+          this.container, "<div id=\"" +
+          this.id + "\" class=\"uk-" + this.$options.name + "\" role=\"tooltip\"> <div class=\"uk-" +
           this.$options.name + "-inner\">" + this.title + "</div> </div>");
 
 
 
           on(this.tooltip, 'toggled', (e, toggled) => {
-            this.updateAria(toggled);
-
             if (!toggled) {
               return;
             }
@@ -11300,10 +11310,6 @@
           });
 
           this.toggleElement(this.tooltip, true);
-        },
-
-        updateAria(toggled) {
-          attr(this.$el, 'aria-expanded', toggled);
         } },
 
 
