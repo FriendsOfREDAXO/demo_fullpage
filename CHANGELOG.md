@@ -4,7 +4,7 @@
 
 ### Changes
 
-* Update UIkit 3.15.7
+* Update UIkit 3.15.11
 * Update jQuery Version 3.6.1
 
 ### Bugfixes
