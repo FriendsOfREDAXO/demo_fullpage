@@ -32,7 +32,7 @@ if ($func === 'update') {
     echo rex_view::info($addon->i18n('compile_theme'));
 
     $compiler = new fullpage_theme_compiler();
-    $compiler->compile($addon->getConfig('theme'), true);
+    $compiler->compile(strval($addon->getConfig('theme')), true);
 
 }
 
@@ -67,30 +67,32 @@ $sel_dirs->setStyle('class="form-control"');
 // get themes from demo_fullpage-Addon
 $myPath = $addon->getPath('assets/themes/');
 $directories = glob($myPath . '/*' , GLOB_ONLYDIR);
-foreach ($directories as $dir) {
-    $dir = basename($dir);
-    if (file_exists($myPath  .$dir . '/css/theme.css')) {
-        if ($ff = file($myPath  .$dir . '/css/theme.css')) {
+if (false !== $directories) {
+    foreach ($directories as $dir) {
+        $dir = basename($dir);
+        if (true === file_exists($myPath  .$dir . '/css/theme.css')) {
+            $ff = file($myPath  .$dir . '/css/theme.css');
             if (isset($ff[0]) and trim($ff[0]) === '/*' and isset($ff[3]) and trim($ff[3]) === '*/' and isset($ff[2])) {
                 $sel_dirs->addOption($ff[2], $dir);
             }
         }
     }
 }
+
 // get themes from project-Addon
 $myPath = rex_addon::get('project')->getPath('fpthemes/');
 $directories = glob($myPath . '/*' , GLOB_ONLYDIR);
-foreach ($directories as $dir) {
-    $dir = basename($dir);
-    if (file_exists($myPath  .$dir . '/css/theme.css')) {
-        if ($ff = file($myPath  .$dir . '/css/theme.css')) {
+if (false !== $directories) {
+    foreach ($directories as $dir) {
+        $dir = basename($dir);
+        if (file_exists($myPath  .$dir . '/css/theme.css')) {
+            $ff = file($myPath  .$dir . '/css/theme.css');
             if (isset($ff[0]) and trim($ff[0]) === '/*' and isset($ff[3]) and trim($ff[3]) === '*/' and isset($ff[2])) {
                 $sel_dirs->addOption('project: ' . $ff[2], 'project:'.$dir);
             }
         }
     }
 }
-
 $n['field'] = $sel_dirs->get();
 
 $formElements[] = $n;

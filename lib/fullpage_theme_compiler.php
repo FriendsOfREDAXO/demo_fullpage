@@ -25,8 +25,8 @@ class fullpage_theme_compiler {
             return;
         }
 
-        echo '<strong>Theme-Source:</strong> ' . substr($sourcePath, strpos($sourcePath, 'redaxo' . DIRECTORY_SEPARATOR . 'src')) . '<br>';
-        echo '<strong>Theme-Destination:</strong> ' . substr($destPath, strpos($destPath, 'assets' . DIRECTORY_SEPARATOR . 'addons')) . '<br><br>';
+        echo '<strong>Theme-Source:</strong> ' . substr($sourcePath, (int) strpos($sourcePath, 'redaxo' . DIRECTORY_SEPARATOR . 'src')) . '<br>';
+        echo '<strong>Theme-Destination:</strong> ' . substr($destPath, (int) strpos($destPath, 'assets' . DIRECTORY_SEPARATOR . 'addons')) . '<br><br>';
 
         $cssfiles = [];
         $filenames = (array)glob($sourcePath . '*.css');
