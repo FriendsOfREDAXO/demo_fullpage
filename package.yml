@@ -10,8 +10,8 @@ page:
     subpages:
         install: { title: 'translate:demo_fullpage_title', icon: 'rex-icon fa-rocket' }
         settings: { title: 'translate:demo_fullpage_settings', icon: 'rex-icon fa-wrench' }
-        themes: { title: 'translate:demo_fullpage_themes', subPath: 'THEMES.md', icon: 'rex-icon fa-desktop' }
-        changelog: { title: 'translate:demo_fullpage_changelog', subPath: 'CHANGELOG.md', icon: 'rex-icon fa-list', itemClass: pull-right, linkClass: btn-default }
+        themes: { title: 'translate:demo_fullpage_themes', subPath: THEMES.md, icon: 'rex-icon fa-desktop' }
+        changelog: { title: 'translate:demo_fullpage_changelog', subPath: CHANGELOG.md, icon: 'rex-icon fa-list', itemClass: pull-right, linkClass: btn-default }
 requires:
     packages:
         backup: ^2.8.0
