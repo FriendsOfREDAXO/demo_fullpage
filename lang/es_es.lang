@@ -41,6 +41,7 @@ demo_fullpage_description_themes_heading = Información sobre temas
 
 demo_fullpage_confirm_setup = Se eliminarán los datos existentes. Continuar?
 
+demo_fullpage_setup_not_available        =
 demo_fullpage_package_not_available      = La versión requerida del paquete <b>"{0}"</b> no está disponible.
 demo_fullpage_package_not_exists         = ¡El paquete <b>"{0}"</b> no está disponible!
 demo_fullpage_package_failed_to_download = Error al descargar <b>"{0}"</b>!

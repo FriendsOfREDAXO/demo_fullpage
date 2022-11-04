@@ -41,6 +41,7 @@ demo_fullpage_description_themes_heading = Informationer till mallarna
 
 demo_fullpage_confirm_setup = Befintlig data går förlorad. Fortsätt?
 
+demo_fullpage_setup_not_available        =
 demo_fullpage_package_not_available      = Erforderlig version av paketet <b> "{0}" </ b> är inte tillgängligt!
 demo_fullpage_package_not_exists         = Paketet <b> "{0}" </ b> existerar inte!
 demo_fullpage_package_failed_to_download = Fel vid nedladdning av <b> "{0}" </ b>!

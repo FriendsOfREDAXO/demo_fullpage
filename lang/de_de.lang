@@ -41,6 +41,7 @@ demo_fullpage_description_themes_heading = Informationen zu Themes
 
 demo_fullpage_confirm_setup = Bestehende Daten gehen verloren. Fortfahren?
 
+demo_fullpage_setup_not_available        = Keine Setup-Informationen in package.yml verfügbar!
 demo_fullpage_package_not_available      = Benötigte Version des Pakets <b>"{0}"</b> ist nicht verfügbar!
 demo_fullpage_package_not_exists         = Paket <b>"{0}"</b> ist nicht vorhanden!
 demo_fullpage_package_failed_to_download = Fehler beim Download von <b>"{0}"</b>!

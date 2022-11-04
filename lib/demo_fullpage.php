@@ -6,10 +6,14 @@ class rex_demo_fullpage {
         $packagesFromInstaller = [];
 
         // in some cases rex_addon has the old package.yml in cache. But we need our new merged package.yml
-        /** @phpstan-ignore-next-line */
-        $addon->loadProperties();
+        $addon->loadProperties(); /** @phpstan-ignore-line */
 
         $errors = array();
+
+        if (null === $addon->getProperty('setup')) {
+            $errors[] = $addon->i18n('setup_not_available');
+            return $errors;
+        }
 
         // step 1: select missing packages we need to download
         $missingPackages = array();
@@ -83,7 +87,7 @@ class rex_demo_fullpage {
         }
 
         // step 3: install and activate packages based on install sequence from config
-        if (count($addon->getProperty('setup')['installSequence']) > 0 && count($errors) === 0) {
+        if (isset($addon->getProperty('setup')['installSequence']) && count($addon->getProperty('setup')['installSequence']) > 0 && count($errors) === 0) {
             foreach ($addon->getProperty('setup')['installSequence'] as $id) {
 
                 $package = rex_package::get($id);
@@ -91,8 +95,7 @@ class rex_demo_fullpage {
                     $errors[] = $addon->i18n('package_not_exists', $id);
                     break;
                 }
-                /** @phpstan-ignore-next-line */
-                $manager = rex_package_manager::factory($package);
+                $manager = rex_package_manager::factory($package); /** @phpstan-ignore-line */
 
                 try {
                     $manager->install();
@@ -113,7 +116,7 @@ class rex_demo_fullpage {
         }
 
         // step 4: import database
-        if (count($addon->getProperty('setup')['dbimport']) > 0 && count($errors) === 0) {
+        if (isset($addon->getProperty('setup')['dbimport']) && count($addon->getProperty('setup')['dbimport']) > 0 && count($errors) === 0) {
             foreach ($addon->getProperty('setup')['dbimport'] as $import) {
                 $file = rex_backup::getDir() . '/' . $import;
                 $success = rex_backup::importDb($file);
@@ -124,7 +127,7 @@ class rex_demo_fullpage {
         }
 
         // step 5: import files
-        if (count($addon->getProperty('setup')['fileimport']) > 0 && count($errors) === 0) {
+        if (isset($addon->getProperty('setup')['fileimport']) && count($addon->getProperty('setup')['fileimport']) > 0 && count($errors) === 0) {
             foreach ($addon->getProperty('setup')['fileimport'] as $import) {
                 $file = rex_backup::getDir() . '/' . $import;
                 $success = rex_backup::importFiles($file);
