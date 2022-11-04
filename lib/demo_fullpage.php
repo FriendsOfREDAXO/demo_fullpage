@@ -1,6 +1,9 @@
 <?php
 
 class rex_demo_fullpage {
+    /**
+     * @return array<string>
+     */
     public static function install() : array {
         $addon = rex_addon::get('demo_fullpage');
         $packagesFromInstaller = [];
@@ -15,11 +18,13 @@ class rex_demo_fullpage {
             return $errors;
         }
 
+        $setupconfig = (array) $addon->getProperty('setup');
+
         // step 1: select missing packages we need to download
         $missingPackages = array();
         $packages = array();
-        if (isset($addon->getProperty('setup')['packages'])) {
-            $packages = $addon->getProperty('setup')['packages'];
+        if (isset($setupconfig['packages'])) {
+            $packages = (array) $setupconfig['packages'];
         }
 
         if (count($packages) > 0) {
@@ -41,11 +46,11 @@ class rex_demo_fullpage {
                     }
 
                     $installerPackage = isset($packagesFromInstaller[$id]['files'][$fileId]) ? $packagesFromInstaller[$id]['files'][$fileId] : false;
-                    if (!$installerPackage) {
+                    if (false === $installerPackage) {
                         $errors[] = $addon->i18n('package_not_available', $id);
                     }
 
-                    if ($localPackage->getVersion() !== $installerPackage['version']) {
+                    if (false !== $installerPackage && $localPackage->getVersion() !== $installerPackage['version']) {
                         $missingPackages[$id] = $fileId; // add to download list if package is not yet installed
                     }
                 }
@@ -57,38 +62,36 @@ class rex_demo_fullpage {
             foreach ($missingPackages as $id => $fileId) {
 
                 $installerPackage = $packagesFromInstaller[$id]['files'][$fileId];
-                if ($installerPackage !== '') {
 
-                    // fetch package
-                    try {
-                        $archivefile = rex_install_webservice::getArchive($installerPackage['path']);
-                    } catch (rex_functional_exception $e) {
-                        rex_logger::logException($e);
-                        $errors[] = $addon->i18n('package_failed_to_download', $id);
-                        break;
-                    }
-
-                    // validate checksum
-                    if ($installerPackage['checksum'] !== md5_file($archivefile)) {
-                        $errors[] = $addon->i18n('package_failed_to_validate', $id);
-                        break;
-                    }
-
-                    // extract package (overrides local package if existent)
-                    if (!rex_install_archive::extract($archivefile, rex_path::addon($id), $id)) {
-                        rex_dir::delete(rex_path::addon($id));
-                        $errors[] = $addon->i18n('package_failed_to_extract', $id);
-                        break;
-                    }
-
-                    rex_package_manager::synchronizeWithFileSystem();
+                // fetch package
+                try {
+                    $archivefile = rex_install_webservice::getArchive($installerPackage['path']);
+                } catch (rex_functional_exception $e) {
+                    rex_logger::logException($e);
+                    $errors[] = $addon->i18n('package_failed_to_download', $id);
+                    break;
                 }
+
+                // validate checksum
+                if ($installerPackage['checksum'] !== md5_file($archivefile)) {
+                    $errors[] = $addon->i18n('package_failed_to_validate', $id);
+                    break;
+                }
+
+                // extract package (overrides local package if existent)
+                if (!rex_install_archive::extract($archivefile, rex_path::addon($id), $id)) {
+                    rex_dir::delete(rex_path::addon($id));
+                    $errors[] = $addon->i18n('package_failed_to_extract', $id);
+                    break;
+                }
+
+                rex_package_manager::synchronizeWithFileSystem();
             }
         }
 
         // step 3: install and activate packages based on install sequence from config
-        if (isset($addon->getProperty('setup')['installSequence']) && count($addon->getProperty('setup')['installSequence']) > 0 && count($errors) === 0) {
-            foreach ($addon->getProperty('setup')['installSequence'] as $id) {
+        if (isset($setupconfig['installSequence']) && count($setupconfig['installSequence']) > 0 && count($errors) === 0) {
+            foreach ($setupconfig['installSequence'] as $id) {
 
                 $package = rex_package::get($id);
                 if ($package instanceof rex_null_package) {
@@ -116,8 +119,8 @@ class rex_demo_fullpage {
         }
 
         // step 4: import database
-        if (isset($addon->getProperty('setup')['dbimport']) && count($addon->getProperty('setup')['dbimport']) > 0 && count($errors) === 0) {
-            foreach ($addon->getProperty('setup')['dbimport'] as $import) {
+        if (isset($setupconfig['dbimport']) && count($setupconfig['dbimport']) > 0 && count($errors) === 0) {
+            foreach ($setupconfig['dbimport'] as $import) {
                 $file = rex_backup::getDir() . '/' . $import;
                 $success = rex_backup::importDb($file);
                 if (!$success['state']) {
@@ -127,8 +130,8 @@ class rex_demo_fullpage {
         }
 
         // step 5: import files
-        if (isset($addon->getProperty('setup')['fileimport']) && count($addon->getProperty('setup')['fileimport']) > 0 && count($errors) === 0) {
-            foreach ($addon->getProperty('setup')['fileimport'] as $import) {
+        if (isset($setupconfig['fileimport']) && count($setupconfig['fileimport']) > 0 && count($errors) === 0) {
+            foreach ($setupconfig['fileimport'] as $import) {
                 $file = rex_backup::getDir() . '/' . $import;
                 $success = rex_backup::importFiles($file);
                 if (!$success['state']) {
