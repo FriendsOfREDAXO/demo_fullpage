@@ -1,4 +1,4 @@
-/*! UIkit 3.15.12 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.19 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -1404,7 +1404,7 @@ button.uk-icon:not(:disabled) {
   padding: 0;
 }
 /* Input, select and textarea
- * Allowed: `text`, `password`, `datetime`, `datetime-local`, `date`,  `month`,
+ * Allowed: `text`, `password`, `datetime-local`, `date`,  `month`,
             `time`, `week`, `number`, `email`, `url`, `search`, `tel`, `color`
  * Disallowed: `range`, `radio`, `checkbox`, `file`, `submit`, `reset` and `image`
  ========================================================================== */
@@ -4021,19 +4021,22 @@ select.uk-form-width-xsmall {
  ========================================================================== */
 /*
  * 1. Create position context so it's t the same like when fixed.
+ * 2. Create stacking context already when not sticky to have the same context
+*     for position set to `sticky` and `relative`
  * 2. More robust if padding and border are used and the sticky height is transitioned
  */
 .uk-sticky {
   /* 1 */
   position: relative;
   /* 2 */
+  z-index: 980;
+  /* 3 */
   box-sizing: border-box;
 }
 /*
  * 1. Force new layer to resolve frame rate issues on devices with lower frame rates
  */
 .uk-sticky-fixed {
-  z-index: 980;
   margin: 0 !important;
   /* 1 */
   -webkit-backface-visibility: hidden;
@@ -4244,10 +4247,13 @@ select.uk-form-width-xsmall {
 /*
  * Prevent horizontal scrollbar when the content is slide-out
  * Has to be on the `html` element too to make it work on the `body`
+ * 1. `clip` is needed for `position: sticky` elements to keep their position
  */
 .uk-offcanvas-page,
 .uk-offcanvas-container {
   overflow-x: hidden;
+  /* 1 */
+  overflow-x: clip;
 }
 /* Container
  ========================================================================== */
@@ -8129,7 +8135,7 @@ iframe[data-uk-cover] {
 .uk-object-scale-down {
   object-fit: scale-down;
 }
-/* 
+/*
  * Position
  */
 .uk-object-top-left {
