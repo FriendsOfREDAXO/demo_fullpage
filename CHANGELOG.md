@@ -1,10 +1,10 @@
 # REDAXO Fullpage-Demo - Changelog
 
-## Version 2.0.1 – 19.12.2022
+## Version 2.0.1 – 20.12.2022
 
 ### Features
 
-* Update UIkit 3.15.18
+* Update UIkit 3.15.19
 * Update jQuery Version 3.6.2
 * removed pages/themes.php und pages/changelog.php, MD-Dateien werden jetzt direkt über die package.yml eingebunden
 * Code-Quality (rexstan) Extensions: REDAXO SuperGlobals, Bleeding-Edge, Strict-Mode, Deprecation Warnings, phpstan-dba, code complexity, dead code
