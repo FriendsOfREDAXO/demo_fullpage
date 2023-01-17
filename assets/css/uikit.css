@@ -1,4 +1,4 @@
-/*! UIkit 3.15.19 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.21 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -2071,7 +2071,7 @@ select.uk-form-width-xsmall {
   bottom: 0;
   left: 0;
   right: 100%;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid currentColor;
   transition: right 0.3s ease-out;
 }
 /* Hover */
@@ -2142,6 +2142,7 @@ select.uk-form-width-xsmall {
      * Workaround: Just use a `button` or `input` element as button
      */
 .uk-button-group .uk-button:hover,
+.uk-button-group .uk-button:focus,
 .uk-button-group .uk-button:active,
 .uk-button-group .uk-button.uk-active {
   position: relative;
@@ -3513,97 +3514,6 @@ select.uk-form-width-xsmall {
   width: 100% !important;
 }
 /* ========================================================================
-   Component: Dropdown
- ========================================================================== */
-/*
- * 1. Hide by default
- * 2. Set position
- * 3. Set a default width
- * 4. Style
- */
-.uk-dropdown {
-  /* 1 */
-  display: none;
-  /* 2 */
-  position: absolute;
-  z-index: 1020;
-  --uk-position-offset: 10px;
-  --uk-position-viewport-offset: 15px;
-  /* 3 */
-  box-sizing: border-box;
-  min-width: 200px;
-  /* 4 */
-  padding: 25px;
-  background: #fff;
-  color: #666;
-  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
-}
-/* Show */
-.uk-dropdown.uk-open {
-  display: block;
-}
-/*
- * Remove margin from the last-child
- */
-.uk-dropdown > :last-child {
-  margin-bottom: 0;
-}
-/* Size modifier
- ========================================================================== */
-.uk-dropdown-large {
-  padding: 40px;
-}
-/* Nav
- * Adopts `uk-nav`
- ========================================================================== */
-.uk-dropdown-nav {
-  font-size: 0.875rem;
-}
-/*
- * Items
- */
-.uk-dropdown-nav > li > a {
-  color: #999;
-}
-/* Hover + Active */
-.uk-dropdown-nav > li > a:hover,
-.uk-dropdown-nav > li.uk-active > a {
-  color: #666;
-}
-/*
- * Subtitle
- */
-.uk-dropdown-nav .uk-nav-subtitle {
-  font-size: 12px;
-}
-/*
- * Header
- */
-.uk-dropdown-nav .uk-nav-header {
-  color: #333;
-}
-/*
- * Divider
- */
-.uk-dropdown-nav .uk-nav-divider {
-  border-top: 1px solid #e5e5e5;
-}
-/*
- * Sublists
- */
-.uk-dropdown-nav .uk-nav-sub a {
-  color: #999;
-}
-.uk-dropdown-nav .uk-nav-sub a:hover,
-.uk-dropdown-nav .uk-nav-sub li.uk-active > a {
-  color: #666;
-}
-/* Grid modifiers
- ========================================================================== */
-.uk-dropdown-stack .uk-dropdown-grid > * {
-  width: 100% !important;
-}
-/* ========================================================================
    Component: Dropbar
  ========================================================================== */
 /*
@@ -3882,8 +3792,14 @@ select.uk-form-width-xsmall {
 .uk-modal-close-full {
   top: 0;
   right: 0;
-  padding: 20px;
+  padding: 10px;
   background: #fff;
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-modal-close-full {
+    padding: 20px;
+  }
 }
 /* ========================================================================
    Component: Slideshow
@@ -5251,7 +5167,7 @@ ul.uk-nav-sub {
 .uk-navbar-right,
 [class*='uk-navbar-center'] {
   display: flex;
-  gap: 30px;
+  gap: 15px;
   /* 1 */
   align-items: center;
 }
@@ -5290,10 +5206,10 @@ ul.uk-nav-sub {
   top: 0;
 }
 .uk-navbar-center-left {
-  right: calc(100% + 30px);
+  right: calc(100% + 15px);
 }
 .uk-navbar-center-right {
-  left: calc(100% + 30px);
+  left: calc(100% + 15px);
 }
 [class*='uk-navbar-center-'] {
   width: max-content;
@@ -5306,7 +5222,7 @@ ul.uk-nav-sub {
  */
 .uk-navbar-nav {
   display: flex;
-  gap: 30px;
+  gap: 15px;
   /* 1 */
   margin: 0;
   padding: 0;
@@ -5603,6 +5519,26 @@ ul.uk-nav-sub {
   /* 2 */
   left: 0;
   right: 0;
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-navbar-left,
+  .uk-navbar-right,
+  [class*='uk-navbar-center'] {
+    gap: 30px;
+  }
+  .uk-navbar-center-left {
+    right: calc(100% + 30px);
+  }
+  .uk-navbar-center-right {
+    left: calc(100% + 30px);
+  }
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-navbar-nav {
+    gap: 30px;
+  }
 }
 /* ========================================================================
    Component: Subnav
@@ -6132,16 +6068,16 @@ ul.uk-nav-sub {
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.4);
-  transition: background-color 0.1s ease-in-out;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4));
+  transition: opacity 0.1s ease-in-out;
 }
 /* Hover */
 .uk-thumbnav > * > :hover::after {
-  background-color: transparent;
+  opacity: 0;
 }
 /* Active */
 .uk-thumbnav > .uk-active > *::after {
-  background-color: transparent;
+  opacity: 0;
 }
 /* Modifier: 'uk-thumbnav-vertical'
  ========================================================================== */
@@ -6239,6 +6175,97 @@ ul.uk-nav-sub {
 .uk-iconnav-vertical > * {
   padding-left: 0;
   padding-top: 10px;
+}
+/* ========================================================================
+   Component: Dropdown
+ ========================================================================== */
+/*
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Set a default width
+ * 4. Style
+ */
+.uk-dropdown {
+  /* 1 */
+  display: none;
+  /* 2 */
+  position: absolute;
+  z-index: 1020;
+  --uk-position-offset: 10px;
+  --uk-position-viewport-offset: 15px;
+  /* 3 */
+  box-sizing: border-box;
+  min-width: 200px;
+  /* 4 */
+  padding: 25px;
+  background: #fff;
+  color: #666;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+}
+/* Show */
+.uk-dropdown.uk-open {
+  display: block;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-dropdown > :last-child {
+  margin-bottom: 0;
+}
+/* Size modifier
+ ========================================================================== */
+.uk-dropdown-large {
+  padding: 40px;
+}
+/* Nav
+ * Adopts `uk-nav`
+ ========================================================================== */
+.uk-dropdown-nav {
+  font-size: 0.875rem;
+}
+/*
+ * Items
+ */
+.uk-dropdown-nav > li > a {
+  color: #999;
+}
+/* Hover + Active */
+.uk-dropdown-nav > li > a:hover,
+.uk-dropdown-nav > li.uk-active > a {
+  color: #666;
+}
+/*
+ * Subtitle
+ */
+.uk-dropdown-nav .uk-nav-subtitle {
+  font-size: 12px;
+}
+/*
+ * Header
+ */
+.uk-dropdown-nav .uk-nav-header {
+  color: #333;
+}
+/*
+ * Divider
+ */
+.uk-dropdown-nav .uk-nav-divider {
+  border-top: 1px solid #e5e5e5;
+}
+/*
+ * Sublists
+ */
+.uk-dropdown-nav .uk-nav-sub a {
+  color: #999;
+}
+.uk-dropdown-nav .uk-nav-sub a:hover,
+.uk-dropdown-nav .uk-nav-sub li.uk-active > a {
+  color: #666;
+}
+/* Grid modifiers
+ ========================================================================== */
+.uk-dropdown-stack .uk-dropdown-grid > * {
+  width: 100% !important;
 }
 /* ========================================================================
    Component: Lightbox
@@ -7271,10 +7298,10 @@ ul.uk-nav-sub {
   line-height: 1.4;
   color: #999;
 }
-.uk-text-meta a {
+.uk-text-meta > a {
   color: #999;
 }
-.uk-text-meta a:hover {
+.uk-text-meta > a:hover {
   color: #666;
   text-decoration: none;
 }
@@ -7370,6 +7397,7 @@ ul.uk-nav-sub {
   display: inline-block;
   /* 4 */
   background-color: #1e87f0;
+  background-image: linear-gradient(90deg, #1e87f0 0%, #411ef0 100%);
 }
 /* Alignment modifiers
  ========================================================================== */
@@ -9503,7 +9531,7 @@ iframe[data-uk-cover] {
 .uk-offcanvas-bar :not(pre) > kbd,
 .uk-offcanvas-bar :not(pre) > samp {
   color: rgba(255, 255, 255, 0.7);
-  background: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 .uk-light em,
 .uk-section-primary:not(.uk-preserve-color) em,
@@ -10579,7 +10607,7 @@ iframe[data-uk-cover] {
 .uk-offcanvas-bar .uk-checkbox:checked,
 .uk-offcanvas-bar .uk-checkbox:indeterminate {
   background-color: #fff;
-  border-color: rgba(255, 255, 255, 0.7);
+  border-color: #fff;
 }
 .uk-light .uk-radio:checked:focus,
 .uk-light .uk-checkbox:checked:focus,
@@ -12128,6 +12156,19 @@ iframe[data-uk-cover] {
 .uk-offcanvas-bar .uk-dotnav > .uk-active > * {
   background-color: rgba(255, 255, 255, 0.9);
   border-color: transparent;
+}
+.uk-light .uk-thumbnav > * > *::after,
+.uk-section-primary:not(.uk-preserve-color) .uk-thumbnav > * > *::after,
+.uk-section-secondary:not(.uk-preserve-color) .uk-thumbnav > * > *::after,
+.uk-tile-primary:not(.uk-preserve-color) .uk-thumbnav > * > *::after,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-thumbnav > * > *::after,
+.uk-card-primary.uk-card-body .uk-thumbnav > * > *::after,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-thumbnav > * > *::after,
+.uk-card-secondary.uk-card-body .uk-thumbnav > * > *::after,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-thumbnav > * > *::after,
+.uk-overlay-primary .uk-thumbnav > * > *::after,
+.uk-offcanvas-bar .uk-thumbnav > * > *::after {
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
 }
 .uk-light .uk-iconnav > * > a,
 .uk-section-primary:not(.uk-preserve-color) .uk-iconnav > * > a,
