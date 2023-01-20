@@ -543,6 +543,7 @@ img.content {
     width: 100%;
     max-width: 900px;
     margin-bottom: 0;
+    margin: 0 auto;
 }
 
 /* Bildergalerie */

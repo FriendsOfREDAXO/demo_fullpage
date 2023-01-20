@@ -5,6 +5,11 @@ $(document).ready(function () {
         $(this).attr('src', $(this).data('src')).removeAttr('data-src');
     });
 
+    // lazyloading videos
+    $('section').find('video[data-src]').each(function () {
+        $(this).attr('src', $(this).data('src')).removeAttr('data-src');
+    });
+
     // remove gallery links
     $('section').find('a.gallery').each(function () {
         $(this).removeAttr('href');
