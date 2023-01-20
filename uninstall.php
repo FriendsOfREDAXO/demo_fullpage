@@ -15,14 +15,14 @@ rex_file::putConfig($addon->getPath('package.yml'), $config);
 // https://gist.github.com/t3chnik/6b3b14d3859d810c02f4
 
 /**
- * Array Recursive Diff
+ * Array Recursive Diff.
  * @param  array<string> $aArray1
  * @param  array<string>|string $aArray2
  * @return array<string, mixed>
  */
 function array_diff_recursive($aArray1, $aArray2)
 {
-    $aReturn = array();
+    $aReturn = [];
     foreach ($aArray1 as $mKey => $mValue) {
         if (array_key_exists($mKey, (array) $aArray2)) {
             if (is_array($mValue)) {

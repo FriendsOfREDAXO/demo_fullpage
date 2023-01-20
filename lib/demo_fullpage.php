@@ -1,17 +1,19 @@
 <?php
 
-class rex_demo_fullpage {
+class rex_demo_fullpage
+{
     /**
      * @return array<string>
      */
-    public static function install() : array {
+    public static function install(): array
+    {
         $addon = rex_addon::get('demo_fullpage');
         $packagesFromInstaller = [];
 
         // in some cases rex_addon has the old package.yml in cache. But we need our new merged package.yml
         $addon->loadProperties(); /** @phpstan-ignore-line */
 
-        $errors = array();
+        $errors = [];
 
         if (null === $addon->getProperty('setup')) {
             $errors[] = $addon->i18n('setup_not_available');
@@ -21,14 +23,13 @@ class rex_demo_fullpage {
         $setupconfig = (array) $addon->getProperty('setup');
 
         // step 1: select missing packages we need to download
-        $missingPackages = array();
-        $packages = array();
+        $missingPackages = [];
+        $packages = [];
         if (isset($setupconfig['packages'])) {
             $packages = (array) $setupconfig['packages'];
         }
 
         if (count($packages) > 0) {
-
             // fetch list of available packages from to redaxo webservice
             try {
                 $packagesFromInstaller = rex_install_packages::getAddPackages();
@@ -37,15 +38,14 @@ class rex_demo_fullpage {
                 rex_logger::logException($e);
             }
 
-            if (count($errors) === 0) {
+            if (0 === count($errors)) {
                 foreach ($packages as $id => $fileId) {
-
                     $localPackage = rex_package::get($id);
                     if ($localPackage->isSystemPackage()) {
                         continue; // skip system packages, they don’t need to be downloaded
                     }
 
-                    $installerPackage = isset($packagesFromInstaller[$id]['files'][$fileId]) ? $packagesFromInstaller[$id]['files'][$fileId] : false;
+                    $installerPackage = $packagesFromInstaller[$id]['files'][$fileId] ?? false;
                     if (false === $installerPackage) {
                         $errors[] = $addon->i18n('package_not_available', $id);
                     }
@@ -58,9 +58,8 @@ class rex_demo_fullpage {
         }
 
         // step 2: download required packages
-        if (count($missingPackages) > 0 && count($errors) === 0) {
+        if (count($missingPackages) > 0 && 0 === count($errors)) {
             foreach ($missingPackages as $id => $fileId) {
-
                 $installerPackage = $packagesFromInstaller[$id]['files'][$fileId];
 
                 // fetch package
@@ -90,9 +89,8 @@ class rex_demo_fullpage {
         }
 
         // step 3: install and activate packages based on install sequence from config
-        if (isset($setupconfig['installSequence']) && count($setupconfig['installSequence']) > 0 && count($errors) === 0) {
+        if (isset($setupconfig['installSequence']) && count($setupconfig['installSequence']) > 0 && 0 === count($errors)) {
             foreach ($setupconfig['installSequence'] as $id) {
-
                 $package = rex_package::get($id);
                 if ($package instanceof rex_null_package) {
                     $errors[] = $addon->i18n('package_not_exists', $id);
@@ -119,7 +117,7 @@ class rex_demo_fullpage {
         }
 
         // step 4: import database
-        if (isset($setupconfig['dbimport']) && count($setupconfig['dbimport']) > 0 && count($errors) === 0) {
+        if (isset($setupconfig['dbimport']) && count($setupconfig['dbimport']) > 0 && 0 === count($errors)) {
             foreach ($setupconfig['dbimport'] as $import) {
                 $file = rex_backup::getDir() . '/' . $import;
                 $success = rex_backup::importDb($file);
@@ -130,7 +128,7 @@ class rex_demo_fullpage {
         }
 
         // step 5: import files
-        if (isset($setupconfig['fileimport']) && count($setupconfig['fileimport']) > 0 && count($errors) === 0) {
+        if (isset($setupconfig['fileimport']) && count($setupconfig['fileimport']) > 0 && 0 === count($errors)) {
             foreach ($setupconfig['fileimport'] as $import) {
                 $file = rex_backup::getDir() . '/' . $import;
                 $success = rex_backup::importFiles($file);

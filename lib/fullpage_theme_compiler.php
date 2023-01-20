@@ -1,13 +1,14 @@
 <?php
 
-class fullpage_theme_compiler {
-
-    public function compile(string $theme, bool $showfiles = false) : void {
+class fullpage_theme_compiler
+{
+    public function compile(string $theme, bool $showfiles = false): void
+    {
         $addon = rex_addon::get('demo_fullpage');
 
         $compiler = new rex_scss_compiler();
 
-        if (substr($theme, 0, 8) === 'project:') {
+        if ('project:' === substr($theme, 0, 8)) {
             $theme = str_replace('project:', '', $theme);
             $sourcePath = rex_addon::get('project')->getPath('fpthemes/' . $theme . '/css/');
         } else {
@@ -29,17 +30,17 @@ class fullpage_theme_compiler {
         echo '<strong>Theme-Destination:</strong> ' . substr($destPath, (int) strpos($destPath, 'assets' . DIRECTORY_SEPARATOR . 'addons')) . '<br><br>';
 
         $cssfiles = [];
-        $filenames = (array)glob($sourcePath . '*.css');
+        $filenames = (array) glob($sourcePath . '*.css');
         foreach ($filenames as $filename) {
-            $filename = (string)$filename;
-            if (substr(basename($filename), -8 ) !== '.min.css' && basename($filename) !== 'theme.css') {
+            $filename = (string) $filename;
+            if ('.min.css' !== substr(basename($filename), -8) && 'theme.css' !== basename($filename)) {
                 $cssfiles[] = pathinfo(basename($filename), PATHINFO_FILENAME);
             }
         }
         $cssfiles[] = 'theme';
 
         // handle error exit in compiler
-        register_shutdown_function(function() {
+        register_shutdown_function(static function () {
             echo '<br><br>' .rex_view::error(rex_addon::get('demo_fullpage')->i18n('compile_error'));
         });
 
@@ -63,5 +64,4 @@ class fullpage_theme_compiler {
         $destPath = substr($destPath, 0, -4);
         rex_dir::copy($sourcePath, $destPath);
     }
-
 }

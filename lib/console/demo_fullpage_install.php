@@ -4,14 +4,15 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class rex_command_demo_fullpage_install extends rex_console_command {
-    protected function configure() : void
+class rex_command_demo_fullpage_install extends rex_console_command
+{
+    protected function configure(): void
     {
         $this->setDescription('Installs the REDAXO fullpage demo');
         $this->addOption('yes', 'y', InputOption::VALUE_NONE, 'runs the installation without confirmation');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) : int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = $this->getStyle($input, $output);
 
@@ -26,7 +27,6 @@ class rex_command_demo_fullpage_install extends rex_console_command {
         if (!$skipConfirmation && !$io->confirm('Current data will be deleted. Would you like to proceed?')) {
             return 1;
         }
-
 
         $io->writeln('Run installation ...');
 

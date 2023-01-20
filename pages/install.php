@@ -32,7 +32,6 @@ $content = '
 
 echo $content;
 
-
 /* package info from README.md */
 
 $content = '';
@@ -65,7 +64,7 @@ if (is_readable($package->getPath('README.'. rex_i18n::getLanguage() .'.md'))) {
     $content .= rex_view::info(rex_i18n::msg('package_no_help_file'));
 }
 
-if ($content !== '') {
+if ('' !== $content) {
     $fragment = new rex_fragment();
     $fragment->setVar('title', rex_i18n::msg('package_help') . ' ' . $name, false);
     $fragment->setVar('body', $content, false);
@@ -81,10 +80,10 @@ $credits .= '<dt>' . rex_i18n::msg('credits_name') . '</dt><dd>' . htmlspecialch
 if ($version > 0) {
     $credits .= '<dt>' . rex_i18n::msg('credits_version') . '</dt><dd>' . $version . '</dd>';
 }
-if ($author !== '') {
+if ('' !== $author) {
     $credits .= '<dt>' . rex_i18n::msg('credits_author') . '</dt><dd>' . htmlspecialchars((string) $author) . '</dd>';
 }
-if ($supportPage !== '') {
+if ('' !== $supportPage) {
     $credits .= '<dt>' . rex_i18n::msg('credits_supportpage') . '</dt><dd><a href="' . $supportPage . '" onclick="window.open(this.href); return false;">' . $supportPage . '</a></dd>';
 }
 

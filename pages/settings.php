@@ -8,8 +8,7 @@ $buttons = '';
 $func = rex_request('func', 'string');
 
 // Konfiguration speichern
-if ($func === 'update') {
-
+if ('update' === $func) {
     $addon->setConfig(rex_post('settings', [
         ['theme', 'string'],
         ['logo', 'string'],
@@ -24,7 +23,7 @@ if ($func === 'update') {
         ['showslidearrows', 'string'],
         ['showslidenavigation', 'string'],
         ['slidenavigationposition', 'string'],
-        ['usesubcategories', 'string']
+        ['usesubcategories', 'string'],
     ]));
 
     echo rex_view::success($addon->i18n('config_saved'));
@@ -33,11 +32,10 @@ if ($func === 'update') {
 
     $compiler = new fullpage_theme_compiler();
     $compiler->compile(strval($addon->getConfig('theme')), true);
-
 }
 
 // Config-Werte bereitstellen
-$Values = array();
+$Values = [];
 $Values['theme'] = $addon->getConfig('theme');
 $Values['logo'] = $addon->getConfig('logo');
 $Values['showscrollbar'] = $addon->getConfig('showscrollbar');
@@ -66,13 +64,13 @@ $sel_dirs->setStyle('class="form-control"');
 
 // get themes from demo_fullpage-Addon
 $myPath = $addon->getPath('assets/themes/');
-$directories = glob($myPath . '/*' , GLOB_ONLYDIR);
+$directories = glob($myPath . '/*', GLOB_ONLYDIR);
 if (false !== $directories) {
     foreach ($directories as $dir) {
         $dir = basename($dir);
         if (true === file_exists($myPath  .$dir . '/css/theme.css')) {
             $ff = file($myPath  .$dir . '/css/theme.css');
-            if (isset($ff[0]) and trim($ff[0]) === '/*' and isset($ff[3]) and trim($ff[3]) === '*/' and isset($ff[2])) {
+            if (isset($ff[0]) and '/*' === trim($ff[0]) and isset($ff[3]) and '*/' === trim($ff[3]) and isset($ff[2])) {
                 $sel_dirs->addOption($ff[2], $dir);
             }
         }
@@ -81,13 +79,13 @@ if (false !== $directories) {
 
 // get themes from project-Addon
 $myPath = rex_addon::get('project')->getPath('fpthemes/');
-$directories = glob($myPath . '/*' , GLOB_ONLYDIR);
+$directories = glob($myPath . '/*', GLOB_ONLYDIR);
 if (false !== $directories) {
     foreach ($directories as $dir) {
         $dir = basename($dir);
         if (file_exists($myPath  .$dir . '/css/theme.css')) {
             $ff = file($myPath  .$dir . '/css/theme.css');
-            if (isset($ff[0]) and trim($ff[0]) === '/*' and isset($ff[3]) and trim($ff[3]) === '*/' and isset($ff[2])) {
+            if (isset($ff[0]) and '/*' === trim($ff[0]) and isset($ff[3]) and '*/' === trim($ff[3]) and isset($ff[2])) {
                 $sel_dirs->addOption('project: ' . $ff[2], 'project:'.$dir);
             }
         }
@@ -138,7 +136,7 @@ $content .= $fragment->parse('core/form/container.php');
 $formElements = [];
 $n = [];
 $n['label'] = '<label for="autoscrolling">' . htmlspecialchars_decode($addon->i18n('config_autoscrolling')) . '</label>';
-$n['field'] = '<input type="checkbox" id="autoscrolling" name="settings[autoscrolling]"' . ($Values['autoscrolling'] !== '' && $Values['autoscrolling'] === '1' ? ' checked="checked"' : '') . ' value="1" />';
+$n['field'] = '<input type="checkbox" id="autoscrolling" name="settings[autoscrolling]"' . ('' !== $Values['autoscrolling'] && '1' === $Values['autoscrolling'] ? ' checked="checked"' : '') . ' value="1" />';
 $formElements[] = $n;
 
 $fragment = new rex_fragment();
@@ -149,7 +147,7 @@ $content .= $fragment->parse('core/form/checkbox.php');
 $formElements = [];
 $n = [];
 $n['label'] = '<label for="showscrollbar">' . htmlspecialchars_decode($addon->i18n('config_showscrollbar')) . '</label>';
-$n['field'] = '<input type="checkbox" id="showscrollbar" name="settings[showscrollbar]"' . ($Values['showscrollbar'] !== '' && $Values['showscrollbar'] === '1' ? ' checked="checked"' : '') . ' value="1" />';
+$n['field'] = '<input type="checkbox" id="showscrollbar" name="settings[showscrollbar]"' . ('' !== $Values['showscrollbar'] && '1' === $Values['showscrollbar'] ? ' checked="checked"' : '') . ' value="1" />';
 $formElements[] = $n;
 
 $fragment = new rex_fragment();
@@ -195,7 +193,7 @@ $content .= $fragment->parse('core/form/container.php');
 $formElements = [];
 $n = [];
 $n['label'] = '<label for="shownavigation">' . htmlspecialchars_decode($addon->i18n('config_shownavigation')) . '</label>';
-$n['field'] = '<input type="checkbox" id="shownavigation" name="settings[shownavigation]"' . ($Values['shownavigation'] !== '' && $Values['shownavigation'] === '1' ? ' checked="checked"' : '') . ' value="1" />';
+$n['field'] = '<input type="checkbox" id="shownavigation" name="settings[shownavigation]"' . ('' !== $Values['shownavigation'] && '1' === $Values['shownavigation'] ? ' checked="checked"' : '') . ' value="1" />';
 $formElements[] = $n;
 
 $fragment = new rex_fragment();
@@ -206,7 +204,7 @@ $content .= $fragment->parse('core/form/checkbox.php');
 $formElements = [];
 $n = [];
 $n['label'] = '<label for="shownavigationtooltip">' . htmlspecialchars_decode($addon->i18n('config_shownavigationtooltip')) . '</label>';
-$n['field'] = '<input type="checkbox" id="shownavigationtooltip" name="settings[shownavigationtooltip]"' . ($Values['shownavigationtooltip'] !== '' && $Values['shownavigationtooltip'] === '1' ? ' checked="checked"' : '') . ' value="1" />';
+$n['field'] = '<input type="checkbox" id="shownavigationtooltip" name="settings[shownavigationtooltip]"' . ('' !== $Values['shownavigationtooltip'] && '1' === $Values['shownavigationtooltip'] ? ' checked="checked"' : '') . ' value="1" />';
 $formElements[] = $n;
 
 $fragment = new rex_fragment();
@@ -238,7 +236,7 @@ $content .= $fragment->parse('core/form/container.php');
 $formElements = [];
 $n = [];
 $n['label'] = '<label for="showslidearrows">' . htmlspecialchars_decode($addon->i18n('config_showslidearrows')) . '</label>';
-$n['field'] = '<input type="checkbox" id="showslidearrows" name="settings[showslidearrows]"' . ($Values['showslidearrows'] !== '' && $Values['showslidearrows'] === '1' ? ' checked="checked"' : '') . ' value="1" />';
+$n['field'] = '<input type="checkbox" id="showslidearrows" name="settings[showslidearrows]"' . ('' !== $Values['showslidearrows'] && '1' === $Values['showslidearrows'] ? ' checked="checked"' : '') . ' value="1" />';
 $formElements[] = $n;
 
 $fragment = new rex_fragment();
@@ -249,7 +247,7 @@ $content .= $fragment->parse('core/form/checkbox.php');
 $formElements = [];
 $n = [];
 $n['label'] = '<label for="showslidenavigation">' . htmlspecialchars_decode($addon->i18n('config_showslidenavigation')) . '</label>';
-$n['field'] = '<input type="checkbox" id="showslidenavigation" name="settings[showslidenavigation]"' . ($Values['showslidenavigation'] !== '' && $Values['showslidenavigation'] === '1' ? ' checked="checked"' : '') . ' value="1" />';
+$n['field'] = '<input type="checkbox" id="showslidenavigation" name="settings[showslidenavigation]"' . ('' !== $Values['showslidenavigation'] && '1' === $Values['showslidenavigation'] ? ' checked="checked"' : '') . ' value="1" />';
 $formElements[] = $n;
 
 $fragment = new rex_fragment();
@@ -281,7 +279,7 @@ $content .= $fragment->parse('core/form/container.php');
 $formElements = [];
 $n = [];
 $n['label'] = '<label for="usesubcategories">' . htmlspecialchars_decode($addon->i18n('config_usesubcategories')) . '</label>';
-$n['field'] = '<input type="checkbox" id="usesubcategories" name="settings[usesubcategories]"' . ($Values['usesubcategories'] !== '' && $Values['usesubcategories'] === '1' ? ' checked="checked"' : '') . ' value="1" />';
+$n['field'] = '<input type="checkbox" id="usesubcategories" name="settings[usesubcategories]"' . ('' !== $Values['usesubcategories'] && '1' === $Values['usesubcategories'] ? ' checked="checked"' : '') . ' value="1" />';
 $formElements[] = $n;
 
 $fragment = new rex_fragment();
