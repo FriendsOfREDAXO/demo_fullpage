@@ -1,5 +1,23 @@
 # REDAXO Fullpage-Demo - Changelog
 
+## Version 2.0.2 – 22.01.2023
+
+### Features
+
+* Update UIkit 3.15.22
+* Update jQuery Version 3.6.3
+* Removed SourceMapping-Urls jquery.fullpage.min.css + jquery.fullpage.min.js
+* added .php-cs-fixer.dist.php, AddOn-Code, Templates + Module überarbeitet mit Coding Standards
+* Code-Quality Level 9 (rexstan) Extensions: REDAXO SuperGlobals, Bleeding-Edge, Strict-Mode, Deprecation Warnings, PHPUnit, phpstan-dba, report mixed, dead code
+  * AddOn-Code überarbeitet
+  * Templates + Module überarbeitet
+* Testseite mit allen Modulen im Content hinzugefügt
+* Consent bei den Video-Buttons (Sonstige Beispiele) basierend auf consent_manager 4.1.x
+
+### Bugfixes
+
+* Aufgrund der Code-Quality-Anpassungen haben sich Fehler in der Version 2.0.1 (hauptsächlich Modul-Inputs) eingeschlichen. Diese sind jetzt korrigiert.
+
 ## Version 2.0.1 – 20.12.2022
 
 ### Features
