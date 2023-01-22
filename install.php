@@ -10,7 +10,7 @@ if (!$addon->hasConfig() or ('' === $addon->getConfig('theme'))) {
     $addon->setConfig('theme', 'coffee');
     $addon->setConfig('logo', '');
     $addon->setConfig('autoscrolling', '1');
-    $addon->setConfig('showscrollbar', '0');
+    $addon->setConfig('showscrollbar', '');
     $addon->setConfig('responsivewidth', '1200');
     $addon->setConfig('responsiveheight', '750');
     $addon->setConfig('scrollingspeed', '800');
