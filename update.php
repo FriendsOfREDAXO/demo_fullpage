@@ -11,7 +11,7 @@ $addon = rex_addon::get('demo_fullpage');
 // additional config which will be merged into the config when the demo is installed.
 $config = array_replace_recursive(
     rex_file::getConfig($addon->getPath('package.yml')),
-    rex_file::getConfig($addon->getPath('package.setup.yml'))
+    rex_file::getConfig($addon->getPath('package.setup.yml')),
 );
 
 rex_file::putConfig($addon->getPath('package.yml'), $config);

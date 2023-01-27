@@ -6,7 +6,7 @@ $addon = rex_addon::get('demo_fullpage');
 // remove additional config from base config
 $config = array_diff_recursive(
     rex_file::getConfig($addon->getPath('package.yml')),
-    rex_file::getConfig($addon->getPath('package.setup.yml'))
+    rex_file::getConfig($addon->getPath('package.setup.yml')),
 );
 
 rex_file::putConfig($addon->getPath('package.yml'), $config);

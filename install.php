@@ -26,7 +26,7 @@ if (!$addon->hasConfig() or ('' === $addon->getConfig('theme'))) {
 // copy backup files
 rex_dir::copy(
     $addon->getPath('backups'),
-    rex_addon::get('backup')->getDataPath()
+    rex_addon::get('backup')->getDataPath(),
 );
 
 // update config
@@ -38,7 +38,7 @@ rex_dir::copy(
 // additional config which will be merged into the config when the demo is installed.
 $config = array_replace_recursive(
     rex_file::getConfig($addon->getPath('package.yml')),
-    rex_file::getConfig($addon->getPath('package.setup.yml'))
+    rex_file::getConfig($addon->getPath('package.setup.yml')),
 );
 
 rex_file::putConfig($addon->getPath('package.yml'), $config);
