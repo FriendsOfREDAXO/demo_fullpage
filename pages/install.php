@@ -4,7 +4,7 @@ $addon = rex_addon::get('demo_fullpage');
 
 /* setup process */
 
-if (rex_post('install', 'boolean')) {
+if (true === rex_post('install', 'boolean')) {
     $errors = rex_demo_fullpage::install();
 
     // show result messages
