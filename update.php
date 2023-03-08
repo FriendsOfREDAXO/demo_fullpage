@@ -2,6 +2,12 @@
 
 $addon = rex_addon::get('demo_fullpage');
 
+// copy backup files
+rex_dir::copy(
+    $addon->getPath('backups'),
+    rex_addon::get('backup')->getDataPath(),
+);
+
 // update config
 // merge current config with additional config
 
