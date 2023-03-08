@@ -1,5 +1,15 @@
 # REDAXO Fullpage-Demo - Changelog
 
+## Version 2.0.3 – 08.03.2023
+
+### Features
+
+* Update UIkit 3.16.4
+* AddOn-Code, Templates + Module überarbeitet mit REDAXO-Coding Standards + rexstan
+* Consent bei den Video-Buttons (Sonstige Beispiele) basierend auf consent_manager 5.x, PHP+JavaScript angepasst
+* Update demo_fullpage.sql
+* removed .php-cs-fixer.dist.php
+
 ## Version 2.0.2 – 22.01.2023
 
 ### Features

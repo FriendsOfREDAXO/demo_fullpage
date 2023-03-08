@@ -106,7 +106,7 @@ Die Fullpage-Demo wird von Zeit zu Zeit erweitert und Fehler werden korrigiert. 
 
 Informationen zur Erstellung von eigenen **Themes** gibt es [hier](https://github.com/FriendsOfREDAXO/demo_fullpage/blob/master/THEMES.md).
 
-> **Hinweis:** Bei einem Update von Inhalten (Templates, Module, Artikel und Medienpool) für eine neue Addon-Version müssen die Beispiel-Exporte neu erstellt werden!
+> **Hinweis:** Bei einem Update von Inhalten (Templates, Module, Artikel und Medienpool) für eine neue Addon-Version müssen die Beispiel-Exporte mit dem Backup-AddOn neu erstellt werden!
 
 **Dabei ist folgendes zu beachten!**
 
