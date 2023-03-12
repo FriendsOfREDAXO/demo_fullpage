@@ -9,7 +9,7 @@ $func = rex_request('func', 'string');
 
 // Konfiguration speichern
 if ('update' === $func) {
-    $addon->setConfig(rex_post('settings', [
+    $addon->setConfig((array) rex_post('settings', [
         ['theme', 'string'],
         ['logo', 'string'],
         ['showscrollbar', 'string'],
@@ -31,7 +31,7 @@ if ('update' === $func) {
     echo rex_view::info($addon->i18n('compile_theme'));
 
     $compiler = new fullpage_theme_compiler();
-    $compiler->compile(strval($addon->getConfig('theme')), true);
+    $compiler->compile(''.$addon->getConfig('theme'), true);
 }
 
 // Config-Werte bereitstellen
@@ -70,7 +70,7 @@ if (false !== $directories) {
         $dir = basename($dir);
         if (true === file_exists($myPath  .$dir . '/css/theme.css')) {
             $ff = file($myPath  .$dir . '/css/theme.css');
-            if (isset($ff[0]) and '/*' === trim($ff[0]) and isset($ff[3]) and '*/' === trim($ff[3]) and isset($ff[2])) {
+            if (isset($ff[0]) && '/*' === trim($ff[0]) && isset($ff[3]) && '*/' === trim($ff[3]) && isset($ff[2])) {
                 $sel_dirs->addOption($ff[2], $dir);
             }
         }
@@ -85,7 +85,7 @@ if (false !== $directories) {
         $dir = basename($dir);
         if (file_exists($myPath  .$dir . '/css/theme.css')) {
             $ff = file($myPath  .$dir . '/css/theme.css');
-            if (isset($ff[0]) and '/*' === trim($ff[0]) and isset($ff[3]) and '*/' === trim($ff[3]) and isset($ff[2])) {
+            if (isset($ff[0]) && '/*' === trim($ff[0]) && isset($ff[3]) && '*/' === trim($ff[3]) && isset($ff[2])) {
                 $sel_dirs->addOption('project: ' . $ff[2], 'project:'.$dir);
             }
         }
