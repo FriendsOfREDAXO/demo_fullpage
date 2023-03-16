@@ -1,5 +1,7 @@
 <?php
 
+use rex_scss_compiler;
+
 class fullpage_theme_compiler
 {
     public function compile(string $theme, bool $showfiles = false): void
