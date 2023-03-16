@@ -32,6 +32,22 @@ function fpIsResponsive() {
     return $('body').hasClass('fp-responsive');
 }
 
+// Set Titles for horiontal Navi-Dots
+function fpSetHorizontalDotTitles() {
+    if (fps_shownavigationtooltip == '1') {
+        object = JSON.parse(fp_horizontal_slide_titles);
+        for (const [key, value] of Object.entries(object)) {
+            for (const [key2, value2] of Object.entries(value)) {
+                worktext = `${key2},${value2}`;
+                dotinfo = worktext.split(',');
+                $('.section-' + dotinfo[1]).find('div.fp-slidesNav')
+                    .find("li:nth-of-type(" + (++dotinfo[0]) + ")")
+                    .find('a').attr('uk-tooltip', '').attr('alt', dotinfo[2]).attr('title', dotinfo[2]);
+            }
+        }
+    }
+}
+
 // Navigation-Dots in der Main-Navi ausblenden (class=hide-mainnav)
 function fpHideNaviDots() {
     $('.hide-mainnav').each(function (index) {
@@ -342,6 +358,8 @@ var fps_settings = {
             // Animation TRex
             $('div.for').animate({ opacity: .5 }, 1000, function () { });
         });
+
+        fpSetHorizontalDotTitles();
     },
 
     // Switch responsive mode
