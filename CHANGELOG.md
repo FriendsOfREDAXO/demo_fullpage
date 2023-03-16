@@ -1,5 +1,16 @@
 # REDAXO Fullpage-Demo - Changelog
 
+## Version 2.0.4 – xx.xx.2023
+
+### Features
+
+* Update UIkit 3.16.7
+* Bei Update aus dem Installer die Demo-Backups in den Ordner des Backup-AddOns für Setup kopieren
+* AddOn-Code, Templates + Module überarbeitet mit REDAXO-Coding Standards + rexstan
+* Tooltip-Titel für horizontale Slides (Navi-Dots)
+  * Bei der Einstellung **Tooltip für Seiten-Navigation (dots) anzeigen** jetzt auch Tooltips für die horizontalen Navi-Dots
+* Update demo_fullpage.sql
+
 ## Version 2.0.3 – 08.03.2023
 
 ### Features
