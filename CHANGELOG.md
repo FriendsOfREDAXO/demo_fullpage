@@ -1,6 +1,6 @@
 # REDAXO Fullpage-Demo - Changelog
 
-## Version 2.0.4 – xx.xx.2023
+## Version 2.0.4 – 17.03.2023
 
 ### Features
 
