@@ -1,5 +1,18 @@
 # REDAXO Fullpage-Demo - Changelog
 
+## Version 2.0.5 – 18.03.2023
+
+### Features
+
+* Update UIkit 3.16.9
+
+### Bugfixes
+
+* **update.php** - `$addon->getPath()` durch `__DIR__` ersetzt da sich beim Update das Addon noch in einem Temp-Ordner befindet
+  * dadurch wurden die aktuellen Backups nicht kopiert
+  * package.setup.yml wurde nicht korrekt in die package.yml übernommen
+* Update template `10. PHP Header` rex_url bei file_exist ersetzt durch rex_path, Logo wurde nicht angezeigt
+
 ## Version 2.0.4 – 17.03.2023
 
 ### Features
