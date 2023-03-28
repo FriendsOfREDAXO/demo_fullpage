@@ -4,7 +4,7 @@
 
 ### Features
 
-* Update UIkit 3.16.12
+* Update UIkit 3.16.13
 * AddOn-Code, Templates + Module überarbeitet mit REDAXO-Coding Standards (2.1.1) + rexstan
 * Update demo_fullpage.sql
 
