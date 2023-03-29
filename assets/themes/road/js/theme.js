@@ -353,8 +353,9 @@ var fps_settings = {
             $('.section-idx-1').find('h1').addClass('uk-animation-slide-bottom').show();
             // Animation Image beim 1. Slide
             $('.section-idx-1').find('.uk-container').addClass('uk-animation-slide-bottom').show();
-            // Animation Styleswitch
-            $('.styleswitch').addClass('uk-animation-slide-bottom').show();
+            // Animation Styleswitch + Imprint-Links
+            $('ul.styleswitch').addClass('uk-animation-slide-bottom').show();
+            $('ul.imprint').addClass('uk-animation-slide-bottom').show();
             // Animation TRex
             $('div.for').animate({ opacity: .5 }, 1000, function () { });
         });

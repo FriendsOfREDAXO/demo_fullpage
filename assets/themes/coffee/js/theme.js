@@ -336,8 +336,9 @@ var fps_settings = {
             $('.section-idx-1').find('.full').addClass('uk-animation-slide-bottom').show();
             // Down Arrow einblenden
             $('.section-idx-1').find('.arrowdown').removeClass('uk-disabled').animate({ opacity: 1 }, 400, function () { }).addClass('uk-animation-slide-top');
-            // Animation Styleswitch
-            $('.styleswitch').addClass('uk-animation-slide-bottom').show();
+            // Animation Styleswitch + Imprint-Links
+            $('ul.styleswitch').addClass('uk-animation-slide-bottom').show();
+            $('ul.imprint').addClass('uk-animation-slide-bottom').show();
             // Animation TRex
             $('div.for').animate({ opacity: .5 }, 1000, function () { });
             // Bilder ausblenden wg. Animation

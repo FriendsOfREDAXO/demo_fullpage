@@ -3,8 +3,8 @@
 ul.styleswitch {
     z-index: 300;
     position: fixed;
-    bottom: 20px;
-    left: 20px;
+    bottom: 10px;
+    left: 10px;
     margin: 0;
     padding: 0;
     transition: all 0.3s ease;
@@ -79,6 +79,42 @@ div.for a {
     text-indent:-9999px;
 }
 
+/* Impressum+Datenschutz */
+
+ul.imprint {
+    z-index: 300;
+    position: fixed;
+    bottom: 6px;
+    right: 150px;
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s ease;
+    display: none;
+}
+
+ul.imprint li {
+    list-style: none;
+    float: left;
+}
+
+ul.imprint li a {
+    background-color:rgba(0, 0, 0, .3);
+    padding: 2px 6px;
+    color: #fff;
+    margin-right: 10px;
+    opacity: .6;
+    transition: all 0.3s ease;
+    font-size: .7em;
+}
+
+ul.imprint li a:hover {
+    opacity: 1;
+    background-color:rgba(0, 0, 0, .6);
+    text-decoration: none;
+}
+
+/* Breakpoints */
+
 @media (max-width: 1200px) {
     div.for {
         width: 50px;
@@ -96,11 +132,13 @@ div.for a {
     div.for {
         display: none;
     }
-}
 
-@media (max-width: 768px) {
     ul.styleswitch {
         bottom: 10px;
         left: 10px;
+    }
+
+    ul.imprint {
+        right: 10px;
     }
 }

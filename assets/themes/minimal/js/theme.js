@@ -173,8 +173,9 @@ var fps_settings = {
 
         // pagewrapper einblenden
         $('.pagewrapper').animate({ opacity: 1 }, 400, function () { // Animation complete.
-            // Animation Styleswitch
-            $('.styleswitch').addClass('uk-animation-slide-bottom').show();
+            // Animation Styleswitch + Imprint-Links
+            $('ul.styleswitch').addClass('uk-animation-slide-bottom').show();
+            $('ul.imprint').addClass('uk-animation-slide-bottom').show();
             // Animation TRex
             $('div.for').animate({ opacity: .5 }, 1000, function () { });
         });
