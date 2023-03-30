@@ -1,16 +1,19 @@
 # REDAXO Fullpage-Demo - Changelog
 
-## Version 2.0.6 – xx.xx.2023
+## Version 2.0.6 – 31.03.2023
 
 ### Features
 
 * Update UIkit 3.16.13
 * AddOn-Code, Templates + Module überarbeitet mit REDAXO-Coding Standards (2.1.1) + rexstan
+* Content Impressum + Datenschutz hinzugefügt
+  * assets/css/styleswitch.css angepasst
+  * Links zu Impressum + Datenschutz unten neben dem REX-Dino, Themes angepasst (js)
 * Update demo_fullpage.sql
 
 ### Bugfixes
 
-* Keine
+* glightbox.min.css upgedated, war im Original-Download fehlerhaft
 
 ## Version 2.0.5 – 18.03.2023
 
