@@ -8,7 +8,7 @@ class rex_command_demo_fullpage_install extends rex_console_command
 {
     protected function configure(): void
     {
-        $this->setDescription('Installs the REDAXO fullpage demo');
+        $this->setDescription('Installs the REDAXO Fullpage-Demo');
         $this->addOption('yes', 'y', InputOption::VALUE_NONE, 'runs the installation without confirmation');
     }
 
@@ -18,7 +18,7 @@ class rex_command_demo_fullpage_install extends rex_console_command
 
         $skipConfirmation = true === $input->getOption('yes');
 
-        $io->title('Fullpage Demo Installation');
+        $io->title('Fullpage-Demo Installation');
 
         if (!$input->isInteractive() && !$skipConfirmation) {
             return 1;
