@@ -1,5 +1,22 @@
 # REDAXO Fullpage-Demo - Changelog
 
+## Version 2.0.7 – xx.xx.2023
+
+### Features
+
+* Update UIkit 3.16.14
+* AddOn-Code, Templates + Module überarbeitet mit REDAXO-Coding Standards (2.1.1) + rexstan (1.0.108)
+* Content - Impressum angepasst
+* Console-Command demo_fullpage:install, Texte angepasst
+* Neuer Console-Command demo_fullpage:dump_tables, Tabellen in backups/demo_fullpage.sql dumpen
+* Neuer Console-Command demo_fullpage:dump_files, Medien in backups/demo_fullpage.tar.gz dumpen
+* README angepasst
+* Update demo_fullpage.sql
+
+### Bugfixes
+
+* keine
+
 ## Version 2.0.6 – 31.03.2023
 
 ### Features
