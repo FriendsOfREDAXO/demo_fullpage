@@ -5,6 +5,53 @@ class rex_demo_fullpage
     /**
      * @return array<string>
      */
+    public static function dump_files(): array
+    {
+
+        $addon = rex_addon::get('demo_fullpage');
+        $exportPath = $addon->getPath('backups') . DIRECTORY_SEPARATOR  . 'demo_fullpage.tar.gz';
+        $error = [];
+
+        $EXPDIR = [
+            'media',
+        ];
+
+        rex_backup::exportFiles($EXPDIR, $exportPath);
+
+        return [];
+    }
+
+    /**
+     * @return array<string>
+     */
+    public static function dump_tables(): array
+    {
+        $addon = rex_addon::get('demo_fullpage');
+        $exportPath = $addon->getPath('backups') . DIRECTORY_SEPARATOR  . 'demo_fullpage.sql';
+        $error = [];
+
+        $EXPTABLES = [
+            rex::getTable('article'),
+            rex::getTable('article_slice'),
+            rex::getTable('media'),
+            rex::getTable('media_category'),
+            rex::getTable('metainfo_field'),
+            rex::getTable('metainfo_type'),
+            rex::getTable('module'),
+            rex::getTable('template'),
+        ];
+
+        $hasContent = rex_backup::exportDb($exportPath, $EXPTABLES);
+        if (false === $hasContent) {
+            $error[] = rex_i18n::msg('backup_file_could_not_be_generated') . ' ' . $exportPath;
+        }
+
+        return $error;
+    }
+
+    /**
+     * @return array<string>
+     */
     public static function install(): array
     {
         $addon = rex_addon::get('demo_fullpage');
