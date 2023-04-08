@@ -106,7 +106,7 @@ Die Fullpage-Demo wird von Zeit zu Zeit erweitert und Fehler werden korrigiert. 
 
 Informationen zur Erstellung von eigenen **Themes** gibt es [hier](https://github.com/FriendsOfREDAXO/demo_fullpage/blob/master/THEMES.md).
 
-> **Hinweis:** Bei einem Update von Inhalten (Templates, Module, Artikel und Medienpool) für eine neue Addon-Version müssen die Beispiel-Exporte mit dem Backup-AddOn neu erstellt werden!
+> **Hinweis:** Bei einem Update von Inhalten (Templates, Module, Artikel und Medienpool) für eine neue Addon-Version müssen die Beispiel-Exporte neu erstellt werden!
 
 **Dabei ist folgendes zu beachten!**
 
@@ -124,9 +124,17 @@ Dateinamen: **demo_fullpage.sql** und **demo_fullpage.tar.gz**
 * rex_module
 * rex_template
 
+Erstellung des Datenbank-Backups mit dem Consolen-Commando: `demo_fullpage:dump_tables`
+
+`php redaxo\bin\console demo_fullpage:dump_tables`
+
 **Datei-Backup:** (nur folgende Ordner exportieren!)
 
 * media
+
+Erstellung des Datei-Backups mit dem Consolen-Commando: `demo_fullpage:dump_files`
+
+`php redaxo\bin\console demo_fullpage:dump_files`
 
 ## Installation
 
