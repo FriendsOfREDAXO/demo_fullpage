@@ -20,7 +20,7 @@ rex_file::putConfig($addon->getPath('package.yml'), $config);
  * @param  array<mixed> $aArray2
  * @return array<mixed>
  */
-function array_diff_recursive($aArray1, $aArray2)
+function array_diff_recursive($aArray1, $aArray2): array
 {
     $aReturn = [];
     foreach ($aArray1 as $mKey => $mValue) {
@@ -28,7 +28,7 @@ function array_diff_recursive($aArray1, $aArray2)
             if (is_array($mValue)) {
                 if (is_array($aArray2[$mKey])) {
                     $aRecursiveDiff = array_diff_recursive($mValue, $aArray2[$mKey]);
-                    if (count($aRecursiveDiff) > 0) {
+                    if ($aRecursiveDiff !== []) {
                         $aReturn[$mKey] = $aRecursiveDiff;
                     }
                 }
@@ -41,5 +41,6 @@ function array_diff_recursive($aArray1, $aArray2)
             $aReturn[$mKey] = $mValue;
         }
     }
+
     return $aReturn;
 }

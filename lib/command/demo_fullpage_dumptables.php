@@ -4,7 +4,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class rex_command_demo_fullpage_dumptables extends rex_console_command
+final class rex_command_demo_fullpage_dumptables extends rex_console_command
 {
     protected function configure(): void
     {
@@ -32,7 +32,7 @@ class rex_command_demo_fullpage_dumptables extends rex_console_command
 
         $errors = rex_demo_fullpage::dump_tables();
 
-        if (count($errors) > 0) {
+        if ([] !== $errors) {
             $io->error($this->decodeMessage("Failed to dump Fullpage-Demo-Tables:\n- " . implode("\n- ", $errors)));
             return 1;
         }

@@ -8,7 +8,7 @@ if (true === rex_post('install', 'boolean')) {
     $errors = rex_demo_fullpage::install();
 
     // show result messages
-    if (count($errors) > 0) {
+    if ($errors !== []) {
         echo rex_view::error('<p>' . $addon->i18n('installation_error') . '</p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>');
     } else {
         echo rex_view::success('<p>' . $addon->i18n('installation_success') . '</p>');
@@ -80,9 +80,11 @@ $credits .= '<dt>' . rex_i18n::msg('credits_name') . '</dt><dd>' . htmlspecialch
 if ($version > 0) {
     $credits .= '<dt>' . rex_i18n::msg('credits_version') . '</dt><dd>' . $version . '</dd>';
 }
+
 if ('' !== $author) {
     $credits .= '<dt>' . rex_i18n::msg('credits_author') . '</dt><dd>' . htmlspecialchars((string) $author) . '</dd>';
 }
+
 if ('' !== $supportPage) {
     $credits .= '<dt>' . rex_i18n::msg('credits_supportpage') . '</dt><dd><a href="' . $supportPage . '" onclick="window.open(this.href); return false;">' . $supportPage . '</a></dd>';
 }

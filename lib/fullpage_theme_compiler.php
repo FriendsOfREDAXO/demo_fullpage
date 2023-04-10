@@ -2,7 +2,7 @@
 
 use rex_scss_compiler;
 
-class fullpage_theme_compiler
+final class fullpage_theme_compiler
 {
     public function compile(string $theme, bool $showfiles = false): void
     {
@@ -16,6 +16,7 @@ class fullpage_theme_compiler
         } else {
             $sourcePath = $addon->getPath('assets/themes/' . $theme . '/css/');
         }
+
         $destPath = $addon->getAssetsPath('themes/' . $theme . '/css/');
         rex_dir::create($destPath, true);
 
@@ -23,6 +24,7 @@ class fullpage_theme_compiler
             echo rex_view::error('Directory not writeable! ' . $sourcePath);
             return;
         }
+
         if (!rex_dir::isWritable($destPath)) {
             echo rex_view::error('Directory not writeable! ' . $destPath);
             return;
@@ -39,10 +41,11 @@ class fullpage_theme_compiler
                 $cssfiles[] = pathinfo(basename($filename), PATHINFO_FILENAME);
             }
         }
+
         $cssfiles[] = 'theme';
 
         // handle error exit in compiler
-        register_shutdown_function(static function () {
+        register_shutdown_function(static function (): void {
             echo '<br><br>' .rex_view::error(rex_addon::get('demo_fullpage')->i18n('compile_error'));
         });
 
@@ -54,6 +57,7 @@ class fullpage_theme_compiler
             if ($showfiles) {
                 echo 'Compiling <strong>' . $filename . '.css</strong> to <strong>' . $filename . '.min.css</strong><br>';
             }
+
             $compiler->compile();
         }
 

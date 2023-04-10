@@ -91,6 +91,7 @@ if (false !== $directories) {
         }
     }
 }
+
 $n['field'] = $sel_dirs->get();
 
 $formElements[] = $n;

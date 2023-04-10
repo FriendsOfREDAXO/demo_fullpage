@@ -4,7 +4,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class rex_command_demo_fullpage_dumpfiles extends rex_console_command
+final class rex_command_demo_fullpage_dumpfiles extends rex_console_command
 {
     protected function configure(): void
     {
@@ -32,10 +32,11 @@ class rex_command_demo_fullpage_dumpfiles extends rex_console_command
 
         $errors = rex_demo_fullpage::dump_files();
 
-        if (count($errors) > 0) {
+        if ([] !== $errors) {
             $io->error($this->decodeMessage("Failed to dump Fullpage-Demo-MediaFiles:\n- " . implode("\n- ", $errors)));
             return 1;
         }
+
         $io->success('Successfully dumped Fullpage-Demo-MediaFiles!');
         return 0;
     }
