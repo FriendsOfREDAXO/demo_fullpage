@@ -65,3 +65,5 @@ demo_fullpage_meta_nomenu = <b>fullPage</b>: In der Haupt-Navigation ausblenden
 demo_fullpage_changelog = Changelog
 demo_fullpage_description_changelog_heading = Changelog demo_fullpage
 demo_fullpage_no_changelog_file = Kein Changelog vorhanden!
+
+perm_general_demo_fullpage[] = Rechte für die Fullpage-Demo
