@@ -125,12 +125,10 @@ final class rex_demo_fullpage
                 }
 
                 // extract package (overrides local package if existent)
-                if ('' !== $id) {
-                    if (!rex_install_archive::extract($archivefile, rex_path::addon($id), $id)) {
-                        rex_dir::delete(rex_path::addon($id));
-                        $errors[] = $addon->i18n('package_failed_to_extract', $id);
-                        break;
-                    }
+                if ('' !== $id && !rex_install_archive::extract($archivefile, rex_path::addon($id), $id)) {
+                    rex_dir::delete(rex_path::addon($id));
+                    $errors[] = $addon->i18n('package_failed_to_extract', $id);
+                    break;
                 }
 
                 rex_package_manager::synchronizeWithFileSystem();

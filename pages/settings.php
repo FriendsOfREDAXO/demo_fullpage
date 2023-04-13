@@ -68,7 +68,7 @@ $directories = glob($myPath . '/*', GLOB_ONLYDIR);
 if (false !== $directories) {
     foreach ($directories as $dir) {
         $dir = basename($dir);
-        if (true === file_exists($myPath  .$dir . '/css/theme.css')) {
+        if (file_exists($myPath  .$dir . '/css/theme.css')) {
             $ff = file($myPath  .$dir . '/css/theme.css');
             if (isset($ff[0]) && '/*' === trim($ff[0]) && isset($ff[3]) && '*/' === trim($ff[3]) && isset($ff[2])) {
                 $sel_dirs->addOption($ff[2], $dir);

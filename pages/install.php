@@ -8,7 +8,7 @@ if (true === rex_post('install', 'boolean')) {
     $errors = rex_demo_fullpage::install();
 
     // show result messages
-    if ($errors !== []) {
+    if ([] !== $errors) {
         echo rex_view::error('<p>' . $addon->i18n('installation_error') . '</p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>');
     } else {
         echo rex_view::success('<p>' . $addon->i18n('installation_success') . '</p>');

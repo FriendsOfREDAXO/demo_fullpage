@@ -28,14 +28,12 @@ function array_diff_recursive($aArray1, $aArray2): array
             if (is_array($mValue)) {
                 if (is_array($aArray2[$mKey])) {
                     $aRecursiveDiff = array_diff_recursive($mValue, $aArray2[$mKey]);
-                    if ($aRecursiveDiff !== []) {
+                    if ([] !== $aRecursiveDiff) {
                         $aReturn[$mKey] = $aRecursiveDiff;
                     }
                 }
-            } else {
-                if ($mValue !== $aArray2[$mKey]) {
-                    $aReturn[$mKey] = $mValue;
-                }
+            } elseif ($mValue !== $aArray2[$mKey]) {
+                $aReturn[$mKey] = $mValue;
             }
         } else {
             $aReturn[$mKey] = $mValue;
