@@ -1,5 +1,18 @@
 # REDAXO Fullpage-Demo - Changelog
 
+## Version 2.0.8 – xx.xx.2023
+
+### Features
+
+* Verzeichnis der Console-Commands umbenannt, console -> command
+* AddOn-Code, Templates + Module überarbeitet mit REDAXO-Coding Standards (2.1.2) + rexstan (1.0.109) + rexfactor (0.1.5)
+* lang-Datei für perm angepasst
+* Update demo_fullpage.sql
+
+### Bugfixes
+
+* demo_fullpage.sql, Artikel waren zusätzulich in Sprache 2 im Dump enthalten
+
 ## Version 2.0.7 – 09.04.2023
 
 ### Features
