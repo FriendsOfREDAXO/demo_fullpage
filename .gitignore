@@ -15,3 +15,6 @@ modules.xml
 .idea/vcs.xml
 .idea/encodings.xml
 *.ipr
+
+# VSCode setting
+.vscode
