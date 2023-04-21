@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 final class rex_demo_fullpage
 {
     /** @var string[] */

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use rex_scss_compiler;
 
 final class fullpage_theme_compiler
