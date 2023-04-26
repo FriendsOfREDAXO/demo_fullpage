@@ -1,17 +1,21 @@
 # REDAXO Fullpage-Demo - Changelog
 
-## Version 2.0.8 – xx.xx.2023
+## Version 2.0.8 – 26.04.2023
 
 ### Features
 
+* Update UIkit 3.16.15
+* Code-Quality - AddOn-Code Templates + Module überarbeitet mit REDAXO-Coding Standards (2.1.2) + rexstan (1.0.111) + rexfactor (0.1.7)
+* added declare(strict_types=1);
 * Verzeichnis der Console-Commands umbenannt, console -> command
-* AddOn-Code, Templates + Module überarbeitet mit REDAXO-Coding Standards (2.1.2) + rexstan (1.0.109) + rexfactor (0.1.5)
+* PHP-Version in package.yml hinzugefügt '>=7.4, <8.3'
 * lang-Datei für perm angepasst
+* Lineendings CRLF -> LF
 * Update demo_fullpage.sql
 
 ### Bugfixes
 
-* demo_fullpage.sql, Artikel waren zusätzulich in Sprache 2 im Dump enthalten
+* demo_fullpage.sql, Artikel waren zusätzulich in Sprache 2 im Dump enthalten #30
 
 ## Version 2.0.7 – 09.04.2023
 
