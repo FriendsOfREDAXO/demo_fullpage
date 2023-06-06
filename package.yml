@@ -1,5 +1,5 @@
 package: demo_fullpage
-version: 2.0.8
+version: 2.0.9
 author: 'Friends Of REDAXO'
 supportpage: 'https://github.com/FriendsOfREDAXO/demo_fullpage'
 page:
@@ -39,11 +39,3 @@ console_commands:
     'demo_fullpage:dump_files': rex_command_demo_fullpage_dumpfiles
     'demo_fullpage:dump_tables': rex_command_demo_fullpage_dumptables
     'demo_fullpage:install': rex_command_demo_fullpage_install
-setup:
-    installSequence:
-        - backup
-        - structure/content
-    dbimport:
-        - demo_fullpage.sql
-    fileimport:
-        - demo_fullpage.tar.gz
