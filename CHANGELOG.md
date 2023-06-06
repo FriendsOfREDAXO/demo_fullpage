@@ -1,5 +1,15 @@
 # REDAXO Fullpage-Demo - Changelog
 
+## Version 2.0.9 – 06.06.2023
+
+### Features
+
+* Update UIkit 3.16.19
+
+### Bugfixes
+
+* Dateien im Backup-Order werden nach Deinstallation nicht gelöscht https://github.com/FriendsOfREDAXO/demo_fullpage/issues/32
+
 ## Version 2.0.8 – 26.04.2023
 
 ### Features
