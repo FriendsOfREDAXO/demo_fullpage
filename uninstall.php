@@ -8,19 +8,21 @@ $addon = rex_addon::get('demo_fullpage');
 $setupconfig = (array) $addon->getProperty('setup');
 $backupPath = rex_addon::get('backup')->getDataPath();
 
-if (isset($setupconfig['dbimport']) && is_array($setupconfig['dbimport']) &&count($setupconfig['dbimport']) > 0) {
+if (isset($setupconfig['dbimport']) && is_array($setupconfig['dbimport']) && $setupconfig['dbimport'] !== []) {
     foreach ($setupconfig['dbimport'] as $import) {
         rex_file::delete($backupPath . $import);
     }
 }
 
-if (isset($setupconfig['fileimport']) && is_array($setupconfig['fileimport']) && count($setupconfig['fileimport']) > 0) {
+if (isset($setupconfig['fileimport']) && is_array($setupconfig['fileimport']) && $setupconfig['fileimport'] !== []) {
     foreach ($setupconfig['fileimport'] as $import) {
         rex_file::delete($backupPath.$import);
     }
 }
 
-// rex_addon::get('backup')->getDataPath()
+// delete media-files
+rex_dir::deleteFiles(rex_path::media(), false);
+rex_file::put(rex_path::media('.redaxo'), "// Ordner für abgelegte Dateien von redaxo\n");
 
 // update config
 // remove additional config from base config
