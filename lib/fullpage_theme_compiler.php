@@ -39,9 +39,15 @@ final class fullpage_theme_compiler
         $filenames = (array) glob($sourcePath . '*.css');
         foreach ($filenames as $filename) {
             $filename = (string) $filename;
-            if ('.min.css' !== substr(basename($filename), -8) && 'theme.css' !== basename($filename)) {
-                $cssfiles[] = pathinfo(basename($filename), PATHINFO_FILENAME);
+            if ('.min.css' === substr(basename($filename), -8)) {
+                continue;
             }
+
+            if ('theme.css' === basename($filename)) {
+                continue;
+            }
+
+            $cssfiles[] = pathinfo(basename($filename), PATHINFO_FILENAME);
         }
 
         $cssfiles[] = 'theme';
