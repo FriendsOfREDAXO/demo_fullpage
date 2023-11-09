@@ -1,4 +1,4 @@
-/*! UIkit 3.16.19 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.17.8 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -219,7 +219,8 @@ h6,
 .uk-heading-medium,
 .uk-heading-large,
 .uk-heading-xlarge,
-.uk-heading-2xlarge {
+.uk-heading-2xlarge,
+.uk-heading-3xlarge {
   margin: 0 0 20px 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: normal;
@@ -243,7 +244,8 @@ h6,
 * + .uk-heading-medium,
 * + .uk-heading-large,
 * + .uk-heading-xlarge,
-* + .uk-heading-2xlarge {
+* + .uk-heading-2xlarge,
+* + .uk-heading-3xlarge {
   margin-top: 40px;
 }
 /*
@@ -517,6 +519,10 @@ a.uk-link-reset,
   font-size: 6rem;
   line-height: 1;
 }
+.uk-heading-3xlarge {
+  font-size: 8rem;
+  line-height: 1;
+}
 /* Tablet Landscape and bigger */
 @media (min-width: 960px) {
   .uk-heading-small {
@@ -534,6 +540,9 @@ a.uk-link-reset,
   .uk-heading-2xlarge {
     font-size: 8rem;
   }
+  .uk-heading-3xlarge {
+    font-size: 11rem;
+  }
 }
 /* Laptop and bigger */
 @media (min-width: 1200px) {
@@ -548,6 +557,9 @@ a.uk-link-reset,
   }
   .uk-heading-2xlarge {
     font-size: 11rem;
+  }
+  .uk-heading-3xlarge {
+    font-size: 15rem;
   }
 }
 /* Primary
@@ -1397,11 +1409,14 @@ button.uk-icon:not(:disabled) {
 }
 /*
  * Define consistent border, margin, and padding.
+ * 1. Reset `min-width`
  */
 .uk-fieldset {
   border: none;
   margin: 0;
   padding: 0;
+  /* 1 */
+  min-width: 0;
 }
 /* Input, select and textarea
  * Allowed: `text`, `password`, `datetime-local`, `date`,  `month`,
@@ -2275,24 +2290,28 @@ select.uk-form-width-xsmall {
  */
 .uk-section-default {
   background: #fff;
+  --uk-navbar-color: dark;
 }
 /*
  * Muted
  */
 .uk-section-muted {
   background: #f8f8f8;
+  --uk-navbar-color: dark;
 }
 /*
  * Primary
  */
 .uk-section-primary {
   background: #1e87f0;
+  --uk-navbar-color: light;
 }
 /*
  * Secondary
  */
 .uk-section-secondary {
   background: #222;
+  --uk-navbar-color: light;
 }
 /* Overlap modifier
  ========================================================================== */
@@ -3896,10 +3915,14 @@ select.uk-form-width-xsmall {
 /* Container
  ========================================================================== */
 /*
- * Clip child elements
+ * 1. Clip child elements
+ * 2. Prevent accidental scrolling through elements in slide getting focused
  */
 .uk-slider-container {
+  /* 1 */
   overflow: hidden;
+  /* 2 */
+  overflow: clip;
 }
 /*
  * Widen container to prevent box-shadows from clipping, `large-box-shadow`
@@ -3944,13 +3967,14 @@ select.uk-form-width-xsmall {
 /*
  * 1. Let items take content dimensions (0 0 auto)
  *    `max-width` needed to keep image responsiveness and prevent content overflow
- * 3. Create position context
+ * 2. Create position context
  */
 .uk-slider-items > * {
   /* 1 */
   flex: none;
+  box-sizing: border-box;
   max-width: 100%;
-  /* 3 */
+  /* 2 */
   position: relative;
 }
 /* ========================================================================
@@ -5168,11 +5192,14 @@ ul.uk-nav-sub {
  ========================================================================== */
 /*
  * 1. Create position context to center navbar group
+ * 2. Pass dropbar behind color to JS
  */
 .uk-navbar {
   display: flex;
   /* 1 */
   position: relative;
+  /* 2 */
+  --uk-navbar-dropbar-behind-color: dark;
 }
 /* Container
  ========================================================================== */
@@ -5519,6 +5546,10 @@ ul.uk-nav-sub {
 /*
  * Adopts `uk-dropnav-dropbar`
  */
+.uk-navbar-container {
+  transition: 0.1s ease-in-out;
+  transition-property: background-color;
+}
 /* Tablet landscape and bigger */
 @media (min-width: 960px) {
   .uk-navbar-left,
@@ -5715,16 +5746,19 @@ ul.uk-nav-sub {
  ========================================================================== */
 /*
  * 1. Allow items to wrap into the next line
- * 2. Gutter
- * 3. Reset list
+ * 2. Center items vertically if they have a different height
+ * 3. Gutter
+ * 4. Reset list
  */
 .uk-pagination {
   display: flex;
   /* 1 */
   flex-wrap: wrap;
   /* 2 */
-  margin-left: 0;
+  align-items: center;
   /* 3 */
+  margin-left: 0;
+  /* 4 */
   padding: 0;
   list-style: none;
 }
@@ -5744,13 +5778,17 @@ ul.uk-nav-sub {
 /* Items
  ========================================================================== */
 /*
- * 1. Prevent gap if child element is `inline-block`, e.g. an icon
- * 2. Style
+ * 1. Center content vertically, e.g. an icon
+ * 2. Imitate white space gap when using flexbox
+ * 3. Style
  */
 .uk-pagination > * > * {
   /* 1 */
-  display: block;
+  display: flex;
+  align-items: center;
   /* 2 */
+  column-gap: 0.25em;
+  /* 3 */
   padding: 5px 10px;
   color: #999;
   transition: color 0.1s ease-in-out;
@@ -7675,8 +7713,8 @@ td.uk-text-break {
  *       is absolute positioned or if the container has a height
  */
 /* 1 */
-[uk-cover],
-[data-uk-cover] {
+[uk-cover]:where(canvas, iframe, svg),
+[data-uk-cover]:where(canvas, iframe, svg) {
   /* 2 */
   max-width: none;
   /* 3 */
@@ -7690,6 +7728,18 @@ td.uk-text-break {
 iframe[uk-cover],
 iframe[data-uk-cover] {
   pointer-events: none;
+}
+[uk-cover]:where(img, video),
+[data-uk-cover]:where(img, video) {
+  /* 3 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  object-fit: cover;
+  object-position: center;
 }
 /* Container
  ========================================================================== */
@@ -9198,6 +9248,9 @@ iframe[data-uk-cover] {
 .uk-position-z-index-negative {
   z-index: -1;
 }
+.uk-position-z-index-high {
+  z-index: 990;
+}
 /* ========================================================================
    Component: Transition
  ========================================================================== */
@@ -9322,10 +9375,16 @@ iframe[data-uk-cover] {
 .uk-transition-opaque {
   opacity: 1;
 }
-/* Duration modifiers
+/* Duration modifier
  ========================================================================== */
 .uk-transition-slow {
   transition-duration: 0.7s;
+}
+/* Disable modifier
+ ========================================================================== */
+.uk-transition-disable,
+.uk-transition-disable * {
+  transition: none !important;
 }
 /* ========================================================================
    Component: Visibility
@@ -9600,6 +9659,7 @@ iframe[data-uk-cover] {
 .uk-light .uk-heading-large,
 .uk-light .uk-heading-xlarge,
 .uk-light .uk-heading-2xlarge,
+.uk-light .uk-heading-3xlarge,
 .uk-section-primary:not(.uk-preserve-color) h1,
 .uk-section-primary:not(.uk-preserve-color) .uk-h1,
 .uk-section-primary:not(.uk-preserve-color) h2,
@@ -9617,6 +9677,7 @@ iframe[data-uk-cover] {
 .uk-section-primary:not(.uk-preserve-color) .uk-heading-large,
 .uk-section-primary:not(.uk-preserve-color) .uk-heading-xlarge,
 .uk-section-primary:not(.uk-preserve-color) .uk-heading-2xlarge,
+.uk-section-primary:not(.uk-preserve-color) .uk-heading-3xlarge,
 .uk-section-secondary:not(.uk-preserve-color) h1,
 .uk-section-secondary:not(.uk-preserve-color) .uk-h1,
 .uk-section-secondary:not(.uk-preserve-color) h2,
@@ -9634,6 +9695,7 @@ iframe[data-uk-cover] {
 .uk-section-secondary:not(.uk-preserve-color) .uk-heading-large,
 .uk-section-secondary:not(.uk-preserve-color) .uk-heading-xlarge,
 .uk-section-secondary:not(.uk-preserve-color) .uk-heading-2xlarge,
+.uk-section-secondary:not(.uk-preserve-color) .uk-heading-3xlarge,
 .uk-tile-primary:not(.uk-preserve-color) h1,
 .uk-tile-primary:not(.uk-preserve-color) .uk-h1,
 .uk-tile-primary:not(.uk-preserve-color) h2,
@@ -9651,6 +9713,7 @@ iframe[data-uk-cover] {
 .uk-tile-primary:not(.uk-preserve-color) .uk-heading-large,
 .uk-tile-primary:not(.uk-preserve-color) .uk-heading-xlarge,
 .uk-tile-primary:not(.uk-preserve-color) .uk-heading-2xlarge,
+.uk-tile-primary:not(.uk-preserve-color) .uk-heading-3xlarge,
 .uk-tile-secondary:not(.uk-preserve-color) h1,
 .uk-tile-secondary:not(.uk-preserve-color) .uk-h1,
 .uk-tile-secondary:not(.uk-preserve-color) h2,
@@ -9668,6 +9731,7 @@ iframe[data-uk-cover] {
 .uk-tile-secondary:not(.uk-preserve-color) .uk-heading-large,
 .uk-tile-secondary:not(.uk-preserve-color) .uk-heading-xlarge,
 .uk-tile-secondary:not(.uk-preserve-color) .uk-heading-2xlarge,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-heading-3xlarge,
 .uk-card-primary.uk-card-body h1,
 .uk-card-primary.uk-card-body .uk-h1,
 .uk-card-primary.uk-card-body h2,
@@ -9685,6 +9749,7 @@ iframe[data-uk-cover] {
 .uk-card-primary.uk-card-body .uk-heading-large,
 .uk-card-primary.uk-card-body .uk-heading-xlarge,
 .uk-card-primary.uk-card-body .uk-heading-2xlarge,
+.uk-card-primary.uk-card-body .uk-heading-3xlarge,
 .uk-card-primary > :not([class*='uk-card-media']) h1,
 .uk-card-primary > :not([class*='uk-card-media']) .uk-h1,
 .uk-card-primary > :not([class*='uk-card-media']) h2,
@@ -9702,6 +9767,7 @@ iframe[data-uk-cover] {
 .uk-card-primary > :not([class*='uk-card-media']) .uk-heading-large,
 .uk-card-primary > :not([class*='uk-card-media']) .uk-heading-xlarge,
 .uk-card-primary > :not([class*='uk-card-media']) .uk-heading-2xlarge,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-heading-3xlarge,
 .uk-card-secondary.uk-card-body h1,
 .uk-card-secondary.uk-card-body .uk-h1,
 .uk-card-secondary.uk-card-body h2,
@@ -9719,6 +9785,7 @@ iframe[data-uk-cover] {
 .uk-card-secondary.uk-card-body .uk-heading-large,
 .uk-card-secondary.uk-card-body .uk-heading-xlarge,
 .uk-card-secondary.uk-card-body .uk-heading-2xlarge,
+.uk-card-secondary.uk-card-body .uk-heading-3xlarge,
 .uk-card-secondary > :not([class*='uk-card-media']) h1,
 .uk-card-secondary > :not([class*='uk-card-media']) .uk-h1,
 .uk-card-secondary > :not([class*='uk-card-media']) h2,
@@ -9736,6 +9803,7 @@ iframe[data-uk-cover] {
 .uk-card-secondary > :not([class*='uk-card-media']) .uk-heading-large,
 .uk-card-secondary > :not([class*='uk-card-media']) .uk-heading-xlarge,
 .uk-card-secondary > :not([class*='uk-card-media']) .uk-heading-2xlarge,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-heading-3xlarge,
 .uk-overlay-primary h1,
 .uk-overlay-primary .uk-h1,
 .uk-overlay-primary h2,
@@ -9753,6 +9821,7 @@ iframe[data-uk-cover] {
 .uk-overlay-primary .uk-heading-large,
 .uk-overlay-primary .uk-heading-xlarge,
 .uk-overlay-primary .uk-heading-2xlarge,
+.uk-overlay-primary .uk-heading-3xlarge,
 .uk-offcanvas-bar h1,
 .uk-offcanvas-bar .uk-h1,
 .uk-offcanvas-bar h2,
@@ -9769,7 +9838,8 @@ iframe[data-uk-cover] {
 .uk-offcanvas-bar .uk-heading-medium,
 .uk-offcanvas-bar .uk-heading-large,
 .uk-offcanvas-bar .uk-heading-xlarge,
-.uk-offcanvas-bar .uk-heading-2xlarge {
+.uk-offcanvas-bar .uk-heading-2xlarge,
+.uk-offcanvas-bar .uk-heading-3xlarge {
   color: #fff;
 }
 .uk-light blockquote,
