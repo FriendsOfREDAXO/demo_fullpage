@@ -1,5 +1,16 @@
 # REDAXO Fullpage-Demo - Changelog
 
+## Version 2.0.10 – 10.11.2023
+
+### Features
+
+* Update UIkit 3.17.8
+* rexfactor lib/fullpage_theme_compiler.php
+
+### Bugfixes
+
+* Ordner `media` bei Deinstallation leeren
+
 ## Version 2.0.9 – 06.06.2023
 
 ### Features
