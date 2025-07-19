@@ -13,8 +13,7 @@ page:
         themes: { title: 'translate:demo_fullpage_themes', subPath: THEMES.md, icon: 'rex-icon fa-desktop' }
         changelog: { title: 'translate:demo_fullpage_changelog', subPath: CHANGELOG.md, icon: 'rex-icon fa-list', itemClass: pull-right, linkClass: btn-default }
 requires:
-    php:
-        version: '>=7.4, <8.3'
+    php: '>=8.0'
     redaxo: ^5.13.0
     packages:
         backup: ^2.8.0
