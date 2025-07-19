@@ -1,5 +1,11 @@
 # REDAXO Fullpage-Demo - Changelog
 
+## Version 2.1.0 - 19.07.2025
+
+### Features
+
+* Ermöglicht die Nutzung mit PHP 8.3+
+
 ## Version 2.0.10 – 10.11.2023
 
 ### Features
