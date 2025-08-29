@@ -1,5 +1,26 @@
 # REDAXO Fullpage-Demo - Changelog
 
+## Version 2.2.0 - 29.08.2025
+
+### Achtung mögliche XSS Vulnerability in den Demo-Inhalten behoben (Testseite->Sonstige Beispiele)
+
+### Features
+
+* Umstellung auf FOR-Namespace
+* Console-Commands in package.yml an FOR-Namespace angepasst
+* Update jQuery Version 3.7.1
+* Update UIkit Version 3.23.12
+* Update GLightbox Version 3.3.0
+* Backup-Files neu mit Console-Commands erstellt
+  * Anpassungen an Templates, Modulen und Content
+* Code-Quality - AddOn-Code, Templates + Module überarbeitet mit REDAXO-Coding Standards (2.16.0) + rexstan (2.0.26) + rexfactor (0.1.26)
+  * Level 10, REDAXO SuperGlobals, Bleeding-Edge, Strict-Mode, Strict-Mode, PHPUnit, phpstan-dba, report mixed, dead code
+* Icon für Einstellungen in package.yml geändert
+
+### Bugfixes
+
+* In einem Inhaltsmodul (Testseite->Sonstige Beispiele) wurde der Parameter `theme` unescaped ausgegeben (XSS Vulnerability)
+
 ## Version 2.1.0 - 19.07.2025
 
 ### Features
