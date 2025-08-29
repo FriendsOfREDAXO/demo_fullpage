@@ -45,7 +45,7 @@ Die mitgelieferten Themes, Templates, Module und Inhalte dienen nur als Beispiel
 | **Responsive Breite** | Ab einer Viewport-Breite *unter* diesem Wert wird in den Responsive-Mode gewechselt. (Default 1200) |
 | **Responsive Höhe** | Ab einer Viewport-Höhe *unter* diesem Wert wird in den Responsive-Mode gewechselt. (Default 750) |
 | **Scrolling-Speed in ms** | Geschwindigkeit in Millisekunden für den Scroll-Effekt bei Seitenübergängen. Hier sollte kein Wert unter 200 angegeben werden. (Default 800) |
-| **Seiten-Navigation (dots) anzeigen** | Seiten-Navigation in Form von *Dots* anzeigen |
+| **Seiten-Navigation (dots) anzeigen** | Seiten-Navigation in Form von *Dots* anzeigen (rechts oder links) |
 | **Tooltip für Seiten-Navigation (dots) anzeigen** | Hier kann eingestellt werden ob Tooltips für die Seiten-Navigation anzeigt werden. |
 | **Position der Seiten-Navigation (dots)** | Die Seiten-Navigation kann links oder rechts von den Inhalten angezeigt werden. (Default rechts) |
 | **Pfeile für horizontale Slides anzeigen** | Sind horizontale Slides vorhanden kann hier die Anzeige von Navigationselementen (Pfeile links/rechts) eingestellt werden. |
