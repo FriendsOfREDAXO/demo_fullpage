@@ -1,5 +1,5 @@
 package: demo_fullpage
-version: 2.1.0
+version: 2.2.0
 author: 'Friends Of REDAXO'
 supportpage: 'https://github.com/FriendsOfREDAXO/demo_fullpage'
 page:
@@ -9,7 +9,7 @@ page:
     icon: 'rex-icon fa-rocket'
     subpages:
         install: { title: 'translate:demo_fullpage_title', icon: 'rex-icon fa-rocket' }
-        settings: { title: 'translate:demo_fullpage_settings', icon: 'rex-icon fa-wrench' }
+        settings: { title: 'translate:demo_fullpage_settings', icon: 'rex-icon fa-cog' }
         themes: { title: 'translate:demo_fullpage_themes', subPath: THEMES.md, icon: 'rex-icon fa-desktop' }
         changelog: { title: 'translate:demo_fullpage_changelog', subPath: CHANGELOG.md, icon: 'rex-icon fa-list', itemClass: pull-right, linkClass: btn-default }
 requires:
@@ -35,6 +35,6 @@ default_config:
     slidenavigationposition: bottom
     usesubcategories: 1
 console_commands:
-    'demo_fullpage:dump_files': rex_command_demo_fullpage_dumpfiles
-    'demo_fullpage:dump_tables': rex_command_demo_fullpage_dumptables
-    'demo_fullpage:install': rex_command_demo_fullpage_install
+    'demo_fullpage:dump_files': FriendsOfRedaxo\DemoFullPage\rex_command_demo_fullpage_dumpfiles
+    'demo_fullpage:dump_tables': FriendsOfRedaxo\DemoFullPage\rex_command_demo_fullpage_dumptables
+    'demo_fullpage:install': FriendsOfRedaxo\DemoFullPage\rex_command_demo_fullpage_install
