@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use FriendsOfRedaxo\DemoFullPage\rex_demo_fullpage;
+
 $addon = rex_addon::get('demo_fullpage');
 
 /* setup process */
@@ -44,8 +46,8 @@ $version = $package->getVersion();
 $author = $package->getAuthor();
 $supportPage = $package->getSupportPage();
 
-if (is_readable($package->getPath('README.'. rex_i18n::getLanguage() .'.md'))) {
-    [$readmeToc, $readmeContent] = rex_markdown::factory()->parseWithToc(rex_file::require($package->getPath('README.'. rex_i18n::getLanguage() .'.md')), 2, 3, [
+if (is_readable($package->getPath('README.' . rex_i18n::getLanguage() . '.md'))) {
+    [$readmeToc, $readmeContent] = rex_markdown::factory()->parseWithToc(rex_file::require($package->getPath('README.' . rex_i18n::getLanguage() . '.md')), 2, 3, [
         rex_markdown::SOFT_LINE_BREAKS => false,
         rex_markdown::HIGHLIGHT_PHP => true,
     ]);

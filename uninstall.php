@@ -8,15 +8,19 @@ $addon = rex_addon::get('demo_fullpage');
 $setupconfig = (array) $addon->getProperty('setup');
 $backupPath = rex_addon::get('backup')->getDataPath();
 
-if (isset($setupconfig['dbimport']) && is_array($setupconfig['dbimport']) && $setupconfig['dbimport'] !== []) {
+if (isset($setupconfig['dbimport']) && is_array($setupconfig['dbimport']) && [] !== $setupconfig['dbimport']) {
     foreach ($setupconfig['dbimport'] as $import) {
-        rex_file::delete($backupPath . $import);
+        if (is_string($import)) {
+            rex_file::delete($backupPath . $import);
+        }
     }
 }
 
-if (isset($setupconfig['fileimport']) && is_array($setupconfig['fileimport']) && $setupconfig['fileimport'] !== []) {
+if (isset($setupconfig['fileimport']) && is_array($setupconfig['fileimport']) && [] !== $setupconfig['fileimport']) {
     foreach ($setupconfig['fileimport'] as $import) {
-        rex_file::delete($backupPath.$import);
+        if (is_string($import)) {
+            rex_file::delete($backupPath . $import);
+        }
     }
 }
 

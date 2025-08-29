@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use FriendsOfRedaxo\DemoFullPage\fullpage_theme_compiler;
+
 $addon = rex_addon::get('demo_fullpage');
 
 $content = '';
@@ -11,6 +13,7 @@ $func = rex_request('func', 'string');
 
 // Konfiguration speichern
 if ('update' === $func) {
+    // @phpstan-ignore-next-line
     $addon->setConfig((array) rex_post('settings', [
         ['theme', 'string'],
         ['logo', 'string'],
@@ -33,13 +36,26 @@ if ('update' === $func) {
     echo rex_view::info($addon->i18n('compile_theme'));
 
     $compiler = new fullpage_theme_compiler();
-    $compiler->compile(''.$addon->getConfig('theme'), true);
+    $theme = $addon->getConfig('theme');
+    if (!is_string($theme)) {
+        $theme = '';
+    }
+
+    $compiler->compile($theme, true);
 }
 
 // Config-Werte bereitstellen
 $Values = [];
 $Values['theme'] = $addon->getConfig('theme');
+if (!is_string($Values['theme'])) {
+    $Values['theme'] = '';
+}
+
 $Values['logo'] = $addon->getConfig('logo');
+if (!is_string($Values['logo'])) {
+    $Values['logo'] = '';
+}
+
 $Values['showscrollbar'] = $addon->getConfig('showscrollbar');
 $Values['responsivewidth'] = $addon->getConfig('responsivewidth');
 $Values['responsiveheight'] = $addon->getConfig('responsiveheight');
@@ -48,9 +64,17 @@ $Values['autoscrolling'] = $addon->getConfig('autoscrolling');
 $Values['shownavigation'] = $addon->getConfig('shownavigation');
 $Values['shownavigationtooltip'] = $addon->getConfig('shownavigationtooltip');
 $Values['navigationposition'] = $addon->getConfig('navigationposition');
+if (!is_string($Values['navigationposition'])) {
+    $Values['navigationposition'] = 'right';
+}
+
 $Values['showslidearrows'] = $addon->getConfig('showslidearrows');
 $Values['showslidenavigation'] = $addon->getConfig('showslidenavigation');
 $Values['slidenavigationposition'] = $addon->getConfig('slidenavigationposition');
+if (!is_string($Values['slidenavigationposition'])) {
+    $Values['slidenavigationposition'] = 'bottom';
+}
+
 $Values['usesubcategories'] = $addon->getConfig('usesubcategories');
 
 // Theme
@@ -70,9 +94,9 @@ $directories = glob($myPath . '/*', GLOB_ONLYDIR);
 if (false !== $directories) {
     foreach ($directories as $dir) {
         $dir = basename($dir);
-        if (file_exists($myPath  .$dir . '/css/theme.css')) {
-            $ff = file($myPath  .$dir . '/css/theme.css');
-            if (isset($ff[0]) && '/*' === trim($ff[0]) && isset($ff[3]) && '*/' === trim($ff[3]) && isset($ff[2])) {
+        if (file_exists($myPath . $dir . '/css/theme.css')) {
+            $ff = file($myPath . $dir . '/css/theme.css');
+            if (isset($ff[0]) && '/*' === trim($ff[0]) && isset($ff[3]) && '*/' === trim($ff[3])) {
                 $sel_dirs->addOption($ff[2], $dir);
             }
         }
@@ -85,10 +109,10 @@ $directories = glob($myPath . '/*', GLOB_ONLYDIR);
 if (false !== $directories) {
     foreach ($directories as $dir) {
         $dir = basename($dir);
-        if (file_exists($myPath  .$dir . '/css/theme.css')) {
-            $ff = file($myPath  .$dir . '/css/theme.css');
-            if (isset($ff[0]) && '/*' === trim($ff[0]) && isset($ff[3]) && '*/' === trim($ff[3]) && isset($ff[2])) {
-                $sel_dirs->addOption('project: ' . $ff[2], 'project:'.$dir);
+        if (file_exists($myPath . $dir . '/css/theme.css')) {
+            $ff = file($myPath . $dir . '/css/theme.css');
+            if (isset($ff[0]) && '/*' === trim($ff[0]) && isset($ff[3]) && '*/' === trim($ff[3])) {
+                $sel_dirs->addOption('project: ' . $ff[2], 'project:' . $dir);
             }
         }
     }
@@ -108,21 +132,26 @@ $formElements = [];
 $n = [];
 $n['label'] = '<label for="REX_MEDIA_1">' . htmlspecialchars_decode($addon->i18n('config_logo')) . '</label>';
 
+$title_selectmedia = $addon->i18n('config_selectmedia');
+$title_addmedia = $addon->i18n('config_addmedia');
+$title_deletemedia = $addon->i18n('config_deletemedia');
+$title_showmedia = $addon->i18n('config_showmedia');
+
 $n['field'] = '
 <div class="rex-js-widget rex-js-widget-media">
     <div class="input-group">
         <input class="form-control" type="text" name="settings[logo]" value="' . $Values['logo'] . '" id="REX_MEDIA_1" readonly="">
         <span class="input-group-btn">
-        <a href="#" class="btn btn-popup" onclick="openREXMedia(1);return false;" title="' . $addon->i18n('config_selectmedia') . '">
+        <a href="#" class="btn btn-popup" onclick="openREXMedia(1);return false;" title="' . $title_selectmedia . '">
             <i class="rex-icon rex-icon-open-mediapool"></i>
         </a>
-        <a href="#" class="btn btn-popup" onclick="addREXMedia(1);return false;" title="' . $addon->i18n('config_addmedia') . '">
+        <a href="#" class="btn btn-popup" onclick="addREXMedia(1);return false;" title="' . $title_addmedia . '">
             <i class="rex-icon rex-icon-add-media"></i>
         </a>
-        <a href="#" class="btn btn-popup" onclick="deleteREXMedia(1);return false;" title="' . $addon->i18n('config_deletemedia') . '">
+        <a href="#" class="btn btn-popup" onclick="deleteREXMedia(1);return false;" title="' . $title_deletemedia . '">
             <i class="rex-icon rex-icon-delete-media"></i>
         </a>
-        <a href="#" class="btn btn-popup" onclick="viewREXMedia(1);return false;" title="' . $addon->i18n('config_showmedia') . '">
+        <a href="#" class="btn btn-popup" onclick="viewREXMedia(1);return false;" title="' . $title_showmedia . '">
             <i class="rex-icon rex-icon-view-media"></i>
         </a>
     </div>
@@ -158,6 +187,10 @@ $fragment->setVar('elements', $formElements, false);
 $content .= $fragment->parse('core/form/checkbox.php');
 
 // Responsive width
+if (!is_string($Values['responsivewidth'])) {
+    $Values['responsivewidth'] = '1200';
+}
+
 $formElements = [];
 $n = [];
 $n['label'] = '<label for="responsivewidth">' . htmlspecialchars_decode($addon->i18n('config_responsivewidth')) . '</label>';
@@ -170,6 +203,10 @@ $fragment->setVar('elements', $formElements, false);
 $content .= $fragment->parse('core/form/container.php');
 
 // Responsive height
+if (!is_string($Values['responsiveheight'])) {
+    $Values['responsiveheight'] = '750';
+}
+
 $formElements = [];
 $n = [];
 $n['label'] = '<label for="responsiveheight">' . htmlspecialchars_decode($addon->i18n('config_responsiveheight')) . '</label>';
@@ -182,6 +219,10 @@ $fragment->setVar('elements', $formElements, false);
 $content .= $fragment->parse('core/form/container.php');
 
 // Scrolling Speed
+if (!is_string($Values['scrollingspeed'])) {
+    $Values['scrollingspeed'] = '800';
+}
+
 $formElements = [];
 $n = [];
 $n['label'] = '<label for="scrollingspeed">' . htmlspecialchars_decode($addon->i18n('config_scrollingspeed')) . '</label>';

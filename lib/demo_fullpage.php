@@ -2,9 +2,31 @@
 
 declare(strict_types=1);
 
+namespace FriendsOfRedaxo\DemoFullPage;
+
+use rex;
+use rex_addon;
+use rex_backup;
+use rex_dir;
+use rex_functional_exception;
+use rex_i18n;
+use rex_install_archive;
+use rex_install_packages;
+use rex_install_webservice;
+use rex_logger;
+use rex_null_package;
+use rex_package;
+use rex_package_manager;
+use rex_path;
+use rex_yrewrite;
+
+use function is_string;
+
+use const DIRECTORY_SEPARATOR;
+
 final class rex_demo_fullpage
 {
-    /** @var string[] */
+    /** @var array<string> */
     private const EXPDIR = [
         'media',
     ];
@@ -14,9 +36,8 @@ final class rex_demo_fullpage
      */
     public static function dump_files(): array
     {
-
         $addon = rex_addon::get('demo_fullpage');
-        $exportPath = $addon->getPath('backups') . DIRECTORY_SEPARATOR  . 'demo_fullpage.tar.gz';
+        $exportPath = $addon->getPath('backups') . DIRECTORY_SEPARATOR . 'demo_fullpage.tar.gz';
 
         rex_backup::exportFiles(self::EXPDIR, $exportPath);
 
@@ -29,7 +50,7 @@ final class rex_demo_fullpage
     public static function dump_tables(): array
     {
         $addon = rex_addon::get('demo_fullpage');
-        $exportPath = $addon->getPath('backups') . DIRECTORY_SEPARATOR  . 'demo_fullpage.sql';
+        $exportPath = $addon->getPath('backups') . DIRECTORY_SEPARATOR . 'demo_fullpage.sql';
         $error = [];
 
         $EXPTABLES = [
@@ -81,6 +102,7 @@ final class rex_demo_fullpage
         if ([] !== $packages) {
             // fetch list of available packages from to redaxo webservice
             try {
+                /** @phpstan-ignore staticMethod.internalClass */
                 $packagesFromInstaller = rex_install_packages::getAddPackages();
             } catch (rex_functional_exception $rexfunctionalexception) {
                 $errors[] = $rexfunctionalexception->getMessage();
@@ -113,6 +135,7 @@ final class rex_demo_fullpage
 
                 // fetch package
                 try {
+                    /** @phpstan-ignore staticMethod.internalClass */
                     $archivefile = rex_install_webservice::getArchive($installerPackage['path']);
                 } catch (rex_functional_exception $rexfunctionalexception) {
                     rex_logger::logException($rexfunctionalexception);
@@ -127,6 +150,7 @@ final class rex_demo_fullpage
                 }
 
                 // extract package (overrides local package if existent)
+                // @phpstan-ignore staticMethod.internalClass
                 if ('' !== $id && !rex_install_archive::extract($archivefile, rex_path::addon($id), $id)) {
                     rex_dir::delete(rex_path::addon($id));
                     $errors[] = $addon->i18n('package_failed_to_extract', $id);
@@ -138,52 +162,58 @@ final class rex_demo_fullpage
         }
 
         // step 3: install and activate packages based on install sequence from config
-        if (isset($setupconfig['installSequence']) && count($setupconfig['installSequence']) > 0 && [] === $errors) {
-            foreach ($setupconfig['installSequence'] as $id) {
-                $package = rex_package::get($id);
-                if ($package instanceof rex_null_package) {
-                    $errors[] = $addon->i18n('package_not_exists', $id);
-                    break;
-                }
+        if (isset($setupconfig['installSequence']) && [] !== (array) $setupconfig['installSequence'] && [] === $errors) {
+            foreach ((array) $setupconfig['installSequence'] as $id) {
+                if (is_string($id)) {
+                    $package = rex_package::get($id);
+                    if ($package instanceof rex_null_package) {
+                        $errors[] = $addon->i18n('package_not_exists', $id);
+                        break;
+                    }
 
-                $manager = rex_package_manager::factory($package); /** @phpstan-ignore-line */
+                    $manager = rex_package_manager::factory($package); /** @phpstan-ignore-line */
 
-                try {
-                    $manager->install();
-                } catch (rex_functional_exception $rexfunctionalexception) {
-                    rex_logger::logException($rexfunctionalexception);
-                    $errors[] = $addon->i18n('package_failed_to_install', $id);
-                    break;
-                }
+                    try {
+                        $manager->install();
+                    } catch (rex_functional_exception $rexfunctionalexception) {
+                        rex_logger::logException($rexfunctionalexception);
+                        $errors[] = $addon->i18n('package_failed_to_install', $id);
+                        break;
+                    }
 
-                try {
-                    $manager->activate();
-                } catch (rex_functional_exception $rexfunctionalexception) {
-                    rex_logger::logException($rexfunctionalexception);
-                    $errors[] = $addon->i18n('package_failed_to_activate', $id);
-                    break;
+                    try {
+                        $manager->activate();
+                    } catch (rex_functional_exception $rexfunctionalexception) {
+                        rex_logger::logException($rexfunctionalexception);
+                        $errors[] = $addon->i18n('package_failed_to_activate', $id);
+                        break;
+                    }
                 }
             }
         }
 
         // step 4: import database
-        if (isset($setupconfig['dbimport']) && count($setupconfig['dbimport']) > 0 && [] === $errors) {
-            foreach ($setupconfig['dbimport'] as $import) {
-                $file = rex_backup::getDir() . '/' . $import;
-                $success = rex_backup::importDb($file);
-                if (!$success['state']) {
-                    $errors[] = $addon->i18n('package_failed_to_import', $import);
+        if (isset($setupconfig['dbimport']) && [] !== (array) $setupconfig['dbimport'] && [] === $errors) {
+            foreach ((array) $setupconfig['dbimport'] as $import) {
+                if (is_string($import)) {
+                    $file = rex_backup::getDir() . '/' . $import;
+                    $success = rex_backup::importDb($file);
+                    if (!$success['state']) {
+                        $errors[] = $addon->i18n('package_failed_to_import', $import);
+                    }
                 }
             }
         }
 
         // step 5: import files
-        if (isset($setupconfig['fileimport']) && count($setupconfig['fileimport']) > 0 && [] === $errors) {
-            foreach ($setupconfig['fileimport'] as $import) {
-                $file = rex_backup::getDir() . '/' . $import;
-                $success = rex_backup::importFiles($file);
-                if (!$success['state']) {
-                    $errors[] = $addon->i18n('package_failed_to_import', $import);
+        if (isset($setupconfig['fileimport']) && [] !== (array) $setupconfig['fileimport'] && [] === $errors) {
+            foreach ((array) $setupconfig['fileimport'] as $import) {
+                if (is_string($import)) {
+                    $file = rex_backup::getDir() . '/' . $import;
+                    $success = rex_backup::importFiles($file);
+                    if (!$success['state']) {
+                        $errors[] = $addon->i18n('package_failed_to_import', $import);
+                    }
                 }
             }
         }

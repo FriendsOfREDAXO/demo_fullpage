@@ -2,7 +2,15 @@
 
 declare(strict_types=1);
 
+namespace FriendsOfRedaxo\DemoFullPage;
+
+use rex_addon;
+use rex_dir;
 use rex_scss_compiler;
+use rex_view;
+
+use const DIRECTORY_SEPARATOR;
+use const PATHINFO_FILENAME;
 
 final class fullpage_theme_compiler
 {
@@ -54,7 +62,7 @@ final class fullpage_theme_compiler
 
         // handle error exit in compiler
         register_shutdown_function(static function (): void {
-            echo '<br><br>' .rex_view::error(rex_addon::get('demo_fullpage')->i18n('compile_error'));
+            echo '<br><br>' . rex_view::error(rex_addon::get('demo_fullpage')->i18n('compile_error'));
         });
 
         // compile css-files
