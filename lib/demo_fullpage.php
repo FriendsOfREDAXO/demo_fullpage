@@ -115,14 +115,16 @@ final class rex_demo_fullpage
                     if ($localPackage->isSystemPackage()) {
                         continue; // skip system packages, they don’t need to be downloaded
                     }
+                    
+                    if (is_string($fileId)) {
+                        $installerPackage = $packagesFromInstaller[$id]['files'][$fileId] ?? false;
+                        if (false === $installerPackage) {
+                            $errors[] = $addon->i18n('package_not_available', $id);
+                        }
 
-                    $installerPackage = $packagesFromInstaller[$id]['files'][$fileId] ?? false;
-                    if (false === $installerPackage) {
-                        $errors[] = $addon->i18n('package_not_available', $id);
-                    }
-
-                    if (false !== $installerPackage && $localPackage->getVersion() !== $installerPackage['version']) {
-                        $missingPackages[$id] = $fileId; // add to download list if package is not yet installed
+                        if (false !== $installerPackage && $localPackage->getVersion() !== $installerPackage['version']) {
+                            $missingPackages[$id] = $fileId; // add to download list if package is not yet installed
+                        }
                     }
                 }
             }
