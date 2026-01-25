@@ -1,5 +1,13 @@
 # REDAXO Fullpage-Demo - Changelog
 
+## Version 2.2.1 - 25.01.2026
+
+### Features
+
+* Update UIkit Version 3.25.6
+* Code-Quality - AddOn-Code überarbeitet mit REDAXO-Coding Standards (2.19.0) + rexstan (3.0.2) + rexfactor (0.1.26)
+  * Level 10, REDAXO SuperGlobals, Bleeding-Edge, Strict-Mode, Strict-Mode, PHPUnit, phpstan-dba, report mixed, dead code
+
 ## Version 2.2.0 - 29.08.2025
 
 ### Achtung mögliche XSS Vulnerability in den Demo-Inhalten behoben (Testseite->Sonstige Beispiele)
